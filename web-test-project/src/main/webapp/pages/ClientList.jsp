@@ -160,7 +160,7 @@ body {
 											<button type="button" class="btn btn-primary"
 												id="updateClient" data-toggle="modal"
 												data-target="#updateClientModal"
-												onclick="update_click('${client.clientId}','${client.clientName}','${client.email}','${client.balance}','${client.mobile}','${client.pincode}');">
+												onclick="update_click('${client.clientId}','${client.clientName}','${client.email}','${client.balance}','${client.mobile}','${client.pincode}','${client.address}');">
 												<span class="glyphicon glyphicon-edit"></span>
 											</button>
 									</span>
@@ -227,7 +227,8 @@ body {
 							<div class="form-group">
 								<label for="address" class="control-label">Address:</label>
 								<textarea class="form-control" rows="5" id="address"
-									name="address" placeholder="Address"></textarea>
+									name="address" placeholder="Address" data-toggle="tooltip"
+									title="Fill address in 1 line, commas are allowed !!"></textarea>
 							</div>
 							<div class="form-group">
 								<label for="pincode" class="control-label">Pincode:</label> <input
@@ -306,7 +307,8 @@ body {
 							<div class="form-group">
 								<label for="address" class="control-label">Address:</label>
 								<textarea class="form-control" rows="5" id="uAddress"
-									name="address" placeholder="Address"></textarea>
+									name="address" placeholder="Address" data-toggle="tooltip"
+									title="Fill address in 1 line, commas are allowed !!"></textarea>
 							</div>
 							<div class="form-group">
 								<label for="pincode" class="control-label">Pincode:</label> <input
@@ -354,15 +356,15 @@ body {
 	<script type="text/javascript">
 		//this function is called when the update button in the table
 		//is clicked.
-		function update_click(id, name, email, balance, mobile, pincode) {
+		function update_click(id, name, email, balance, mobile, pincode, add) {
 			$('#uClientId').val(id);
 			$('#uClientName').val(name);
 			$('#uEmail').val(email);
 			$('#uBalance').val(balance);
 			$('#uMobile').val(mobile);
-			$('#uAddress').val("Please Set new address here!!");
+			$('#uAddress').val(add);
 			$('#uPincode').val(pincode);
-		}
+		};
 	</script>
 
 </body>
