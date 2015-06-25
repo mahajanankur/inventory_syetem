@@ -610,7 +610,7 @@ public class WelcomeController {
 	}
 
 	/**
-	 * This method calls, when the create client pop up is submitted.
+	 * This method is called when the create client pop up form is submitted.
 	 * 
 	 * @param session
 	 * @param model
@@ -638,6 +638,43 @@ public class WelcomeController {
 				address, pincode, userId, balance);
 		String successMessage = "The client '" + clientName + "' " + message;
 		redirectAttributes.addFlashAttribute("popUpMessage", successMessage);
+
+		return "redirect:/createClient";
+
+	}
+
+	/**
+	 * This method is called when the update client pop up form is submitted.
+	 * 
+	 * @param session
+	 * @param model
+	 * @param redirectAttributes
+	 * @param clientId
+	 * @param clientName
+	 * @param email
+	 * @param mobile
+	 * @param address
+	 * @param pincode
+	 * @param balance
+	 * @return
+	 */
+	@RequestMapping(value = "/updateClientPopUpAction", method = RequestMethod.POST)
+	public String submitUpdateClientPopUp(HttpSession session, Model model,
+			RedirectAttributes redirectAttributes,
+			@RequestParam(value = "clientId") int clientId,
+			@RequestParam(value = "clientName") String clientName,
+			@RequestParam(value = "email") String email,
+			@RequestParam(value = "mobile") String mobile,
+			@RequestParam(value = "address") String address,
+			@RequestParam(value = "pincode") String pincode,
+			@RequestParam(value = "balance") double balance) {
+		System.out.println("updateClientPopUpAction Submitted !!!");
+		int userId = Integer.parseInt(session.getAttribute("sessionId")
+				.toString());
+		String message = serviceImpl.updateClientById(clientId, address,
+				balance, clientName, null, email, mobile, pincode, userId);
+
+		redirectAttributes.addFlashAttribute("popUpMessage", message);
 
 		return "redirect:/createClient";
 

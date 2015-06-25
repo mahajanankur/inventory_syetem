@@ -155,14 +155,15 @@ body {
 											value="${client.clientId} removeButton" data-toggle="tooltip"
 											data-placement="bottom" title="Remove">
 											<span class="glyphicon glyphicon-remove"></span>
-										</button> <!-- Update Client Action button -->
-										<button type="submit" class="btn btn-primary"
-											id="updateClient" name="updateClientName"
-											value="${client.clientId} updateButton" data-toggle="tooltip"
-											data-placement="bottom" title="Update" data-toggle="modal"
-											data-target="#myCreateModal">
-											<span class="glyphicon glyphicon-edit"></span>
-										</button>
+										</button> <!-- Update Client Action button --> <span
+										data-placement="bottom" data-toggle="tooltip" title="Update">
+											<button type="button" class="btn btn-primary"
+												id="updateClient" data-toggle="modal"
+												data-target="#updateClientModal"
+												onclick="update_click('${client.clientId}','${client.clientName}','${client.email}','${client.balance}','${client.mobile}','${client.pincode}');">
+												<span class="glyphicon glyphicon-edit"></span>
+											</button>
+									</span>
 									</td>
 								</tr>
 							</c:forEach>
@@ -254,6 +255,85 @@ body {
 	<!--  Modal (Create Client Pop Up View and Form) - End-->
 
 
+	<!--  Modal (Update Client Pop Up View and Form) - Start-->
+
+	<div class="container">
+
+		<!-- Modal HTML -->
+		<div id="updateClientModal" class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title text-danger">Update Client</h4>
+					</div>
+
+					<form action="updateClientPopUpAction" id="updateClientPopUpForm"
+						method="post">
+						<div class="modal-body">
+
+							<input type="hidden" class="form-control" id="uClientId"
+								name="clientId">
+							<div class="form-group">
+								<label for="clientName" class="control-label">Name:</label> <input
+									type="text" class="form-control" id="uClientName"
+									name="clientName" placeholder="Client Name">
+							</div>
+							<div class="form-group">
+								<label for="email" class="control-label">E-Mail:</label> <input
+									type="text" class="form-control" id="uEmail" name="email"
+									placeholder="E-Mail">
+							</div>
+
+							<div class="form-group">
+								<label for="balance" class="control-label">Balance:</label>
+								<div class="input-group">
+									<span class="input-group-addon">&#x20B9;</span> <input
+										type="text" class="form-control" id="uBalance" name="balance"
+										placeholder="Balance">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="mobile" class="control-label">Mobile:</label>
+								<div class="input-group">
+									<span class="input-group-addon">+91</span> <input type="text"
+										class="form-control" id="uMobile" name="mobile"
+										placeholder="Mobile Number">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="address" class="control-label">Address:</label>
+								<textarea class="form-control" rows="5" id="uAddress"
+									name="address" placeholder="Address"></textarea>
+							</div>
+							<div class="form-group">
+								<label for="pincode" class="control-label">Pincode:</label> <input
+									type="text" class="form-control" id="uPincode" name="pincode"
+									placeholder="Pincode">
+							</div>
+							<!-- <div class="form-group">
+								<label for="country" class="control-label">Country:</label>
+								<p>
+									<b>India</b>(Service only available in India)
+								</p>
+							</div> -->
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">Cancel</button>
+							<button type="submit" class="btn btn-primary">Send</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--  Modal (Update Client Pop Up View and Form) - End-->
+
+
 
 
 
@@ -270,6 +350,20 @@ body {
 
 		</div>
 	</footer>
+
+	<script type="text/javascript">
+		//this function is called when the update button in the table
+		//is clicked.
+		function update_click(id, name, email, balance, mobile, pincode) {
+			$('#uClientId').val(id);
+			$('#uClientName').val(name);
+			$('#uEmail').val(email);
+			$('#uBalance').val(balance);
+			$('#uMobile').val(mobile);
+			$('#uAddress').val("Please Set new address here!!");
+			$('#uPincode').val(pincode);
+		}
+	</script>
 
 </body>
 </html>
