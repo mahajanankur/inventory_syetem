@@ -1,8 +1,7 @@
 package com.web.util;
 
-import java.awt.print.Book;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +15,7 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.web.Dao.InvoiceDetail;
 
 /**
  * This view class generates a PDF document 'on the fly' based on the data
@@ -32,13 +32,14 @@ public class PDFBuilder extends AbstractITextPdfView {
 			PdfWriter writer, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		// get data model which is passed by the Spring container
-		List<Book> listBooks = (List<Book>) model.get("listBooks");
+		Set<InvoiceDetail> iDetail = (Set<InvoiceDetail>) model
+				.get("invoiceDetail");
 
-		doc.add(new Paragraph("Recommended books for Spring framework"));
+		doc.add(new Paragraph("Invoice Details"));
 
-		PdfPTable table = new PdfPTable(5);
+		PdfPTable table = new PdfPTable(4);
 		table.setWidthPercentage(100.0f);
-		table.setWidths(new float[] { 3.0f, 2.0f, 2.0f, 2.0f, 1.0f });
+		table.setWidths(new float[] { 3.0f, 3.0f, 2.0f, 2.0f });
 		table.setSpacingBefore(10);
 
 		// define font for table header row
@@ -48,36 +49,34 @@ public class PDFBuilder extends AbstractITextPdfView {
 		// define table header cell
 		PdfPCell cell = new PdfPCell();
 		cell.setBackgroundColor(BaseColor.BLUE);
-		cell.setPadding(5);
+		cell.setPadding(4);
 
 		// write table header
-		cell.setPhrase(new Phrase("Book Title", font));
+		cell.setPhrase(new Phrase("Client Name", font));
 		table.addCell(cell);
 
-		cell.setPhrase(new Phrase("Author", font));
+		cell.setPhrase(new Phrase("Product", font));
 		table.addCell(cell);
 
-		cell.setPhrase(new Phrase("ISBN", font));
-		table.addCell(cell);
-
-		cell.setPhrase(new Phrase("Published Date", font));
+		cell.setPhrase(new Phrase("Quantity", font));
 		table.addCell(cell);
 
 		cell.setPhrase(new Phrase("Price", font));
 		table.addCell(cell);
 
 		// write table row data
-		/*for (Book aBook : listBooks) {
-			
-			 * table.addCell(aBook.getTitle());
-			 * table.addCell(aBook.getAuthor()); table.addCell(aBook.getIsbn());
-			 * table.addCell(aBook.getPublishedDate());
-			 * table.addCell(String.valueOf(aBook.getPrice()));
-			 
-		}*/
+		double totalPrice = 0;
+		for (InvoiceDetail detail : iDetail) {
+			table.addCell(detail.getClientName());
+			table.addCell(detail.getProductName());
+			table.addCell(String.valueOf(detail.getQuantity()));
+			table.addCell(String.valueOf(detail.getPrice()));
+			totalPrice += detail.getPrice();
+		}
 
 		doc.add(table);
-
+		doc.add(new Paragraph("Total Amount Without Applying Any Taxes :"
+				+ totalPrice));
 	}
 
 }

@@ -863,4 +863,34 @@ public class UsersServiceImpl {
 
 		return "Product category has been updated successfully.";
 	}
+
+	/**
+	 * This method is used get all the invoices.
+	 * 
+	 * @return invoiceList
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Invoice> getInvoiceList() {
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
+		Query query = em.createNamedQuery("invoiceList", Invoice.class);
+		List<Invoice> invoiceList = query.getResultList();
+		em.close();
+		return invoiceList;
+	}
+
+	/**
+	 * This method is used to get invoice details by invoice id.
+	 * 
+	 * @param invoiceId
+	 * @return invoice
+	 */
+	public Invoice findInvoiceById(int invoiceId) {
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
+		Invoice invoice = em.find(Invoice.class, invoiceId);
+		em.close();
+
+		return invoice;
+	}
 }

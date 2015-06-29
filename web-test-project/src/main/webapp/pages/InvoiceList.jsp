@@ -81,7 +81,13 @@ body {
 
 				<div class="collpase navbar-collpase" id="collpase">
 
-					<p class="text-right text-primary">Welcome: ${username}</p>
+					<!-- Get Invoice Details Modal Button to Trigger Modal - Start -->
+					<button type="button"
+						class="btn btn-warning navbar-btn navbar-right"
+						data-toggle="modal" data-target="#seeInvoiceModal">See
+						Invoice</button>
+					<!-- Get Invoice details Modal Button to Trigger Modal - End -->
+					<p class="text-center text-primary">Welcome: ${username}</p>
 
 				</div>
 			</div>
@@ -225,9 +231,50 @@ body {
 	</div>
 	<!-- create invoice form - End -->
 
-	<h4>
-		<a href="/downloadPDF">Download PDF Document</a>
-	</h4>
+
+	<!--  Modal (see Invoice detail Pop Up View and Form) - Start-->
+	<div class="container">
+		<!-- Modal HTML -->
+		<div id="seeInvoiceModal" class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title text-danger">See Invoice Details</h4>
+					</div>
+
+					<form action="seeInvoicePopUpAction" id="seeInvoicePopUpForm"
+						method="get">
+						<div class="modal-body">
+
+							<div class="form-group">
+								<label for="invoiceDetails">Invoice Id</label> <select
+									class="form-control" name="invoiceDetails" id="invoiceDetails">
+									<option value="">--Please select invoice--</option>
+									<c:if test="${not empty invoiceList}">
+										<c:forEach items="${invoiceList}" var="invoice">
+											<option id="invoiceId" value="${invoice.invoiceId}">${invoice.invoiceId}</option>
+										</c:forEach>
+									</c:if>
+
+								</select>
+							</div>
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">Cancel</button>
+							<button type="submit" class="btn btn-primary">PDF</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--  Modal (see Invoice details Pop Up View and Form) - End-->
+
 	<footer>
 
 		<div class="container text-center">

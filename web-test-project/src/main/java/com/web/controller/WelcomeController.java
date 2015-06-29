@@ -2,6 +2,7 @@ package com.web.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -25,6 +26,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.web.Dao.Clients;
+import com.web.Dao.Invoice;
+import com.web.Dao.InvoiceDetail;
 import com.web.Dao.ProductCategory;
 import com.web.Dao.Products;
 import com.web.Dao.Stock;
@@ -34,7 +37,6 @@ import com.web.Dao.Users;
 import com.web.Dao.VendorProducts;
 import com.web.Dao.Vendors;
 import com.web.ServiceImpl.UsersServiceImpl;
-import com.web.dto.Book;
 import com.web.dto.DtoInvoice;
 import com.web.jsonAdaptor.ProductAdaptor;
 import com.web.util.CommonUtil;
@@ -1212,8 +1214,12 @@ public class WelcomeController {
 		// product category list
 		List<ProductCategory> productCategoryList = serviceImpl
 				.getProductCategoryList();
+		// invoice list
+		List<Invoice> invoiceList = serviceImpl.getInvoiceList();
+
 		model.addAttribute("clientList", clientList);
 		model.addAttribute("productCategoryList", productCategoryList);
+		model.addAttribute("invoiceList", invoiceList);
 
 		return "InvoiceList";
 	}
@@ -1243,23 +1249,20 @@ public class WelcomeController {
 	}
 
 	/**
-	 * Handle request to download a PDF document
+	 * This method is used to get invoice details in pdf format when the see
+	 * invoice details pop up is submitted.
+	 * 
+	 * @param invoiceId
+	 * @return call to PDFBuilder class.
 	 */
-	@RequestMapping(value = "/downloadPDF", method = RequestMethod.GET)
-	public ModelAndView downloadExcel() {
-		// create some sample data
-		List<Book> listBooks = new ArrayList<Book>();
-		listBooks.add(new Book("Spring in Action", "Craig Walls", "1935182358",
-				"June 29th 2011", 31.98F));
-		listBooks.add(new Book("Spring in Practice",
-				"Willie Wheeler, Joshua White", "1935182056", "May 16th 2013",
-				31.95F));
-		listBooks.add(new Book("Pro Spring 3", "Clarence Ho, Rob Harrop",
-				"1430241071", "April 18th 2012", 31.85F));
-		listBooks.add(new Book("Spring Integration in Action", "Mark Fisher",
-				"1935182439", "September 26th 2012", 28.73F));
+	@RequestMapping(value = "/seeInvoicePopUpAction", method = RequestMethod.GET)
+	public ModelAndView downloadInvoicePDF(
+			@RequestParam(value = "invoiceDetails") int invoiceId) {
 
+		// Get invoice details by id.
+		Invoice iDetail = serviceImpl.findInvoiceById(invoiceId);
+		Set<InvoiceDetail> invoiceDetail = iDetail.getInvoiceDetail();
 		// return a view which will be resolved by an excel view resolver
-		return new ModelAndView("pdfView", "listBooks", listBooks);
+		return new ModelAndView("pdfView", "invoiceDetail", invoiceDetail);
 	}
 }
