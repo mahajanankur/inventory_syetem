@@ -106,8 +106,8 @@ body {
 						name="stock_name" value="Stock">Stock</button>
 					<button type="submit" class="btn btn-lg btn-info"
 						name="invoice_name" value="Invoice">Invoice</button>
-					<!-- <button type="submit" class="btn btn-lg btn-warning" name="test"
-						value="test">TEst</button> -->
+					<button type="submit" class="btn btn-lg" name="analysis_name"
+						value="analysis">Analysis</button>
 				</div>
 			</form>
 

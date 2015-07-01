@@ -155,7 +155,7 @@ public class WelcomeController {
 			@RequestParam(value = "stock_name", required = false, defaultValue = "") String stock,
 			@RequestParam(value = "vendor_name", required = false, defaultValue = "") String vendor,
 			@RequestParam(value = "invoice_name", required = false) String invoice,
-			@RequestParam(value = "test", required = false) String test) {
+			@RequestParam(value = "analysis_name", required = false) String analysis) {
 
 		String url = null;
 		int sessionId = 0;
@@ -188,9 +188,9 @@ public class WelcomeController {
 		} else if (invoice != null && invoice.equalsIgnoreCase("invoice")) {
 			System.out.println("Invoice Button pressed !!!");
 			url = "redirect:/invoiceList";
-		} else if (test != null && test.equalsIgnoreCase("test")) {
-			System.out.println("Test Button pressed !!!");
-			url = "redirect:/nc/testMap";
+		} else if (analysis != null && analysis.equalsIgnoreCase("analysis")) {
+			System.out.println("Analysis Button pressed !!!");
+			url = "redirect:/analysis";
 		}
 		return url;
 
@@ -1075,7 +1075,8 @@ public class WelcomeController {
 	 */
 	@RequestMapping(value = "/vendorList", method = RequestMethod.GET)
 	public String redirectToVendorList(Model model,
-			@ModelAttribute(value = "popUpMessage") String popUpMessage) {
+			@ModelAttribute(value = "popUpMessage") String popUpMessage,
+			@ModelAttribute(value = "presentProducts") String presentProducts) {
 		System.out.println("On Vender List Page !!");
 		List<Vendors> vendorList = serviceImpl.getVendorList();
 		model.addAttribute("vendorList", vendorList);
@@ -1184,16 +1185,36 @@ public class WelcomeController {
 			@RequestParam(value = "productDetails") String productDetails) {
 		System.out.println("On Vender List Page !!");
 		String message = null;
-		// add all the product details to database in separate mode.
+		String alreadyLinked = "";
+		List<String> pList = new ArrayList<String>();
+		// get all the products linked to a vendor
+		List<VendorProducts> linkedProducts = serviceImpl
+				.getProductsLinkedToVendor(vendorId);
+		// get the product name list for a vendor
+		for (VendorProducts vp : linkedProducts) {
+			pList.add(vp.getProductName());
+		}
+
+		// add all the product details to database in separate mode(different
+		// rows).
 		String[] products = productDetails.split(",");
 		for (String product : products) {
 			String[] split = product.split("\\|");
 			int pId = Integer.parseInt(split[0]);
 			String pName = split[1];
-			message = serviceImpl.createProductsForVendor(vendorId, company,
-					pId, pName);
+
+			if (pList.contains(pName)) {
+				alreadyLinked += pName + ", ";
+			} else {
+				message = serviceImpl.createProductsForVendor(vendorId,
+						company, pId, pName);
+			}
 		}
 		redirectAttributes.addFlashAttribute("popUpMessage", message);
+		if (!alreadyLinked.equals("")) {
+			redirectAttributes.addFlashAttribute("presentProducts",
+					alreadyLinked + " are already linked to this vendor.");
+		}
 		return "redirect:/vendorList";
 	}
 
@@ -1264,5 +1285,13 @@ public class WelcomeController {
 		Set<InvoiceDetail> invoiceDetail = iDetail.getInvoiceDetail();
 		// return a view which will be resolved by an excel view resolver
 		return new ModelAndView("pdfView", "invoiceDetail", invoiceDetail);
+	}
+
+	@RequestMapping(value = "/analysis", method = RequestMethod.GET)
+	public String redirectToAnalysis() {
+
+		
+		return "Analysis";
+
 	}
 }

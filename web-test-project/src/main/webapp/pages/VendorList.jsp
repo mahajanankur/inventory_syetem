@@ -93,7 +93,8 @@ body {
 	<div class="jumbotron">
 		<div class="container">
 			<h3>Please fill required details for vendor.</h3>
-			<p class="text-center text-danger">${redirectAttribute}</p>
+			
+			<p class="text-center text-danger">${presentProducts}</p>
 
 			<!-- Pop up submission parameter -->
 			<p class="text-center text-warning">${popUpMessage}</p>
