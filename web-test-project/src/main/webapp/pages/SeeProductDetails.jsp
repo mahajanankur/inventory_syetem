@@ -107,7 +107,8 @@ body {
 			<p>ID :: ${product.productId}</p>
 			<p>Name :: ${product.productName}</p>
 			<p>Brand :: ${product.productBrand}</p>
-			<p>Price :: ${product.productPrice}</p>
+			<p>Cost Price :: ${product.costPrice}</p>
+			<p>Sale Price :: ${product.salePrice}</p>
 			<p>Photos :: ${product.productPhotos}</p>
 			<p>Offer :: ${product.productOffer}</p>
 			<p>Created On :: ${product.createdOn}</p>

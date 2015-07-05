@@ -532,25 +532,23 @@ public class WelcomeController {
 	@RequestMapping(value = "/createProductAction", method = RequestMethod.POST)
 	public String createProductFormSubmission(Model model, HttpSession session,
 			RedirectAttributes redirectAttributes,
-			@RequestParam(value = "catId") String sCatId,
-			@RequestParam(value = "subCatId") String sSubCatId,
+			@RequestParam(value = "catId") int catId,
+			@RequestParam(value = "subCatId") int subCatId,
 			@RequestParam(value = "productName") String productName,
 			@RequestParam(value = "brandName") String brand,
-			@RequestParam(value = "priceName") String sPrice,
+			@RequestParam(value = "costPrice") double cPrice,
 			@RequestParam(value = "OffersName") String offer,
 			@RequestParam(value = "photosName") String photos,
 			@RequestParam(value = "specificationsName") String specifications,
-			@RequestParam(value = "quantity") int quantity) {
+			@RequestParam(value = "quantity") int quantity,
+			@RequestParam(value = "salePrice") double sPrice) {
 
 		int userId = Integer.parseInt(session.getAttribute("sessionId")
 				.toString());
-		int catId = Integer.parseInt(sCatId);
-		int subCatId = Integer.parseInt(sSubCatId);
-		double price = Double.parseDouble(sPrice);
 
 		String successMessage = serviceImpl.createProduct(userId, catId,
-				subCatId, productName, brand, price, offer, photos,
-				specifications, quantity);
+				subCatId, productName, brand, cPrice, offer, photos,
+				specifications, quantity, sPrice);
 		// to get sub category name.
 		SubProductCategory subCategoryDetails = serviceImpl
 				.findSubProductCategoryDetailsById(subCatId);
@@ -981,7 +979,7 @@ public class WelcomeController {
 		int productId = Integer.parseInt(split[0]);
 
 		Products product = serviceImpl.findProductById(productId);
-		double productPrice = product.getProductPrice();
+		double productPrice = product.getCostPrice();
 		return productPrice;
 	}
 
@@ -1290,7 +1288,6 @@ public class WelcomeController {
 	@RequestMapping(value = "/analysis", method = RequestMethod.GET)
 	public String redirectToAnalysis() {
 
-		
 		return "Analysis";
 
 	}

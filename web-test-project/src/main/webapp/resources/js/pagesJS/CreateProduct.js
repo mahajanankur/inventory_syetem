@@ -33,15 +33,40 @@ $(document)
 												}
 
 											},
-											priceName : {
+											costPrice : {
 												row : '.col-xs-4',
 												validators : {
 													notEmpty : {
-														message : 'The product price is required.'
+														message : 'The cost price is required.'
 													},
 													regexp : {
 														regexp : /^\d*$/,
-														message : 'The product price should be numeric only.'
+														message : 'The cost price should be numeric only.'
+													}
+
+												}
+
+											},
+											salePrice : {
+												row : '.col-xs-4',
+												validators : {
+													notEmpty : {
+														message : 'The sale price is required.'
+													},
+													regexp : {
+														regexp : /^\d*$/,
+														message : 'The sale price should be numeric only.'
+													}
+
+												}
+
+											},
+											profitPerc : {
+												row : '.col-xs-4',
+												validators : {
+													regexp : {
+														regexp : /^\d{1,2}(?:\.\d{1,5})?$/,
+														message : 'The % should be less than 100.'
 													}
 
 												}
@@ -91,4 +116,12 @@ $(document)
 										}
 									});
 
+					// sale price calculation by percentage once the calculate
+					// button is pressed.
+					$('#pCalc').click(function() {
+						var costPrice = parseFloat($('#costPrice').val());
+						var pPerc = parseFloat($('#profitPerc').val()) / 100;
+						var calcSale = costPrice + (costPrice * pPerc);
+						$('#salePrice').val(calcSale);
+					});
 				});

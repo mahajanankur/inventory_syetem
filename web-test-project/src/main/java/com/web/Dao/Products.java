@@ -37,8 +37,8 @@ public class Products {
 	@Column(name = "product_brand")
 	private String					productBrand;
 
-	@Column(name = "product_price")
-	private double					productPrice;
+	@Column(name = "cost_price")
+	private double					costPrice;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "product_specifications", nullable = false)
@@ -67,6 +67,9 @@ public class Products {
 
 	@Column(name = "sold_quantity")
 	private int						soldQuantity;
+
+	@Column(name = "sale_price")
+	private double					salePrice;
 
 	/**
 	 * @return the productId
@@ -111,21 +114,6 @@ public class Products {
 	 */
 	public void setProductBrand(String productBrand) {
 		this.productBrand = productBrand;
-	}
-
-	/**
-	 * @return the productPrice
-	 */
-	public double getProductPrice() {
-		return productPrice;
-	}
-
-	/**
-	 * @param productPrice
-	 *            the productPrice to set
-	 */
-	public void setProductPrice(double productPrice) {
-		this.productPrice = productPrice;
 	}
 
 	/**
@@ -264,6 +252,36 @@ public class Products {
 		this.soldQuantity = soldQuantity;
 	}
 
+	/**
+	 * @return the costPrice
+	 */
+	public double getCostPrice() {
+		return costPrice;
+	}
+
+	/**
+	 * @param costPrice
+	 *            the costPrice to set
+	 */
+	public void setCostPrice(double costPrice) {
+		this.costPrice = costPrice;
+	}
+
+	/**
+	 * @return the salePrice
+	 */
+	public double getSalePrice() {
+		return salePrice;
+	}
+
+	/**
+	 * @param salePrice
+	 *            the salePrice to set
+	 */
+	public void setSalePrice(double salePrice) {
+		this.salePrice = salePrice;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -272,12 +290,13 @@ public class Products {
 	public String toString() {
 		return "Products [productId=" + productId + ", productName="
 				+ productName + ", productBrand=" + productBrand
-				+ ", productPrice=" + productPrice + ", productSpecifications="
+				+ ", costPrice=" + costPrice + ", productSpecifications="
 				+ productSpecifications + ", productPhotos=" + productPhotos
 				+ ", productOffer=" + productOffer + ", createdOn=" + createdOn
 				+ ", userId=" + userId + ", subCategoryId=" + subCategoryId
 				+ ", categoryId=" + categoryId + ", quantity=" + quantity
-				+ ", soldQuantity=" + soldQuantity + "]";
+				+ ", soldQuantity=" + soldQuantity + ", salePrice=" + salePrice
+				+ "]";
 	}
 
 }

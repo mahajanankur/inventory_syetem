@@ -202,11 +202,12 @@ public class UsersServiceImpl {
 	 * @param photos
 	 * @param specifications
 	 * @param quantity
+	 * @param sPrice
 	 * @return successMessage
 	 */
 	public String createProduct(int userId, int catId, int subCatId,
-			String productName, String brand, double price, String offer,
-			String photos, String specifications, int quantity) {
+			String productName, String brand, double cPrice, String offer,
+			String photos, String specifications, int quantity, double sPrice) {
 
 		EntityManager entityManager = this.entityManager.createEntityManager();
 		entityManager.getTransaction().begin();
@@ -219,7 +220,8 @@ public class UsersServiceImpl {
 		products.setSubCategoryId(subCatId);
 		products.setProductName(productName);
 		products.setProductBrand(brand);
-		products.setProductPrice(price);
+		products.setCostPrice(cPrice);
+		products.setSalePrice(sPrice);
 		products.setQuantity(quantity);
 		products.setProductOffer(offer);
 		products.setProductPhotos(photos);
@@ -587,7 +589,7 @@ public class UsersServiceImpl {
 		// to update quantity in product table.
 		boolean fromCreateStock = true;
 		this.updateProductById(productId, null, null, null, null, null, null,
-				null, null, quantity, null, fromCreateStock, null);
+				null, null, quantity, null, fromCreateStock, null, null);
 		// for stock table
 		Stock stock = new Stock();
 
@@ -623,9 +625,10 @@ public class UsersServiceImpl {
 	 * @return successMessage
 	 */
 	public String updateProductById(int pId, Integer catId, Integer subCatId,
-			String pName, String brand, Double price, String offer,
+			String pName, String brand, Double cPrice, String offer,
 			String photos, String specifications, Integer quantity,
-			Integer userId, boolean fromCreateStock, Integer soldQuantity) {
+			Integer userId, boolean fromCreateStock, Integer soldQuantity,
+			Double sPrice) {
 
 		EntityManager entityManager = this.entityManager.createEntityManager();
 		entityManager.getTransaction().begin();
@@ -644,8 +647,11 @@ public class UsersServiceImpl {
 		if (brand != null && !brand.equals("")) {
 			product.setProductBrand(brand);
 		}
-		if (price != null) {
-			product.setProductPrice(price);
+		if (cPrice != null) {
+			product.setCostPrice(cPrice);
+		}
+		if (sPrice != null) {
+			product.setSalePrice(sPrice);
 		}
 		if (offer != null && !offer.equals("")) {
 			product.setProductOffer(offer);

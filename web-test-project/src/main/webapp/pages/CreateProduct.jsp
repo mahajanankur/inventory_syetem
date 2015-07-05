@@ -143,9 +143,28 @@ body {
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-lg-3 control-label">Price</label>
+						<label class="col-lg-3 control-label">Cost Price</label>
 						<div class="col-lg-4">
-							<input type="text" class="form-control" name="priceName" />
+							<input type="text" class="form-control" name="costPrice"
+								id="costPrice" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-lg-3 control-label">Profit %</label>
+						<div class="col-lg-3">
+							<input type="text" class="form-control" id="profitPerc"
+								name="profitPerc" />
+						</div>
+						<div class="col-lg-1">
+							<button type="button" class="btn btn-success btn-xs" id="pCalc">Calculate</button>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-3 control-label">Sale Price</label>
+						<div class="col-lg-4">
+							<input type="text" class="form-control" name="salePrice"
+								id="salePrice" />
 						</div>
 					</div>
 
@@ -155,7 +174,7 @@ body {
 							<input type="text" class="form-control" name="quantity" />
 						</div>
 					</div>
-					
+
 					<div class="form-group">
 						<label class="col-lg-3 control-label">Offers</label>
 						<div class="col-lg-4">
@@ -231,7 +250,7 @@ body {
 									<td>${product.productId}</td>
 									<td>${product.productName}</td>
 									<td>${product.productBrand}</td>
-									<td>${product.productPrice}</td>
+									<td>${product.salePrice}</td>
 									<td>${product.productOffer}</td>
 
 									<td>

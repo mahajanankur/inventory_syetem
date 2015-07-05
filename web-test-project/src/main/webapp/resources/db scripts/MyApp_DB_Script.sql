@@ -220,3 +220,5 @@ CREATE  TABLE `MyApp_DB`.`vandor` (
     REFERENCES `MyApp_DB`.`invoice` (`invoice_id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+
+    ALTER TABLE `MyApp_DB`.`products` ADD COLUMN `sale_price` DOUBLE NOT NULL  AFTER `sold_quantity` , CHANGE COLUMN `product_price` `cost_price` DOUBLE NOT NULL  ;
