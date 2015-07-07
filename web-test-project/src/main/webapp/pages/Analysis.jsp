@@ -76,7 +76,8 @@ body {
 				<div class="navbar-header">
 					<a href="home" class="navbar-brand"><img class="img-circle"
 						alt="Shiva Blast"
-						src="<%=request.getContextPath()%>/resources/images/logo.png"></a>
+						src="<%=request.getContextPath()%>/resources/images/logo.png">
+					</a>
 				</div>
 
 				<div class="collpase navbar-collpase" id="collpase">
@@ -151,19 +152,29 @@ body {
 	</div>
 
 	<div class="container">
-		<form action="">
+		<form action="analysisFormAction" id="analysisForm" method="get">
 			<label>Date From</label> <input type="text" id="dFrom"> <label>Date
 				To</label> <input type="text" id="dTo">
+			<button type="submit" class="btn btn-primary">GET</button>
 		</form>
 	</div>
 	<br>
-	<footer>
+	<div class="container">
+		<b> <u>Product Analysis</u> </b>
+		<div class="well"></div>
+	</div>
 
+
+	<br>
+	<footer>
 		<div class="container text-center">
 			<ul class="list-inline">
-				<li><a href="http://www.twitter.com/shivablast">Twitter</a></li>
-				<li><a href="http://www.facebook.com/shivablast">Facebook</a></li>
-				<li><a href="http://www.youtube.com/shivablast">YouTube</a></li>
+				<li><a href="http://www.twitter.com/shivablast">Twitter</a>
+				</li>
+				<li><a href="http://www.facebook.com/shivablast">Facebook</a>
+				</li>
+				<li><a href="http://www.youtube.com/shivablast">YouTube</a>
+				</li>
 			</ul>
 
 			<p>&copy; Copyright @ Shiva Blast - 2015</p>
@@ -183,7 +194,7 @@ body {
 										//dateFormat : 'dd/mm/yy',
 										changeMonth : true,
 										changeYear : true,
-										maxDate : 0,
+										maxDate : -1,
 										onSelect : function(selected) {
 											var dt = new Date(selected);
 											dt.setDate(dt.getDate() + 1);
