@@ -979,7 +979,7 @@ public class WelcomeController {
 		int productId = Integer.parseInt(split[0]);
 
 		Products product = serviceImpl.findProductById(productId);
-		double productPrice = product.getCostPrice();
+		double productPrice = product.getSalePrice();
 		return productPrice;
 	}
 
@@ -1290,5 +1290,14 @@ public class WelcomeController {
 
 		return "Analysis";
 
+	}
+
+	@RequestMapping(value = "/analysisFormAction", method = RequestMethod.GET)
+	public String submitAnalysisForm(
+			@RequestParam(value = "dFrom") String dFrom,
+			@RequestParam(value = "dTo") String dTo) {
+
+		
+		return null;
 	}
 }

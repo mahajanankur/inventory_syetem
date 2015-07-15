@@ -81,16 +81,8 @@ body {
 				</div>
 
 				<div class="collpase navbar-collpase" id="collpase">
-					<!-- Create product category Modal Button to Trigger Modal - Start -->
-					<button type="button"
-						class="btn btn-warning navbar-btn navbar-right"
-						data-toggle="modal" data-target="#myCreateModal">Create
-						Category</button>
-					<!-- Create product category Modal Button to Trigger Modal - End -->
 
-
-
-					<p class="text-center text-primary">Welcome: ${username}</p>
+					<p class="text-right text-primary">Welcome: ${username}</p>
 
 				</div>
 			</div>
@@ -113,48 +105,10 @@ body {
 	<!-- Jumbotron - End-->
 
 
-
-
-	<!--  Modal (Create Category Pop Up View and Form) - Start-->
-
-	<div class="bs-example">
-
-		<!-- Modal HTML -->
-		<div id="myCreateModal" class="modal fade">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">&times;</button>
-						<h4 class="modal-title text-danger">Create Product Category</h4>
-					</div>
-
-					<form action="removeProductCategoryPopUpAction"
-						id="removeProductCategoryPopUpForm" method="post">
-						<div class="modal-body">
-
-							<div class="form-group">
-								<label for="pCatName" class="control-label">Product
-									Category Name:</label> <input type="text" class="form-control"
-									id="pCatName" name="pCatName">
-							</div>
-
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal">Cancel</button>
-							<button type="submit" class="btn btn-primary">Send</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-
 	<div class="container">
 		<form action="analysisFormAction" id="analysisForm" method="get">
-			<label>Date From</label> <input type="text" id="dFrom"> <label>Date
-				To</label> <input type="text" id="dTo">
+			<label>Date From</label> <input type="text" id="dFrom" name="dFrom"> <label>Date
+				To</label> <input type="text" id="dTo" name="dTo">
 			<button type="submit" class="btn btn-primary">GET</button>
 		</form>
 	</div>

@@ -4,7 +4,10 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -17,7 +20,9 @@ import javax.persistence.Table;
 @Table(name = "transaction")
 @NamedQueries({
 		@NamedQuery(name = "transactionList", query = "select t from Transaction t"),
-		@NamedQuery(name = "transactionsByClient", query = "select t from Transaction t WHERE t.clientId = :clientId") })
+		@NamedQuery(name = "transactionsByClient", query = "select t from Transaction t WHERE t.clientId = :clientId"),
+		@NamedQuery(name = "sumOfSalePrice", query = "select SUM(t.tAmount) FROM Transaction t where t.createdOn >= :fromDate AND t.createdOn < :toDate"),
+		@NamedQuery(name = "sumOfCostPrice", query = "select SUM(p.costPrice * t.quantity) from Transaction t inner join t.product p on t.product = p.productId where t.createdOn >= :fromDate AND t.createdOn < :toDate") })
 public class Transaction {
 
 	@Id
@@ -30,8 +35,12 @@ public class Transaction {
 	@Column(name = "subCat_id")
 	private int			subCatId;
 
-	@Column(name = "product_id")
-	private int			productId;
+	// @Column(name = "product_id")
+	// private int productId;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "product_id")
+	private Products	product;
 
 	@Column(name = "transaction_amount")
 	private double		tAmount;
@@ -112,21 +121,6 @@ public class Transaction {
 	 */
 	public void setSubCatId(int subCatId) {
 		this.subCatId = subCatId;
-	}
-
-	/**
-	 * @return the productId
-	 */
-	public int getProductId() {
-		return productId;
-	}
-
-	/**
-	 * @param productId
-	 *            the productId to set
-	 */
-	public void setProductId(int productId) {
-		this.productId = productId;
 	}
 
 	/**
@@ -219,18 +213,19 @@ public class Transaction {
 		this.productName = productName;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see java.lang.Object#toString()
+	/**
+	 * @return the product
 	 */
-	@Override
-	public String toString() {
-		return "Transaction [transactionId=" + transactionId + ", categoryId="
-				+ categoryId + ", subCatId=" + subCatId + ", productId="
-				+ productId + ", tAmount=" + tAmount + ", createdOn="
-				+ createdOn + ", quantity=" + quantity + ", clientId="
-				+ clientId + ", clientName=" + clientName + ", userId="
-				+ userId + ", productName=" + productName + "]";
+	public Products getProduct() {
+		return product;
+	}
+
+	/**
+	 * @param product
+	 *            the product to set
+	 */
+	public void setProduct(Products product) {
+		this.product = product;
 	}
 
 }

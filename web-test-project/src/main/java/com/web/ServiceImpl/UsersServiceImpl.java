@@ -462,7 +462,7 @@ public class UsersServiceImpl {
 
 			transaction.setCategoryId(catId);
 			transaction.setClientId(clientId);
-			transaction.setProductId(productId);
+			transaction.setProduct(productId);
 			transaction.setQuantity(quantity);
 			transaction.setSubCatId(subCatId);
 			transaction.settAmount(amount);
