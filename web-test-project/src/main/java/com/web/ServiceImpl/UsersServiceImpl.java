@@ -2,6 +2,7 @@ package com.web.ServiceImpl;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -38,12 +39,12 @@ public class UsersServiceImpl {
 	 * @return user
 	 */
 	public Users findUserById(String id) {
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
 
-		Users user = entityManager.find(Users.class, id);
+		Users user = em.find(Users.class, id);
 
-		entityManager.close();
+		em.close();
 		return user;
 	}
 
@@ -54,12 +55,12 @@ public class UsersServiceImpl {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Users> getUserList() {
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
 
-		Query query = entityManager.createNamedQuery("users", Users.class);
+		Query query = em.createNamedQuery("users", Users.class);
 		List<Users> userList = query.getResultList();
-		entityManager.close();
+		em.close();
 		return userList;
 
 	}
@@ -73,17 +74,17 @@ public class UsersServiceImpl {
 	 * @return success message
 	 */
 	public String createProductCategory(String categoryName, int userId) {
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
 
 		ProductCategory category = new ProductCategory();
 		// category.setpCatrgoryId(categoryId);
 		category.setpCategoryName(categoryName);
 		category.setUserId(userId);
 
-		entityManager.persist(category);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		em.persist(category);
+		em.getTransaction().commit();
+		em.close();
 
 		return "category has been created successfully.";
 	}
@@ -95,13 +96,13 @@ public class UsersServiceImpl {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<ProductCategory> getProductCategoryList() {
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
 
-		Query query = entityManager.createNamedQuery("productCategory",
+		Query query = em.createNamedQuery("productCategory",
 				ProductCategory.class);
 		List<ProductCategory> categoryList = query.getResultList();
-		entityManager.close();
+		em.close();
 		return categoryList;
 	}
 
@@ -113,14 +114,14 @@ public class UsersServiceImpl {
 	 */
 	public String removeProductCategory(int pCatId) {
 
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
 
-		ProductCategory productCategory = entityManager.find(
-				ProductCategory.class, pCatId);
-		entityManager.remove(productCategory);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		ProductCategory productCategory = em
+				.find(ProductCategory.class, pCatId);
+		em.remove(productCategory);
+		em.getTransaction().commit();
+		em.close();
 
 		return "The product category has been removed successfully.";
 	}
@@ -132,11 +133,10 @@ public class UsersServiceImpl {
 	 * @return category
 	 */
 	public ProductCategory findProductCategoryById(int pCatId) {
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
-		ProductCategory category = entityManager.find(ProductCategory.class,
-				pCatId);
-		entityManager.close();
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
+		ProductCategory category = em.find(ProductCategory.class, pCatId);
+		em.close();
 		return category;
 	}
 
@@ -149,17 +149,17 @@ public class UsersServiceImpl {
 	 * @return success message
 	 */
 	public String createSubCategory(int catId, int userId, String subCatName) {
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
 
 		SubProductCategory category = new SubProductCategory();
 		category.setCategoryId(catId);
 		category.setSubCategoryName(subCatName);
 		category.setUserId(userId);
 
-		entityManager.persist(category);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		em.persist(category);
+		em.getTransaction().commit();
+		em.close();
 
 		return "has been created successfully.";
 	}
@@ -175,15 +175,15 @@ public class UsersServiceImpl {
 	public List<SubProductCategory> findSubProductCategoriesLinkedToACategory(
 			int catId) {
 
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
 
-		Query query = entityManager.createNamedQuery(
-				"subProductCategoryLinkedToACatId", SubProductCategory.class);
+		Query query = em.createNamedQuery("subProductCategoryLinkedToACatId",
+				SubProductCategory.class);
 		query.setParameter("catId", catId);
 
 		List<SubProductCategory> subCategoryList = query.getResultList();
-		entityManager.close();
+		em.close();
 
 		return subCategoryList;
 
@@ -209,8 +209,8 @@ public class UsersServiceImpl {
 			String productName, String brand, double cPrice, String offer,
 			String photos, String specifications, int quantity, double sPrice) {
 
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
 
 		Products products = new Products();
 		ProductSpecifications pSpecification = new ProductSpecifications();
@@ -228,9 +228,9 @@ public class UsersServiceImpl {
 		products.setUserId(userId);
 		products.setProductSpecifications(pSpecification);
 
-		entityManager.persist(products);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		em.persist(products);
+		em.getTransaction().commit();
+		em.close();
 
 		return "Product has been created successfully.";
 	}
@@ -244,15 +244,15 @@ public class UsersServiceImpl {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Products> getProductListBySubCategoryId(int subCatId) {
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
 
-		Query query = entityManager.createNamedQuery("productListBySubCatId",
+		Query query = em.createNamedQuery("productListBySubCatId",
 				Products.class);
 		query.setParameter("subCatId", subCatId);
 
 		List<Products> productList = query.getResultList();
-		entityManager.close();
+		em.close();
 
 		return productList;
 	}
@@ -264,13 +264,13 @@ public class UsersServiceImpl {
 	 * @return category
 	 */
 	public SubProductCategory findSubProductCategoryDetailsById(int subCatId) {
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
 
-		SubProductCategory category = entityManager.find(
-				SubProductCategory.class, subCatId);
+		SubProductCategory category = em.find(SubProductCategory.class,
+				subCatId);
 
-		entityManager.close();
+		em.close();
 		return category;
 	}
 
@@ -281,12 +281,12 @@ public class UsersServiceImpl {
 	 * @return product
 	 */
 	public Products findProductById(int productId) {
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
 
-		Products product = entityManager.find(Products.class, productId);
+		Products product = em.find(Products.class, productId);
 
-		entityManager.close();
+		em.close();
 		return product;
 	}
 
@@ -304,8 +304,8 @@ public class UsersServiceImpl {
 	 */
 	public String createClient(String clientName, String email, String mobile,
 			String address, String pincode, int userId, double balance) {
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
 
 		Clients client = new Clients();
 		client.setClientName(clientName);
@@ -316,9 +316,9 @@ public class UsersServiceImpl {
 		client.setPincode(pincode);
 		client.setUserId(userId);
 
-		entityManager.persist(client);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		em.persist(client);
+		em.getTransaction().commit();
+		em.close();
 		return "has created successfully.";
 	}
 
@@ -329,12 +329,11 @@ public class UsersServiceImpl {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Clients> getClientList() {
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
-		Query query = entityManager.createNamedQuery("clientList",
-				Clients.class);
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
+		Query query = em.createNamedQuery("clientList", Clients.class);
 		List<Clients> clientList = query.getResultList();
-		entityManager.close();
+		em.close();
 		return clientList;
 	}
 
@@ -345,10 +344,10 @@ public class UsersServiceImpl {
 	 * @return client
 	 */
 	public Clients findClientDetailsById(int clientId) {
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
-		Clients client = entityManager.find(Clients.class, clientId);
-		entityManager.close();
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
+		Clients client = em.find(Clients.class, clientId);
+		em.close();
 		return client;
 	}
 
@@ -359,12 +358,12 @@ public class UsersServiceImpl {
 	 * @return success message
 	 */
 	public String removeClientById(int clientId) {
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
-		Clients client = entityManager.find(Clients.class, clientId);
-		entityManager.remove(client);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
+		Clients client = em.find(Clients.class, clientId);
+		em.remove(client);
+		em.getTransaction().commit();
+		em.close();
 		return "This client has been removed successfully.";
 	}
 
@@ -375,12 +374,12 @@ public class UsersServiceImpl {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<SubProductCategory> getSubCategoryList() {
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
-		Query query = entityManager.createNamedQuery("subProductCategoryList",
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
+		Query query = em.createNamedQuery("subProductCategoryList",
 				SubProductCategory.class);
 		List<SubProductCategory> subCatList = query.getResultList();
-		entityManager.close();
+		em.close();
 		return subCatList;
 
 	}
@@ -392,12 +391,11 @@ public class UsersServiceImpl {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Products> getProductList() {
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
-		Query query = entityManager.createNamedQuery("productList",
-				Products.class);
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
+		Query query = em.createNamedQuery("productList", Products.class);
 		List<Products> productList = query.getResultList();
-		entityManager.close();
+		em.close();
 		return productList;
 	}
 
@@ -409,15 +407,15 @@ public class UsersServiceImpl {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Transaction> getTransactionsLinkedToAClient(int clientId) {
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
 
-		Query query = entityManager.createNamedQuery("transactionsByClient",
+		Query query = em.createNamedQuery("transactionsByClient",
 				Transaction.class);
 		query.setParameter("clientId", clientId);
 
 		List<Transaction> transactionList = query.getResultList();
-		entityManager.close();
+		em.close();
 		return transactionList;
 	}
 
@@ -439,12 +437,12 @@ public class UsersServiceImpl {
 	public String createTransaction(int catId, int clientId, String clientName,
 			int subCatId, int productId, int quantity, double amount,
 			int userId, String productName, double afterBal) {
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
 		String message = null;
 		// update product's quantity and soldQuantity according to transaction's
 		// quantity.
-		Products product = entityManager.find(Products.class, productId);
+		Products product = em.find(Products.class, productId);
 		// product's quantity gets decrease according to transaction's quantity.
 		int oldQuantity = product.getQuantity();
 		// only allow transactions if stock is present.
@@ -462,7 +460,9 @@ public class UsersServiceImpl {
 
 			transaction.setCategoryId(catId);
 			transaction.setClientId(clientId);
-			transaction.setProduct(productId);
+			// set product details as transaction and products are having
+			// ManyToOne relationship.
+			transaction.setProduct(product);
 			transaction.setQuantity(quantity);
 			transaction.setSubCatId(subCatId);
 			transaction.settAmount(amount);
@@ -471,16 +471,16 @@ public class UsersServiceImpl {
 			transaction.setProductName(productName);
 
 			// update client balance according to transaction.
-			Clients client = entityManager.find(Clients.class, clientId);
+			Clients client = em.find(Clients.class, clientId);
 			client.setBalance(afterBal);
 
-			entityManager.persist(transaction);
-			entityManager.getTransaction().commit();
+			em.persist(transaction);
+			em.getTransaction().commit();
 			message = "Transaction has been created successfully.";
 		} else {
 			message = "There is no enough stock present.";
 		}
-		entityManager.close();
+		em.close();
 
 		return message;
 	}
@@ -492,12 +492,11 @@ public class UsersServiceImpl {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Transaction> getTransactionList() {
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
-		Query query = entityManager.createNamedQuery("transactionList",
-				Transaction.class);
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
+		Query query = em.createNamedQuery("transactionList", Transaction.class);
 		List<Transaction> transactionList = query.getResultList();
-		entityManager.close();
+		em.close();
 		return transactionList;
 	}
 
@@ -518,10 +517,10 @@ public class UsersServiceImpl {
 	public String updateClientById(int clientId, String address,
 			Double balance, String clientName, Timestamp createdOn,
 			String email, String mobile, String pincode, Integer userId) {
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
 		// client details by id.
-		Clients client = entityManager.find(Clients.class, clientId);
+		Clients client = em.find(Clients.class, clientId);
 		// update values according to the request.
 		if (address != null && !address.equals("")) {
 			client.setAddress(address);
@@ -548,8 +547,8 @@ public class UsersServiceImpl {
 			client.setUserId(userId);
 		}
 
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		em.getTransaction().commit();
+		em.close();
 
 		return "Client has been updated successfully.";
 	}
@@ -561,12 +560,12 @@ public class UsersServiceImpl {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Stock> getStockList() {
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
-		Query query = entityManager.createNamedQuery("stockList", Stock.class);
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
+		Query query = em.createNamedQuery("stockList", Stock.class);
 		List<Stock> stockList = query.getResultList();
 
-		entityManager.close();
+		em.close();
 
 		return stockList;
 	}
@@ -584,8 +583,8 @@ public class UsersServiceImpl {
 	 */
 	public String createStock(int catId, int subCatId, int productId,
 			String productName, int quantity) {
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
 		// to update quantity in product table.
 		boolean fromCreateStock = true;
 		this.updateProductById(productId, null, null, null, null, null, null,
@@ -599,9 +598,9 @@ public class UsersServiceImpl {
 		stock.setProductName(productName);
 		stock.setStockIn(quantity);
 
-		entityManager.persist(stock);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		em.persist(stock);
+		em.getTransaction().commit();
+		em.close();
 
 		return "Stock entry is successfull.";
 	}
@@ -630,10 +629,10 @@ public class UsersServiceImpl {
 			Integer userId, boolean fromCreateStock, Integer soldQuantity,
 			Double sPrice) {
 
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
 		// get Product details by id.
-		Products product = entityManager.find(Products.class, pId);
+		Products product = em.find(Products.class, pId);
 		// update values according to the request.
 		if (catId != null) {
 			product.setCategoryId(catId);
@@ -684,8 +683,8 @@ public class UsersServiceImpl {
 			product.setUserId(userId);
 		}
 
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		em.getTransaction().commit();
+		em.close();
 
 		return "Product has been updated successfully.";
 	}
@@ -700,13 +699,13 @@ public class UsersServiceImpl {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Products> getProductListByQuantity(int quantityRange) {
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
-		Query query = entityManager.createNamedQuery("productListByQuantity",
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
+		Query query = em.createNamedQuery("productListByQuantity",
 				Products.class);
 		query.setParameter("lQuantity", quantityRange);
 		List<Products> productList = query.getResultList();
-		entityManager.close();
+		em.close();
 		return productList;
 	}
 
@@ -723,8 +722,8 @@ public class UsersServiceImpl {
 	 */
 	public String createVendor(String company, String email, String mobile,
 			String address, String pincode, int userId) {
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
 
 		Vendors vendor = new Vendors();
 		vendor.setCompany(company);
@@ -734,9 +733,9 @@ public class UsersServiceImpl {
 		vendor.setPincode(pincode);
 		vendor.setUserId(userId);
 
-		entityManager.persist(vendor);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		em.persist(vendor);
+		em.getTransaction().commit();
+		em.close();
 
 		return "Vendor is created successfully.";
 	}
@@ -748,12 +747,11 @@ public class UsersServiceImpl {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Vendors> getVendorList() {
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
-		Query query = entityManager.createNamedQuery("vendorList",
-				Vendors.class);
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
+		Query query = em.createNamedQuery("vendorList", Vendors.class);
 		List<Vendors> vList = query.getResultList();
-		entityManager.close();
+		em.close();
 		return vList;
 	}
 
@@ -764,10 +762,10 @@ public class UsersServiceImpl {
 	 * @return vendor details
 	 */
 	public Vendors findVendorById(int vendorId) {
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
-		Vendors vendor = entityManager.find(Vendors.class, vendorId);
-		entityManager.close();
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
+		Vendors vendor = em.find(Vendors.class, vendorId);
+		em.close();
 		return vendor;
 	}
 
@@ -782,17 +780,17 @@ public class UsersServiceImpl {
 	 */
 	public String createProductsForVendor(int vendorId, String company,
 			int pId, String pName) {
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
 		VendorProducts vp = new VendorProducts();
 		vp.setCompany(company);
 		vp.setProductId(pId);
 		vp.setProductName(pName);
 		vp.setVendorId(vendorId);
 
-		entityManager.persist(vp);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		em.persist(vp);
+		em.getTransaction().commit();
+		em.close();
 		return "Products has been linked to the '" + company
 				+ "' successfully.";
 	}
@@ -805,13 +803,13 @@ public class UsersServiceImpl {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<VendorProducts> getProductsLinkedToVendor(int vendorId) {
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
-		Query query = entityManager.createNamedQuery("vendorProductsList",
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
+		Query query = em.createNamedQuery("vendorProductsList",
 				VendorProducts.class);
 		query.setParameter("vendorId", vendorId);
 		List<VendorProducts> vpList = query.getResultList();
-		entityManager.close();
+		em.close();
 		return vpList;
 	}
 
@@ -823,8 +821,8 @@ public class UsersServiceImpl {
 	 * @return success message
 	 */
 	public String createInvoice(ArrayList<DtoInvoice> iList) {
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
 		Invoice invoice = new Invoice();
 		Set<InvoiceDetail> set = new HashSet<InvoiceDetail>();
 
@@ -843,9 +841,9 @@ public class UsersServiceImpl {
 		}
 		invoice.setInvoiceDetail(set);
 
-		entityManager.persist(invoice);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		em.persist(invoice);
+		em.getTransaction().commit();
+		em.close();
 
 		return "Invoice details are saved successfully.";
 	}
@@ -859,13 +857,12 @@ public class UsersServiceImpl {
 	 * @return success message
 	 */
 	public String updateProductCategory(int catId, String catName) {
-		EntityManager entityManager = this.entityManager.createEntityManager();
-		entityManager.getTransaction().begin();
-		ProductCategory category = entityManager.find(ProductCategory.class,
-				catId);
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
+		ProductCategory category = em.find(ProductCategory.class, catId);
 		category.setpCategoryName(catName);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		em.getTransaction().commit();
+		em.close();
 
 		return "Product category has been updated successfully.";
 	}
@@ -898,5 +895,18 @@ public class UsersServiceImpl {
 		em.close();
 
 		return invoice;
+	}
+
+	public double getSumOfCostPriceForDateRange(Date dFrom, Date dTo) {
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
+		// Query query = em.createNamedQuery("sumOfCostPrice"); -- also OK
+		Query query = em.createNamedQuery("sumOfCostPrice", Double.class);
+		query.setParameter("fromDate", dFrom);
+		query.setParameter("toDate", dTo);
+		Double sum = (Double) query.getSingleResult();
+		em.close();
+
+		return sum;
 	}
 }

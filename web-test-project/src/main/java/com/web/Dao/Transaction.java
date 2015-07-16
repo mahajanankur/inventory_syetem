@@ -22,7 +22,7 @@ import javax.persistence.Table;
 		@NamedQuery(name = "transactionList", query = "select t from Transaction t"),
 		@NamedQuery(name = "transactionsByClient", query = "select t from Transaction t WHERE t.clientId = :clientId"),
 		@NamedQuery(name = "sumOfSalePrice", query = "select SUM(t.tAmount) FROM Transaction t where t.createdOn >= :fromDate AND t.createdOn < :toDate"),
-		@NamedQuery(name = "sumOfCostPrice", query = "select SUM(p.costPrice * t.quantity) from Transaction t inner join t.product p on t.product = p.productId where t.createdOn >= :fromDate AND t.createdOn < :toDate") })
+		@NamedQuery(name = "sumOfCostPrice", query = "select SUM(p.costPrice * t.quantity) from Transaction t inner join t.product p where t.createdOn >= :fromDate AND t.createdOn < :toDate") })
 public class Transaction {
 
 	@Id

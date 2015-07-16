@@ -1,6 +1,7 @@
 package com.web.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -1294,10 +1295,14 @@ public class WelcomeController {
 
 	@RequestMapping(value = "/analysisFormAction", method = RequestMethod.GET)
 	public String submitAnalysisForm(
-			@RequestParam(value = "dFrom") String dFrom,
-			@RequestParam(value = "dTo") String dTo) {
+			@RequestParam(value = "dFrom") String from,
+			@RequestParam(value = "dTo") String to) {
 
-		
+		Date dFrom = CommonUtil.dateFormat(from);
+		Date dTo = CommonUtil.dateFormat(to);
+		double sumOfCostPrice = serviceImpl.getSumOfCostPriceForDateRange(
+				dFrom, dTo);
+		System.out.println(sumOfCostPrice);
 		return null;
 	}
 }
