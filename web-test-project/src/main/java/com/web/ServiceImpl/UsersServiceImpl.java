@@ -904,9 +904,57 @@ public class UsersServiceImpl {
 		Query query = em.createNamedQuery("sumOfCostPrice", Double.class);
 		query.setParameter("fromDate", dFrom);
 		query.setParameter("toDate", dTo);
-		Double sum = (Double) query.getSingleResult();
+		Double cpSum = (Double) query.getSingleResult();
 		em.close();
 
-		return sum;
+		return cpSum;
+	}
+
+	public double getSumOfSalePriceForDateRange(Date dFrom, Date dTo) {
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
+		Query query = em.createNamedQuery("sumOfSalePrice", Double.class);
+		query.setParameter("fromDate", dFrom);
+		query.setParameter("toDate", dTo);
+		Double spSum = (Double) query.getSingleResult();
+		em.close();
+
+		return spSum;
+	}
+
+	public long getTotalSoldProductsForDateRange(Date dFrom, Date dTo) {
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
+		Query query = em.createNamedQuery("totalSoldProducts", Long.class);
+		query.setParameter("fromDate", dFrom);
+		query.setParameter("toDate", dTo);
+		long totalSoldProduct = (Long) query.getSingleResult();
+		em.close();
+
+		return totalSoldProduct;
+	}
+
+	public Object getMaximumSoldProductForDateRange(Date dFrom, Date dTo) {
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
+		Query query = em.createNamedQuery("maximumSoldProduct");
+		query.setParameter("fromDate", dFrom);
+		query.setParameter("toDate", dTo);
+		Object productDetails = query.setMaxResults(1).getResultList();
+		em.close();
+
+		return productDetails;
+	}
+
+	public Object getMinimumSoldProductForDateRange(Date dFrom, Date dTo) {
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
+		Query query = em.createNamedQuery("minimumSoldProduct");
+		query.setParameter("fromDate", dFrom);
+		query.setParameter("toDate", dTo);
+		Object productDetails = query.setMaxResults(1).getResultList();
+		em.close();
+
+		return productDetails;
 	}
 }

@@ -1287,14 +1287,18 @@ public class WelcomeController {
 	}
 
 	@RequestMapping(value = "/analysis", method = RequestMethod.GET)
-	public String redirectToAnalysis() {
+	public String redirectToAnalysis(
+			@ModelAttribute(value = "sumOfCP") String sumOfCP,
+			@ModelAttribute(value = "sumOfSP") String sumOfSP,
+			@ModelAttribute(value = "totalSoldProducts") String totalSoldProducts,
+			@ModelAttribute(value = "maxSoldProductDetails") String maxSoldProductDetails,
+			@ModelAttribute(value = "minSoldProductDetails") String minSoldProductDetails) {
 
 		return "Analysis";
-
 	}
 
 	@RequestMapping(value = "/analysisFormAction", method = RequestMethod.GET)
-	public String submitAnalysisForm(
+	public String submitAnalysisForm(RedirectAttributes redirectAttributes,
 			@RequestParam(value = "dFrom") String from,
 			@RequestParam(value = "dTo") String to) {
 
@@ -1302,7 +1306,23 @@ public class WelcomeController {
 		Date dTo = CommonUtil.dateFormat(to);
 		double sumOfCostPrice = serviceImpl.getSumOfCostPriceForDateRange(
 				dFrom, dTo);
-		System.out.println(sumOfCostPrice);
-		return null;
+		double sumOfSP = serviceImpl.getSumOfSalePriceForDateRange(dFrom, dTo);
+
+		long totalSoldProducts = serviceImpl.getTotalSoldProductsForDateRange(
+				dFrom, dTo);
+		Object maxSoldProductDetails = serviceImpl
+				.getMaximumSoldProductForDateRange(dFrom, dTo);
+		Object minSoldProductDetails = serviceImpl
+				.getMinimumSoldProductForDateRange(dFrom, dTo);
+
+		redirectAttributes.addAttribute("sumOfCP", sumOfCostPrice);
+		redirectAttributes.addAttribute("sumOfSP", sumOfSP);
+		redirectAttributes.addAttribute("totalSoldProducts", totalSoldProducts);
+		redirectAttributes.addAttribute("maxSoldProductDetails",
+				maxSoldProductDetails);
+		redirectAttributes.addAttribute("minSoldProductDetails",
+				minSoldProductDetails);
+
+		return "redirect:/analysis";
 	}
 }

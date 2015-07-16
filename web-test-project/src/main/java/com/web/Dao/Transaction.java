@@ -22,7 +22,10 @@ import javax.persistence.Table;
 		@NamedQuery(name = "transactionList", query = "select t from Transaction t"),
 		@NamedQuery(name = "transactionsByClient", query = "select t from Transaction t WHERE t.clientId = :clientId"),
 		@NamedQuery(name = "sumOfSalePrice", query = "select SUM(t.tAmount) FROM Transaction t where t.createdOn >= :fromDate AND t.createdOn < :toDate"),
-		@NamedQuery(name = "sumOfCostPrice", query = "select SUM(p.costPrice * t.quantity) from Transaction t inner join t.product p where t.createdOn >= :fromDate AND t.createdOn < :toDate") })
+		@NamedQuery(name = "sumOfCostPrice", query = "select SUM(p.costPrice * t.quantity) from Transaction t inner join t.product p where t.createdOn >= :fromDate AND t.createdOn < :toDate"),
+		@NamedQuery(name = "totalSoldProducts", query = "select SUM(t.quantity) FROM Transaction t where t.createdOn >= :fromDate AND t.createdOn < :toDate"),
+		@NamedQuery(name = "maximumSoldProduct", query = "select t.product.productId,t.product.productName, SUM(t.quantity) FROM Transaction t where t.createdOn >= :fromDate AND t.createdOn < :toDate GROUP BY t.product ORDER BY SUM(t.quantity) DESC"),
+		@NamedQuery(name = "minimumSoldProduct", query = "select t.product.productId,t.product.productName, SUM(t.quantity) FROM Transaction t where t.createdOn >= :fromDate AND t.createdOn < :toDate GROUP BY t.product ORDER BY SUM(t.quantity) ASC") })
 public class Transaction {
 
 	@Id
@@ -34,9 +37,6 @@ public class Transaction {
 
 	@Column(name = "subCat_id")
 	private int			subCatId;
-
-	// @Column(name = "product_id")
-	// private int productId;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_id")
@@ -226,6 +226,20 @@ public class Transaction {
 	 */
 	public void setProduct(Products product) {
 		this.product = product;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Transaction [transactionId=" + transactionId + ", categoryId="
+				+ categoryId + ", subCatId=" + subCatId + ", product="
+				+ product + ", tAmount=" + tAmount + ", createdOn=" + createdOn
+				+ ", quantity=" + quantity + ", clientId=" + clientId
+				+ ", clientName=" + clientName + ", userId=" + userId
+				+ ", productName=" + productName + "]";
 	}
 
 }

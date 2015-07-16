@@ -107,15 +107,35 @@ body {
 
 	<div class="container">
 		<form action="analysisFormAction" id="analysisForm" method="get">
-			<label>Date From</label> <input type="text" id="dFrom" name="dFrom"> <label>Date
-				To</label> <input type="text" id="dTo" name="dTo">
+			<label>Date From</label> <input type="text" id="dFrom" name="dFrom">
+			<label>Date To</label> <input type="text" id="dTo" name="dTo">
 			<button type="submit" class="btn btn-primary">GET</button>
 		</form>
 	</div>
 	<br>
 	<div class="container">
-		<b> <u>Product Analysis</u> </b>
-		<div class="well"></div>
+		<b> <u>Product Analysis</u>
+		</b>
+		<div class="well">
+			<c:if test="${not empty sumOfCP}">
+				<p>Total sum of cost price : ${sumOfCP}</p>
+			</c:if>
+			<c:if test="${not empty sumOfSP}">
+				<p>Total sum of sale price : ${sumOfSP}</p>
+			</c:if>
+			<c:if test="${not empty totalSoldProducts}">
+				<p>Total sold products : ${totalSoldProducts}</p>
+			</c:if>
+			<c:if test="${not empty maxSoldProductDetails}">
+				<p>Maximum sold product : ${maxSoldProductDetails[1]}, Maximum
+					sold quantities : ${maxSoldProductDetails[2]}</p>
+			</c:if>
+			<c:if test="${not empty minSoldProductDetails}">
+				<p>Minimum sold product : ${minSoldProductDetails[1]}, Minimum
+					sold quantities : ${minSoldProductDetails[2]}</p>
+			</c:if>
+
+		</div>
 	</div>
 
 
@@ -123,12 +143,9 @@ body {
 	<footer>
 		<div class="container text-center">
 			<ul class="list-inline">
-				<li><a href="http://www.twitter.com/shivablast">Twitter</a>
-				</li>
-				<li><a href="http://www.facebook.com/shivablast">Facebook</a>
-				</li>
-				<li><a href="http://www.youtube.com/shivablast">YouTube</a>
-				</li>
+				<li><a href="http://www.twitter.com/shivablast">Twitter</a></li>
+				<li><a href="http://www.facebook.com/shivablast">Facebook</a></li>
+				<li><a href="http://www.youtube.com/shivablast">YouTube</a></li>
 			</ul>
 
 			<p>&copy; Copyright @ Shiva Blast - 2015</p>
