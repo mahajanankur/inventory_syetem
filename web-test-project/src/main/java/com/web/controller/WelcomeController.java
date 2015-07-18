@@ -1288,11 +1288,39 @@ public class WelcomeController {
 
 	@RequestMapping(value = "/analysis", method = RequestMethod.GET)
 	public String redirectToAnalysis(
+			Model model,
 			@ModelAttribute(value = "sumOfCP") String sumOfCP,
 			@ModelAttribute(value = "sumOfSP") String sumOfSP,
 			@ModelAttribute(value = "totalSoldProducts") String totalSoldProducts,
 			@ModelAttribute(value = "maxSoldProductDetails") String maxSoldProductDetails,
 			@ModelAttribute(value = "minSoldProductDetails") String minSoldProductDetails) {
+
+		// details for maximum sold products.
+		int maxPId = 0;
+		String maxPName = null;
+		long maxPCount = 0;
+		if (maxSoldProductDetails != null && !maxSoldProductDetails.equals("")) {
+			String[] maxSplit = maxSoldProductDetails.toString().split(",");
+			maxPId = Integer.parseInt(maxSplit[0].trim());
+			maxPName = maxSplit[1];
+			maxPCount = Long.parseLong(maxSplit[2]);
+
+			model.addAttribute("maxPName", maxPName);
+			model.addAttribute("maxPCount", maxPCount);
+		}
+		// details for minimum sold products.
+		int minPId = 0;
+		String minPName = null;
+		long minPCount = 0;
+		if (minSoldProductDetails != null && !minSoldProductDetails.equals("")) {
+			String[] minSplit = minSoldProductDetails.toString().split(",");
+			minPId = Integer.parseInt(minSplit[0].trim());
+			minPName = minSplit[1];
+			minPCount = Long.parseLong(minSplit[2]);
+
+			model.addAttribute("minPName", minPName);
+			model.addAttribute("minPCount", minPCount);
+		}
 
 		return "Analysis";
 	}

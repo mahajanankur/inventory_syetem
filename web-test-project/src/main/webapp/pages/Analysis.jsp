@@ -127,12 +127,12 @@ body {
 				<p>Total sold products : ${totalSoldProducts}</p>
 			</c:if>
 			<c:if test="${not empty maxSoldProductDetails}">
-				<p>Maximum sold product : ${maxSoldProductDetails[1]}, Maximum
-					sold quantities : ${maxSoldProductDetails[2]}</p>
+				<p>Maximum sold product : ${maxPName}, Maximum sold quantities :
+					${maxPCount}</p>
 			</c:if>
 			<c:if test="${not empty minSoldProductDetails}">
-				<p>Minimum sold product : ${minSoldProductDetails[1]}, Minimum
-					sold quantities : ${minSoldProductDetails[2]}</p>
+				<p>Minimum sold product : ${minPName}, Minimum sold quantities :
+					${minPCount}</p>
 			</c:if>
 
 		</div>
