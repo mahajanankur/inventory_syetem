@@ -74,6 +74,10 @@ body {
 	padding-top: 0.2px;
 	padding-left: 0px;
 }
+#placeholder {
+		width: 550px;
+		height: 400px;
+	}
 </style>
 </head>
 <body>
@@ -149,14 +153,13 @@ body {
 			</c:if>
 
 			<input type="hidden" id="jsonData" value="${data}">
-			<input type="text" id="json" value="${data}">
 		</div>
 		<br>
 		<!-- Portlet with PIE Chart -- START -->
 
 		<div class="panel panel-success">
 			<div class="panel-heading">
-				<h3 class="panel-title">Panel title</h3>
+				<h3 class="panel-title">Pie Chart</h3>
 			</div>
 			<div class="panel-body">
 				<div id="placeholder" class="demo-placeholder"></div>

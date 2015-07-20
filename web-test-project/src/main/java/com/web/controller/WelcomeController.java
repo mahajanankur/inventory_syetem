@@ -1325,14 +1325,29 @@ public class WelcomeController {
 			model.addAttribute("minPCount", minPCount);
 		}
 
-		/*
-		 * String dataForPie = "[{label:" + maxPName + ", data:" +maxPCount}]"
-		 * +"{ label:" + , data: 30}," { label: "Series3", data: 90}]";
-		 */
 		// JSON format for Flot Pie chart.
 		if ((maxSoldProductDetails != null && !maxSoldProductDetails.equals(""))
 				&& (minSoldProductDetails != null && !minSoldProductDetails
 						.equals(""))) {
+			String other = "Other";
+			String dataForPie = "[{"
+					+ "label: "
+					+ maxPName
+					+ ", data: "
+					+ maxPCount
+					+ "},{"
+					+ "label: "
+					+ minPName
+					+ ", data: "
+					+ minPCount
+					+ "},{"
+					+ "label: "
+					+ other
+					+ ", data: "
+					+ (Long.parseLong(totalSoldProducts) - (maxPCount + minPCount))
+					+ "}]";
+			System.out.println(dataForPie);
+
 			List<DtoAnalysisPie> pieDataList = new ArrayList<DtoAnalysisPie>();
 			pieDataList.add(new DtoAnalysisPie(maxPName, maxPCount));
 			pieDataList.add(new DtoAnalysisPie(minPName, minPCount));
@@ -1344,7 +1359,8 @@ public class WelcomeController {
 					DtoAnalysisPie.class, new DtoAnalysisPieAdapter()).create();
 			String jsonFormat = pieGson.toJson(pieDataList);
 			System.out.println(jsonFormat);
-			model.addAttribute("data", jsonFormat);
+			// model.addAttribute("data", jsonFormat);
+			model.addAttribute("data", dataForPie);
 		}
 
 		return "Analysis";
