@@ -38,7 +38,9 @@ import com.web.Dao.Users;
 import com.web.Dao.VendorProducts;
 import com.web.Dao.Vendors;
 import com.web.ServiceImpl.UsersServiceImpl;
+import com.web.dto.DtoAnalysisPie;
 import com.web.dto.DtoInvoice;
+import com.web.jsonAdaptor.DtoAnalysisPieAdapter;
 import com.web.jsonAdaptor.ProductAdaptor;
 import com.web.util.CommonUtil;
 
@@ -1293,7 +1295,8 @@ public class WelcomeController {
 			@ModelAttribute(value = "sumOfSP") String sumOfSP,
 			@ModelAttribute(value = "totalSoldProducts") String totalSoldProducts,
 			@ModelAttribute(value = "maxSoldProductDetails") String maxSoldProductDetails,
-			@ModelAttribute(value = "minSoldProductDetails") String minSoldProductDetails) {
+			@ModelAttribute(value = "minSoldProductDetails") String minSoldProductDetails,
+			@ModelAttribute(value = "totalStock") String totalStock) {
 
 		// details for maximum sold products.
 		int maxPId = 0;
@@ -1322,6 +1325,28 @@ public class WelcomeController {
 			model.addAttribute("minPCount", minPCount);
 		}
 
+		/*
+		 * String dataForPie = "[{label:" + maxPName + ", data:" +maxPCount}]"
+		 * +"{ label:" + , data: 30}," { label: "Series3", data: 90}]";
+		 */
+		// JSON format for Flot Pie chart.
+		if ((maxSoldProductDetails != null && !maxSoldProductDetails.equals(""))
+				&& (minSoldProductDetails != null && !minSoldProductDetails
+						.equals(""))) {
+			List<DtoAnalysisPie> pieDataList = new ArrayList<DtoAnalysisPie>();
+			pieDataList.add(new DtoAnalysisPie(maxPName, maxPCount));
+			pieDataList.add(new DtoAnalysisPie(minPName, minPCount));
+			pieDataList.add(new DtoAnalysisPie("Other", Long
+					.parseLong(totalSoldProducts) - (maxPCount + minPCount)));
+
+			GsonBuilder gsonBuilder = new GsonBuilder();
+			Gson pieGson = gsonBuilder.registerTypeAdapter(
+					DtoAnalysisPie.class, new DtoAnalysisPieAdapter()).create();
+			String jsonFormat = pieGson.toJson(pieDataList);
+			System.out.println(jsonFormat);
+			model.addAttribute("data", jsonFormat);
+		}
+
 		return "Analysis";
 	}
 
@@ -1342,6 +1367,7 @@ public class WelcomeController {
 				.getMaximumSoldProductForDateRange(dFrom, dTo);
 		Object minSoldProductDetails = serviceImpl
 				.getMinimumSoldProductForDateRange(dFrom, dTo);
+		Long totalStock = serviceImpl.getTotalStock();
 
 		redirectAttributes.addAttribute("sumOfCP", sumOfCostPrice);
 		redirectAttributes.addAttribute("sumOfSP", sumOfSP);
@@ -1350,6 +1376,7 @@ public class WelcomeController {
 				maxSoldProductDetails);
 		redirectAttributes.addAttribute("minSoldProductDetails",
 				minSoldProductDetails);
+		redirectAttributes.addAttribute("totalStock", totalStock);
 
 		return "redirect:/analysis";
 	}

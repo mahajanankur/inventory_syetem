@@ -53,6 +53,14 @@
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) - End-->
 
+<!-- jQuery flot Script -->
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/resources/js/jquery.flot.js"></script>
+
+<!-- jQuery flot pie Script -->
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/resources/js/jquery.flot.pie.js"></script>
+
 <!-- Manual Script -->
 <%-- <%=request.getContextPath()%> --%>
 <script type="text/javascript" src="/resources/js/manualScript.js"></script>
@@ -114,18 +122,23 @@ body {
 	</div>
 	<br>
 	<div class="container">
-		<b> <u>Product Analysis</u>
-		</b>
+		<b> <u>Product Analysis</u> </b>
+
 		<div class="well">
+
+			<c:if test="${not empty totalStock}">
+				<p>Total Stock : ${totalStock}</p>
+			</c:if>
+			<c:if test="${not empty totalSoldProducts}">
+				<p>Total sold products : ${totalSoldProducts}</p>
+			</c:if>
 			<c:if test="${not empty sumOfCP}">
 				<p>Total sum of cost price : ${sumOfCP}</p>
 			</c:if>
 			<c:if test="${not empty sumOfSP}">
 				<p>Total sum of sale price : ${sumOfSP}</p>
 			</c:if>
-			<c:if test="${not empty totalSoldProducts}">
-				<p>Total sold products : ${totalSoldProducts}</p>
-			</c:if>
+
 			<c:if test="${not empty maxSoldProductDetails}">
 				<p>Maximum sold product : ${maxPName}, Maximum sold quantities :
 					${maxPCount}</p>
@@ -135,91 +148,140 @@ body {
 					${minPCount}</p>
 			</c:if>
 
+			<input type="hidden" id="jsonData" value="${data}">
+			<input type="text" id="json" value="${data}">
 		</div>
-	</div>
+		<br>
+		<!-- Portlet with PIE Chart -- START -->
 
+		<div class="panel panel-success">
+			<div class="panel-heading">
+				<h3 class="panel-title">Panel title</h3>
+			</div>
+			<div class="panel-body">
+				<div id="placeholder" class="demo-placeholder"></div>
+			</div>
 
-	<br>
-	<footer>
-		<div class="container text-center">
-			<ul class="list-inline">
-				<li><a href="http://www.twitter.com/shivablast">Twitter</a></li>
-				<li><a href="http://www.facebook.com/shivablast">Facebook</a></li>
-				<li><a href="http://www.youtube.com/shivablast">YouTube</a></li>
-			</ul>
-
-			<p>&copy; Copyright @ Shiva Blast - 2015</p>
-
+			<!-- Portlet with PIE Chart -- END -->
 		</div>
-	</footer>
 
-	<script type="text/javascript">
-		$(document)
-				.ready(
-						function() {
 
-							//date pickers
-							$('#dFrom').datepicker(
-									{
-										numberOfMonths : 1,
-										//dateFormat : 'dd/mm/yy',
-										changeMonth : true,
-										changeYear : true,
-										maxDate : -1,
-										onSelect : function(selected) {
-											var dt = new Date(selected);
-											dt.setDate(dt.getDate() + 1);
-											$("#dTo").datepicker("option",
-													"minDate", dt);
-										}
-									});
-							$('#dTo').datepicker(
-									{
-										numberOfMonths : 1,
-										//dateFormat : 'dd/mm/yy',
-										changeMonth : true,
-										changeYear : true,
-										maxDate : 0,
-										onSelect : function(selected) {
-											var dt = new Date(selected);
-											dt.setDate(dt.getDate() - 1);
-											$("#dFrom").datepicker("option",
-													"maxDate", dt);
-										}
-									});
+		<br>
+		<footer>
+			<div class="container text-center">
+				<ul class="list-inline">
+					<li><a href="http://www.twitter.com/shivablast">Twitter</a></li>
+					<li><a href="http://www.facebook.com/shivablast">Facebook</a>
+					</li>
+					<li><a href="http://www.youtube.com/shivablast">YouTube</a></li>
+				</ul>
 
-							// function for product category table view.
-							$('#myTable').dataTable();
+				<p>&copy; Copyright @ Shiva Blast - 2015</p>
 
-							// validations for remove product popup form.
-							$('#removeProductCategoryPopUpForm')
-									.bootstrapValidator(
-											{
-												framework : 'bootstrap',
-												icon : {
-													valid : 'glyphicon glyphicon-ok',
-													invalid : 'glyphicon glyphicon-remove',
-													validating : 'glyphicon glyphicon-refresh'
-												},
-												fields : {
-													pCatId_name : {
-														row : '.col-xs-4',
-														validators : {
-															notEmpty : {
-																message : 'The product category ID is required.'
-															},
-															regexp : {
-																regexp : /^\d*$/,
-																message : 'The product category ID should be integer only.'
+			</div>
+		</footer>
+
+		<script type="text/javascript">
+			$(document)
+					.ready(
+							function() {
+
+								//date pickers
+								$('#dFrom').datepicker(
+										{
+											numberOfMonths : 1,
+											//dateFormat : 'dd/mm/yy',
+											changeMonth : true,
+											changeYear : true,
+											maxDate : -1,
+											onSelect : function(selected) {
+												var dt = new Date(selected);
+												dt.setDate(dt.getDate() + 1);
+												$("#dTo").datepicker("option",
+														"minDate", dt);
+											}
+										});
+								$('#dTo').datepicker(
+										{
+											numberOfMonths : 1,
+											//dateFormat : 'dd/mm/yy',
+											changeMonth : true,
+											changeYear : true,
+											maxDate : 0,
+											onSelect : function(selected) {
+												var dt = new Date(selected);
+												dt.setDate(dt.getDate() - 1);
+												$("#dFrom")
+														.datepicker("option",
+																"maxDate", dt);
+											}
+										});
+
+								// function for product category table view.
+								$('#myTable').dataTable();
+
+								// validations for remove product popup form.
+								$('#removeProductCategoryPopUpForm')
+										.bootstrapValidator(
+												{
+													framework : 'bootstrap',
+													icon : {
+														valid : 'glyphicon glyphicon-ok',
+														invalid : 'glyphicon glyphicon-remove',
+														validating : 'glyphicon glyphicon-refresh'
+													},
+													fields : {
+														pCatId_name : {
+															row : '.col-xs-4',
+															validators : {
+																notEmpty : {
+																	message : 'The product category ID is required.'
+																},
+																regexp : {
+																	regexp : /^\d*$/,
+																	message : 'The product category ID should be integer only.'
+																}
+
 															}
 
 														}
-
 													}
+												});
+								// Function for flot pie chart.
+								var placeholder = $('#placeholder');
+								var data = $('#jsonData').val();
+								
+								alert(data);
+								$.plot(placeholder, data, {
+									series : {
+										pie : {
+											show : true,
+											radius : 1,
+											label : {
+												show : true,
+												radius : 3 / 4,
+												formatter : labelFormatter,
+												background : {
+													opacity : 0.5
 												}
-											});
+											}
+										}
+									},
+									legend : {
+										show : false
+									}
+								});
 
-						});
-	</script>
+								// A custom label formatter used by several of the plots
+								function labelFormatter(label, series) {
+									return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;'>"
+											+ label
+											+ "<br/>"
+											+ Math.round(series.percent)
+											+ "%</div>";
+								}
+
+							});
+		</script>
 </body>
 </html>

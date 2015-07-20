@@ -25,7 +25,8 @@ import javax.persistence.Table;
 		@NamedQuery(name = "sumOfCostPrice", query = "select SUM(p.costPrice * t.quantity) from Transaction t inner join t.product p where t.createdOn >= :fromDate AND t.createdOn < :toDate"),
 		@NamedQuery(name = "totalSoldProducts", query = "select SUM(t.quantity) FROM Transaction t where t.createdOn >= :fromDate AND t.createdOn < :toDate"),
 		@NamedQuery(name = "maximumSoldProduct", query = "select t.product.productId,t.product.productName, SUM(t.quantity) FROM Transaction t where t.createdOn >= :fromDate AND t.createdOn < :toDate GROUP BY t.product ORDER BY SUM(t.quantity) DESC"),
-		@NamedQuery(name = "minimumSoldProduct", query = "select t.product.productId,t.product.productName, SUM(t.quantity) FROM Transaction t where t.createdOn >= :fromDate AND t.createdOn < :toDate GROUP BY t.product ORDER BY SUM(t.quantity) ASC") })
+		@NamedQuery(name = "minimumSoldProduct", query = "select t.product.productId,t.product.productName, SUM(t.quantity) FROM Transaction t where t.createdOn >= :fromDate AND t.createdOn < :toDate GROUP BY t.product ORDER BY SUM(t.quantity) ASC"),
+		@NamedQuery(name = "totalStock", query = "select SUM(t.product.quantity) FROM Transaction t") })
 public class Transaction {
 
 	@Id
@@ -230,6 +231,7 @@ public class Transaction {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

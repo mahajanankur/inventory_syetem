@@ -897,6 +897,14 @@ public class UsersServiceImpl {
 		return invoice;
 	}
 
+	/**
+	 * This method is used to get the sum of cost price of the products sold
+	 * between a particular date range.
+	 * 
+	 * @param dFrom
+	 * @param dTo
+	 * @return cpSum
+	 */
 	public double getSumOfCostPriceForDateRange(Date dFrom, Date dTo) {
 		EntityManager em = this.entityManager.createEntityManager();
 		em.getTransaction().begin();
@@ -910,6 +918,14 @@ public class UsersServiceImpl {
 		return cpSum;
 	}
 
+	/**
+	 * This method is used to get the sum of sale price of the products sold
+	 * between a particular date range.
+	 * 
+	 * @param dFrom
+	 * @param dTo
+	 * @return spSum
+	 */
 	public double getSumOfSalePriceForDateRange(Date dFrom, Date dTo) {
 		EntityManager em = this.entityManager.createEntityManager();
 		em.getTransaction().begin();
@@ -922,6 +938,14 @@ public class UsersServiceImpl {
 		return spSum;
 	}
 
+	/**
+	 * This method is used to get the count of total products sold between a
+	 * particular date range.
+	 * 
+	 * @param dFrom
+	 * @param dTo
+	 * @return totalSoldProduct
+	 */
 	public long getTotalSoldProductsForDateRange(Date dFrom, Date dTo) {
 		EntityManager em = this.entityManager.createEntityManager();
 		em.getTransaction().begin();
@@ -934,6 +958,14 @@ public class UsersServiceImpl {
 		return totalSoldProduct;
 	}
 
+	/**
+	 * This method is used to get the details of the maximum sold product
+	 * between a particular date range.
+	 * 
+	 * @param dFrom
+	 * @param dTo
+	 * @return productDetails
+	 */
 	public Object getMaximumSoldProductForDateRange(Date dFrom, Date dTo) {
 		EntityManager em = this.entityManager.createEntityManager();
 		em.getTransaction().begin();
@@ -946,6 +978,14 @@ public class UsersServiceImpl {
 		return productDetails;
 	}
 
+	/**
+	 * This method is used to get the minimum sold product details between a
+	 * particular date range.
+	 * 
+	 * @param dFrom
+	 * @param dTo
+	 * @return productDetails
+	 */
 	public Object getMinimumSoldProductForDateRange(Date dFrom, Date dTo) {
 		EntityManager em = this.entityManager.createEntityManager();
 		em.getTransaction().begin();
@@ -956,5 +996,15 @@ public class UsersServiceImpl {
 		em.close();
 
 		return productDetails;
+	}
+
+	public Long getTotalStock() {
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
+		Query query = em.createNamedQuery("totalStock", Long.class);
+		Long totalStock = (Long) query.getSingleResult();
+		em.close();
+
+		return totalStock;
 	}
 }
