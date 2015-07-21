@@ -2,7 +2,9 @@ package com.web.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
@@ -1288,9 +1290,10 @@ public class WelcomeController {
 		return new ModelAndView("pdfView", "invoiceDetail", invoiceDetail);
 	}
 
-	@RequestMapping(value = "/analysis", method = RequestMethod.GET)
+	@RequestMapping(value = "/analysis", method = RequestMethod.GET, produces = "application/json")
 	public String redirectToAnalysis(
 			Model model,
+			ModelMap map,
 			@ModelAttribute(value = "sumOfCP") String sumOfCP,
 			@ModelAttribute(value = "sumOfSP") String sumOfSP,
 			@ModelAttribute(value = "totalSoldProducts") String totalSoldProducts,
@@ -1332,34 +1335,44 @@ public class WelcomeController {
 			String other = "Other";
 			String dataForPie = "[{"
 					+ "label: "
+					+ "\""
 					+ maxPName
+					+ "\""
 					+ ", data: "
 					+ maxPCount
 					+ "},{"
 					+ "label: "
+					+ "\""
 					+ minPName
+					+ "\""
 					+ ", data: "
 					+ minPCount
 					+ "},{"
 					+ "label: "
+					+ "\""
 					+ other
+					+ "\""
 					+ ", data: "
 					+ (Long.parseLong(totalSoldProducts) - (maxPCount + minPCount))
 					+ "}]";
-			System.out.println(dataForPie);
 
-			List<DtoAnalysisPie> pieDataList = new ArrayList<DtoAnalysisPie>();
-			pieDataList.add(new DtoAnalysisPie(maxPName, maxPCount));
-			pieDataList.add(new DtoAnalysisPie(minPName, minPCount));
-			pieDataList.add(new DtoAnalysisPie("Other", Long
-					.parseLong(totalSoldProducts) - (maxPCount + minPCount)));
+			System.out.println("String : " + dataForPie);
 
-			GsonBuilder gsonBuilder = new GsonBuilder();
-			Gson pieGson = gsonBuilder.registerTypeAdapter(
-					DtoAnalysisPie.class, new DtoAnalysisPieAdapter()).create();
-			String jsonFormat = pieGson.toJson(pieDataList);
-			System.out.println(jsonFormat);
-			// model.addAttribute("data", jsonFormat);
+			/*
+			 * // JSON Adaptor List<DtoAnalysisPie> pieDataList = new
+			 * ArrayList<DtoAnalysisPie>(); pieDataList.add(new
+			 * DtoAnalysisPie(maxPName, maxPCount)); pieDataList.add(new
+			 * DtoAnalysisPie(minPName, minPCount)); pieDataList.add(new
+			 * DtoAnalysisPie("Other", Long .parseLong(totalSoldProducts) -
+			 * (maxPCount + minPCount)));
+			 * 
+			 * GsonBuilder gsonBuilder = new GsonBuilder(); Gson pieGson =
+			 * gsonBuilder.registerTypeAdapter( DtoAnalysisPie.class, new
+			 * DtoAnalysisPieAdapter()).create(); String jsonFormat =
+			 * pieGson.toJson(pieDataList); System.out.println("JSON Adapter : "
+			 * + jsonFormat); model.addAttribute("data", jsonFormat);
+			 */
+
 			model.addAttribute("data", dataForPie);
 		}
 

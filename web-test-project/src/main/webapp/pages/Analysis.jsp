@@ -5,6 +5,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- Core tag library - End-->
 
+<!-- fn tag library for escaping strings- Start-->
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<!-- fn tag library - END-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -152,7 +156,7 @@ body {
 					${minPCount}</p>
 			</c:if>
 
-			<input type="hidden" id="jsonData" value="${data}">
+			<input type="hidden" id="jsonData" value="${fn:escapeXml(data)}">
 		</div>
 		<br>
 		<!-- Portlet with PIE Chart -- START -->
