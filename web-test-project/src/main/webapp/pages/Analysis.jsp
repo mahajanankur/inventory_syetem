@@ -6,7 +6,7 @@
 <!-- Core tag library - End-->
 
 <!-- fn tag library for escaping strings- Start-->
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!-- fn tag library - END-->
 
 <!DOCTYPE html>
@@ -22,7 +22,7 @@
 	rel="stylesheet" />
 <!-- BootstrapValidator CSS Library -->
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/css/bootstrapvalidator.min.css" />
+	href="<%=request.getContextPath()%>/resources/css/bootstrapValidator.min.css" />
 <!-- Optional theme -->
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/bootstrap-theme.min.css" />
@@ -65,10 +65,6 @@
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/js/jquery.flot.pie.js"></script>
 
-<!-- Manual Script -->
-<%-- <%=request.getContextPath()%> --%>
-<script type="text/javascript" src="/resources/js/manualScript.js"></script>
-
 <style>
 body {
 	padding-top: 40px;
@@ -78,10 +74,11 @@ body {
 	padding-top: 0.2px;
 	padding-left: 0px;
 }
+
 #placeholder {
-		width: 550px;
-		height: 400px;
-	}
+	width: 550px;
+	height: 400px;
+}
 </style>
 </head>
 <body>
@@ -130,7 +127,7 @@ body {
 	</div>
 	<br>
 	<div class="container">
-		<b> <u>Product Analysis</u> </b>
+		<b> Product Analysis </b>
 
 		<div class="well">
 
@@ -139,6 +136,9 @@ body {
 			</c:if>
 			<c:if test="${not empty totalSoldProducts}">
 				<p>Total sold products : ${totalSoldProducts}</p>
+				<input type="hidden" id="totalSoldProducts"
+					value="${totalSoldProducts}">
+
 			</c:if>
 			<c:if test="${not empty sumOfCP}">
 				<p>Total sum of cost price : ${sumOfCP}</p>
@@ -150,15 +150,22 @@ body {
 			<c:if test="${not empty maxSoldProductDetails}">
 				<p>Maximum sold product : ${maxPName}, Maximum sold quantities :
 					${maxPCount}</p>
+				<input type="hidden" id="maxPName" value="${maxPName}">
+				<input type="hidden" id="maxPCount" value="${maxPCount}">
 			</c:if>
 			<c:if test="${not empty minSoldProductDetails}">
 				<p>Minimum sold product : ${minPName}, Minimum sold quantities :
 					${minPCount}</p>
+				<input type="hidden" id="minPName" value="${minPName}">
+				<input type="hidden" id="minPCount" value="${minPCount}">
 			</c:if>
 
 			<input type="hidden" id="jsonData" value="${fn:escapeXml(data)}">
+
 		</div>
+
 		<br>
+
 		<!-- Portlet with PIE Chart -- START -->
 
 		<div class="panel panel-success">
@@ -171,124 +178,141 @@ body {
 
 			<!-- Portlet with PIE Chart -- END -->
 		</div>
+	</div>
 
+	<br>
+	<footer>
+		<div class="container text-center">
+			<ul class="list-inline">
+				<li><a href="http://www.twitter.com/shivablast">Twitter</a></li>
+				<li><a href="http://www.facebook.com/shivablast">Facebook</a></li>
+				<li><a href="http://www.youtube.com/shivablast">YouTube</a></li>
+			</ul>
 
-		<br>
-		<footer>
-			<div class="container text-center">
-				<ul class="list-inline">
-					<li><a href="http://www.twitter.com/shivablast">Twitter</a></li>
-					<li><a href="http://www.facebook.com/shivablast">Facebook</a>
-					</li>
-					<li><a href="http://www.youtube.com/shivablast">YouTube</a></li>
-				</ul>
+			<p>&copy; Copyright @ Shiva Blast - 2015</p>
 
-				<p>&copy; Copyright @ Shiva Blast - 2015</p>
+		</div>
+	</footer>
 
-			</div>
-		</footer>
+	<script type="text/javascript">
+		$(document)
+				.ready(
+						function() {
 
-		<script type="text/javascript">
-			$(document)
-					.ready(
-							function() {
+							//date pickers
+							$('#dFrom').datepicker(
+									{
+										numberOfMonths : 1,
+										//dateFormat : 'dd/mm/yy',
+										changeMonth : true,
+										changeYear : true,
+										maxDate : -1,
+										onSelect : function(selected) {
+											var dt = new Date(selected);
+											dt.setDate(dt.getDate() + 1);
+											$("#dTo").datepicker("option",
+													"minDate", dt);
+										}
+									});
+							$('#dTo').datepicker(
+									{
+										numberOfMonths : 1,
+										//dateFormat : 'dd/mm/yy',
+										changeMonth : true,
+										changeYear : true,
+										maxDate : 0,
+										onSelect : function(selected) {
+											var dt = new Date(selected);
+											dt.setDate(dt.getDate() - 1);
+											$("#dFrom").datepicker("option",
+													"maxDate", dt);
+										}
+									});
 
-								//date pickers
-								$('#dFrom').datepicker(
-										{
-											numberOfMonths : 1,
-											//dateFormat : 'dd/mm/yy',
-											changeMonth : true,
-											changeYear : true,
-											maxDate : -1,
-											onSelect : function(selected) {
-												var dt = new Date(selected);
-												dt.setDate(dt.getDate() + 1);
-												$("#dTo").datepicker("option",
-														"minDate", dt);
-											}
-										});
-								$('#dTo').datepicker(
-										{
-											numberOfMonths : 1,
-											//dateFormat : 'dd/mm/yy',
-											changeMonth : true,
-											changeYear : true,
-											maxDate : 0,
-											onSelect : function(selected) {
-												var dt = new Date(selected);
-												dt.setDate(dt.getDate() - 1);
-												$("#dFrom")
-														.datepicker("option",
-																"maxDate", dt);
-											}
-										});
-
-								// function for product category table view.
-								$('#myTable').dataTable();
-
-								// validations for remove product popup form.
-								$('#removeProductCategoryPopUpForm')
-										.bootstrapValidator(
-												{
-													framework : 'bootstrap',
-													icon : {
-														valid : 'glyphicon glyphicon-ok',
-														invalid : 'glyphicon glyphicon-remove',
-														validating : 'glyphicon glyphicon-refresh'
-													},
-													fields : {
-														pCatId_name : {
-															row : '.col-xs-4',
-															validators : {
-																notEmpty : {
-																	message : 'The product category ID is required.'
-																},
-																regexp : {
-																	regexp : /^\d*$/,
-																	message : 'The product category ID should be integer only.'
-																}
-
-															}
-
-														}
-													}
-												});
-								// Function for flot pie chart.
-								var placeholder = $('#placeholder');
-								var data = $('#jsonData').val();
-								
-								alert(data);
-								$.plot(placeholder, data, {
-									series : {
-										pie : {
+							// Function for flot pie chart.
+							var placeholder = $('#placeholder');
+							//var json = $('#jsonData').val();
+							var maxLabel = $('#maxPName').val(), maxData = $(
+									'#maxPCount').val(), minLabel = $(
+									'#minPName').val(), minData = $(
+									'#minPCount').val(), restData = $(
+									'#totalSoldProducts').val();
+							var dataForm = dataFormatter(maxLabel, maxData,
+									minLabel, minData, restData);
+							//var series = $.parseJSON(JSON.stringify(json));
+							alert(dataForm);
+							$.plot(placeholder, dataForm, {
+								series : {
+									pie : {
+										show : true,
+										radius : 1,
+										label : {
 											show : true,
-											radius : 1,
-											label : {
-												show : true,
-												radius : 3 / 4,
-												formatter : labelFormatter,
-												background : {
-													opacity : 0.5
-												}
+											radius : 2 / 3,
+											formatter : labelFormatter,
+											background : {
+												opacity : 0.5
 											}
 										}
-									},
-									legend : {
-										show : false
 									}
-								});
-
-								// A custom label formatter used by several of the plots
-								function labelFormatter(label, series) {
-									return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;'>"
-											+ label
-											+ "<br/>"
-											+ Math.round(series.percent)
-											+ "%</div>";
+								},
+								legend : {
+									show : false
 								}
-
 							});
-		</script>
+
+							// A custom label formatter used by pie plots
+							function labelFormatter(label, series) {
+								return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;'>"
+										+ label
+										+ "<br/>"
+										+ Math.round(series.percent)
+										+ "%</div>";
+							}
+							;
+
+							// A custom data formatter used to get required data in proper format as the flot wants.
+							function dataFormatter(maxLabel, maxData, minLabel,
+									minData, restData) {
+
+								var data = [], size = 3;
+
+								for (var i = 0; i < size; i++) {
+									if (i == 0) {
+										if (maxLabel != '' && maxData != '') {
+											data[i] = {
+												label : '"' + maxLabel + '"',
+												data : parseInt(maxData)
+											};
+										}
+									}
+
+									if (i == 1) {
+										if (minLabel != '' && minData != '') {
+											data[i] = {
+												label : '"' + minLabel + '"',
+												data : parseInt(minData)
+											};
+										}
+									}
+
+									if (i == 2) {
+										if (restData != '') {
+											var restD = parseInt(restData)
+													- (parseInt(maxData) + parseInt(minData));
+											data[i] = {
+												label : "Other",
+												data : restD
+											};
+										}
+									}
+
+								}
+								return data;
+							}
+							;
+
+						});
+	</script>
 </body>
 </html>
