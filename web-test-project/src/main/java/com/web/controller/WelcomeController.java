@@ -1298,12 +1298,11 @@ public class WelcomeController {
 			@ModelAttribute(value = "totalStock") String totalStock) {
 
 		// details for maximum sold products.
-		int maxPId = 0;
 		String maxPName = null;
 		long maxPCount = 0;
 		if (maxSoldProductDetails != null && !maxSoldProductDetails.equals("")) {
 			String[] maxSplit = maxSoldProductDetails.toString().split(",");
-			maxPId = Integer.parseInt(maxSplit[0].trim());
+			//maxPId = Integer.parseInt(maxSplit[0].trim());
 			maxPName = maxSplit[1];
 			maxPCount = Long.parseLong(maxSplit[2]);
 
@@ -1311,12 +1310,11 @@ public class WelcomeController {
 			model.addAttribute("maxPCount", maxPCount);
 		}
 		// details for minimum sold products.
-		int minPId = 0;
 		String minPName = null;
 		long minPCount = 0;
 		if (minSoldProductDetails != null && !minSoldProductDetails.equals("")) {
 			String[] minSplit = minSoldProductDetails.toString().split(",");
-			minPId = Integer.parseInt(minSplit[0].trim());
+			//minPId = Integer.parseInt(minSplit[0].trim());
 			minPName = minSplit[1];
 			minPCount = Long.parseLong(minSplit[2]);
 
