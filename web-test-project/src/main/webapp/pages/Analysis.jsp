@@ -65,6 +65,10 @@
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/js/jquery.flot.pie.js"></script>
 
+<!-- TransactionList Script -->
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/resources/js/pagesJS/Analysis.js"></script>
+	
 <style>
 body {
 	padding-top: 40px;
@@ -76,8 +80,8 @@ body {
 }
 
 #placeholder {
-	width: 550px;
-	height: 400px;
+	width: 450px;
+	height: 300px;
 }
 </style>
 </head>
@@ -117,7 +121,6 @@ body {
 	</div>
 	<!-- Jumbotron - End-->
 
-
 	<div class="container">
 		<form action="analysisFormAction" id="analysisForm" method="get">
 			<label>Date From</label> <input type="text" id="dFrom" name="dFrom">
@@ -126,59 +129,72 @@ body {
 		</form>
 	</div>
 	<br>
+
+	<!-- Panel with product analysis details and PIE Chart -- START -->
 	<div class="container">
-		<b> Product Analysis </b>
-
-		<div class="well">
-
-			<c:if test="${not empty totalStock}">
-				<p>Total Stock : ${totalStock}</p>
-			</c:if>
-			<c:if test="${not empty totalSoldProducts}">
-				<p>Total sold products : ${totalSoldProducts}</p>
-				<input type="hidden" id="totalSoldProducts"
-					value="${totalSoldProducts}">
-
-			</c:if>
-			<c:if test="${not empty sumOfCP}">
-				<p>Total sum of cost price : ${sumOfCP}</p>
-			</c:if>
-			<c:if test="${not empty sumOfSP}">
-				<p>Total sum of sale price : ${sumOfSP}</p>
-			</c:if>
-
-			<c:if test="${not empty maxSoldProductDetails}">
-				<p>Maximum sold product : ${maxPName}, Maximum sold quantities :
-					${maxPCount}</p>
-				<input type="hidden" id="maxPName" value="${maxPName}">
-				<input type="hidden" id="maxPCount" value="${maxPCount}">
-			</c:if>
-			<c:if test="${not empty minSoldProductDetails}">
-				<p>Minimum sold product : ${minPName}, Minimum sold quantities :
-					${minPCount}</p>
-				<input type="hidden" id="minPName" value="${minPName}">
-				<input type="hidden" id="minPCount" value="${minPCount}">
-			</c:if>
-
-			<input type="hidden" id="jsonData" value="${fn:escapeXml(data)}">
-
-		</div>
-
-		<br>
-
-		<!-- Portlet with PIE Chart -- START -->
-
 		<div class="panel panel-success">
 			<div class="panel-heading">
-				<h3 class="panel-title">Pie Chart</h3>
+				<h3 class="panel-title">Product Analysis</h3>
 			</div>
 			<div class="panel-body">
-				<div id="placeholder" class="demo-placeholder"></div>
-			</div>
+				<div class="pull-left">
 
-			<!-- Portlet with PIE Chart -- END -->
+					<c:if test="${not empty totalStock}">
+						<p>
+							<b>Total Stock :</b> ${totalStock}
+						</p>
+					</c:if>
+					<c:if test="${not empty totalSoldProducts}">
+						<p>
+							<b>Total sold products :</b> ${totalSoldProducts}
+						</p>
+
+						<input type="hidden" id="totalSoldProducts"
+							value="${totalSoldProducts}">
+
+					</c:if>
+					<c:if test="${not empty sumOfCP}">
+						<p>
+							<b>Total sum of cost price :</b> ${sumOfCP}
+						</p>
+					</c:if>
+					<c:if test="${not empty sumOfSP}">
+						<p>
+							<b>Total sum of sale price :</b> ${sumOfSP}
+						</p>
+					</c:if>
+
+					<c:if test="${not empty maxSoldProductDetails}">
+						<p>
+							<b>Maximum sold product :</b> ${maxPName}
+						</p>
+						<p>
+							<b>Maximum sold quantities :</b> ${maxPCount}
+						</p>
+
+						<input type="hidden" id="maxPName" value="${maxPName}">
+						<input type="hidden" id="maxPCount" value="${maxPCount}">
+					</c:if>
+					<c:if test="${not empty minSoldProductDetails}">
+						<p>
+							<b>Minimum sold product :</b> ${minPName}
+						</p>
+						<p>
+							<b>Minimum sold quantities :</b> ${minPCount}
+						</p>
+
+						<input type="hidden" id="minPName" value="${minPName}">
+						<input type="hidden" id="minPCount" value="${minPCount}">
+					</c:if>
+
+					<input type="hidden" id="jsonData" value="${fn:escapeXml(data)}">
+
+				</div>
+				<div id="placeholder" class="pull-right"></div>
+			</div>
 		</div>
 	</div>
+	<!-- Panel with product analysis details and PIE Chart -- END -->
 
 	<br>
 	<footer>
@@ -194,124 +210,5 @@ body {
 		</div>
 	</footer>
 
-	<script type="text/javascript">
-		$(document)
-				.ready(
-						function() {
-
-							//date pickers
-							$('#dFrom').datepicker(
-									{
-										numberOfMonths : 1,
-										//dateFormat : 'dd/mm/yy',
-										changeMonth : true,
-										changeYear : true,
-										maxDate : -1,
-										onSelect : function(selected) {
-											var dt = new Date(selected);
-											dt.setDate(dt.getDate() + 1);
-											$("#dTo").datepicker("option",
-													"minDate", dt);
-										}
-									});
-							$('#dTo').datepicker(
-									{
-										numberOfMonths : 1,
-										//dateFormat : 'dd/mm/yy',
-										changeMonth : true,
-										changeYear : true,
-										maxDate : 0,
-										onSelect : function(selected) {
-											var dt = new Date(selected);
-											dt.setDate(dt.getDate() - 1);
-											$("#dFrom").datepicker("option",
-													"maxDate", dt);
-										}
-									});
-
-							// Function for flot pie chart.
-							var placeholder = $('#placeholder');
-							//var json = $('#jsonData').val();
-							var maxLabel = $('#maxPName').val(), maxData = $(
-									'#maxPCount').val(), minLabel = $(
-									'#minPName').val(), minData = $(
-									'#minPCount').val(), restData = $(
-									'#totalSoldProducts').val();
-							var dataForm = dataFormatter(maxLabel, maxData,
-									minLabel, minData, restData);
-							//var series = $.parseJSON(JSON.stringify(json));
-							$.plot(placeholder, dataForm, {
-								series : {
-									pie : {
-										show : true,
-										radius : 1,
-										label : {
-											show : true,
-											radius : 2 / 3,
-											formatter : labelFormatter,
-											background : {
-												opacity : 0.5
-											}
-										}
-									}
-								},
-								legend : {
-									show : false
-								}
-							});
-
-							// A custom label formatter used by pie plots
-							function labelFormatter(label, series) {
-								return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;'>"
-										+ label
-										+ "<br/>"
-										+ Math.round(series.percent)
-										+ "%</div>";
-							}
-							;
-
-							// A custom data formatter used to get required data in proper format as the flot wants.
-							function dataFormatter(maxLabel, maxData, minLabel,
-									minData, restData) {
-
-								var data = [], size = 3;
-
-								for (var i = 0; i < size; i++) {
-									if (i == 0) {
-										if (maxLabel != '' && maxData != '') {
-											data[i] = {
-												label : maxLabel,
-												data : parseInt(maxData)
-											};
-										}
-									}
-
-									if (i == 1) {
-										if (minLabel != '' && minData != '') {
-											data[i] = {
-												label : minLabel,
-												data : parseInt(minData)
-											};
-										}
-									}
-
-									if (i == 2) {
-										if (restData != '') {
-											var restD = parseInt(restData)
-													- (parseInt(maxData) + parseInt(minData));
-											data[i] = {
-												label : "Other",
-												data : restD
-											};
-										}
-									}
-
-								}
-								return data;
-							}
-							;
-
-						});
-	</script>
 </body>
 </html>
