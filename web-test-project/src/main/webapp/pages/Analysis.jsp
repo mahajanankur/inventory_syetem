@@ -68,7 +68,7 @@
 <!-- TransactionList Script -->
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/js/pagesJS/Analysis.js"></script>
-	
+
 <style>
 body {
 	padding-top: 40px;
@@ -144,6 +144,7 @@ body {
 							<b>Total Stock :</b> ${totalStock}
 						</p>
 					</c:if>
+
 					<c:if test="${not empty totalSoldProducts}">
 						<p>
 							<b>Total sold products :</b> ${totalSoldProducts}
@@ -153,15 +154,23 @@ body {
 							value="${totalSoldProducts}">
 
 					</c:if>
+
 					<c:if test="${not empty sumOfCP}">
 						<p>
 							<b>Total sum of cost price :</b> ${sumOfCP}
 						</p>
+						<input type="hidden" id="sumOfCP" value="${sumOfCP}">
 					</c:if>
+
 					<c:if test="${not empty sumOfSP}">
 						<p>
 							<b>Total sum of sale price :</b> ${sumOfSP}
 						</p>
+
+						<input type="hidden" id="sumOfSP" value="${sumOfSP}">
+
+						<p id="profitPerc"></p>
+
 					</c:if>
 
 					<c:if test="${not empty maxSoldProductDetails}">
@@ -175,6 +184,7 @@ body {
 						<input type="hidden" id="maxPName" value="${maxPName}">
 						<input type="hidden" id="maxPCount" value="${maxPCount}">
 					</c:if>
+
 					<c:if test="${not empty minSoldProductDetails}">
 						<p>
 							<b>Minimum sold product :</b> ${minPName}

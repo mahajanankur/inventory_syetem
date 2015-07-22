@@ -2,10 +2,10 @@ $(document)
 		.ready(
 				function() {
 
-					//date pickers
+					// date pickers
 					$('#dFrom').datepicker({
 						numberOfMonths : 1,
-						//dateFormat : 'dd/mm/yy',
+						// dateFormat : 'dd/mm/yy',
 						changeMonth : true,
 						changeYear : true,
 						maxDate : -1,
@@ -17,7 +17,7 @@ $(document)
 					});
 					$('#dTo').datepicker({
 						numberOfMonths : 1,
-						//dateFormat : 'dd/mm/yy',
+						// dateFormat : 'dd/mm/yy',
 						changeMonth : true,
 						changeYear : true,
 						maxDate : 0,
@@ -28,16 +28,24 @@ $(document)
 						}
 					});
 
+					// Get profit% and assign it to p tag.
+					var costP = $('#sumOfCP').val();
+					var saleP = $('#sumOfSP').val();
+					if (costP != '' && saleP != '') {
+						var profit = ((parseFloat(saleP) - parseFloat(costP)) / parseFloat(costP)) * 100;
+						$('#profitPerc').html("<b>Profit percentage : </b>" + profit.toFixed(2) + "%");
+					}
+
 					// Function for flot pie chart.
 					var placeholder = $('#placeholder');
-					//var json = $('#jsonData').val();
+					// var json = $('#jsonData').val();
 					var maxLabel = $('#maxPName').val(), maxData = $(
 							'#maxPCount').val(), minLabel = $('#minPName')
 							.val(), minData = $('#minPCount').val(), restData = $(
 							'#totalSoldProducts').val();
 					var dataForm = dataFormatter(maxLabel, maxData, minLabel,
 							minData, restData);
-					//var series = $.parseJSON(JSON.stringify(json));
+					// var series = $.parseJSON(JSON.stringify(json));
 					$.plot(placeholder, dataForm, {
 						series : {
 							pie : {
@@ -68,13 +76,14 @@ $(document)
 					}
 					;
 
-					// A custom data formatter used to get required data in proper format as the flot wants.
+					// A custom data formatter used to get required data in
+					// proper format as the flot wants.
 					function dataFormatter(maxLabel, maxData, minLabel,
 							minData, restData) {
 
 						var data = [], size = 3;
 
-						for ( var i = 0; i < size; i++) {
+						for (var i = 0; i < size; i++) {
 							if (i == 0) {
 								if (maxLabel != '' && maxData != '') {
 									data[i] = {
