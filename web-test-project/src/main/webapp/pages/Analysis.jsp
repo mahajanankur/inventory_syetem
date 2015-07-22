@@ -240,7 +240,6 @@ body {
 							var dataForm = dataFormatter(maxLabel, maxData,
 									minLabel, minData, restData);
 							//var series = $.parseJSON(JSON.stringify(json));
-							alert(dataForm);
 							$.plot(placeholder, dataForm, {
 								series : {
 									pie : {
@@ -281,7 +280,7 @@ body {
 									if (i == 0) {
 										if (maxLabel != '' && maxData != '') {
 											data[i] = {
-												label : '"' + maxLabel + '"',
+												label : maxLabel,
 												data : parseInt(maxData)
 											};
 										}
@@ -290,7 +289,7 @@ body {
 									if (i == 1) {
 										if (minLabel != '' && minData != '') {
 											data[i] = {
-												label : '"' + minLabel + '"',
+												label : minLabel,
 												data : parseInt(minData)
 											};
 										}

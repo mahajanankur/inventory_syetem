@@ -2,9 +2,7 @@ package com.web.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
@@ -40,9 +38,7 @@ import com.web.Dao.Users;
 import com.web.Dao.VendorProducts;
 import com.web.Dao.Vendors;
 import com.web.ServiceImpl.UsersServiceImpl;
-import com.web.dto.DtoAnalysisPie;
 import com.web.dto.DtoInvoice;
-import com.web.jsonAdaptor.DtoAnalysisPieAdapter;
 import com.web.jsonAdaptor.ProductAdaptor;
 import com.web.util.CommonUtil;
 
@@ -1328,53 +1324,53 @@ public class WelcomeController {
 			model.addAttribute("minPCount", minPCount);
 		}
 
-		// JSON format for Flot Pie chart.
-		if ((maxSoldProductDetails != null && !maxSoldProductDetails.equals(""))
-				&& (minSoldProductDetails != null && !minSoldProductDetails
-						.equals(""))) {
-			String other = "Other";
-			String dataForPie = "[{"
-					+ "label: "
-					+ "\""
-					+ maxPName
-					+ "\""
-					+ ", data: "
-					+ maxPCount
-					+ "},{"
-					+ "label: "
-					+ "\""
-					+ minPName
-					+ "\""
-					+ ", data: "
-					+ minPCount
-					+ "},{"
-					+ "label: "
-					+ "\""
-					+ other
-					+ "\""
-					+ ", data: "
-					+ (Long.parseLong(totalSoldProducts) - (maxPCount + minPCount))
-					+ "}]";
-
-			System.out.println("String : " + dataForPie);
-
-			/*
-			 * // JSON Adaptor List<DtoAnalysisPie> pieDataList = new
-			 * ArrayList<DtoAnalysisPie>(); pieDataList.add(new
-			 * DtoAnalysisPie(maxPName, maxPCount)); pieDataList.add(new
-			 * DtoAnalysisPie(minPName, minPCount)); pieDataList.add(new
-			 * DtoAnalysisPie("Other", Long .parseLong(totalSoldProducts) -
-			 * (maxPCount + minPCount)));
-			 * 
-			 * GsonBuilder gsonBuilder = new GsonBuilder(); Gson pieGson =
-			 * gsonBuilder.registerTypeAdapter( DtoAnalysisPie.class, new
-			 * DtoAnalysisPieAdapter()).create(); String jsonFormat =
-			 * pieGson.toJson(pieDataList); System.out.println("JSON Adapter : "
-			 * + jsonFormat); model.addAttribute("data", jsonFormat);
-			 */
-
-			model.addAttribute("data", dataForPie);
-		}
+		// // JSON format for Flot Pie chart.
+		// if ((maxSoldProductDetails != null &&
+		// !maxSoldProductDetails.equals(""))
+		// && (minSoldProductDetails != null && !minSoldProductDetails
+		// .equals(""))) {
+		// String other = "Other";
+		// String dataForPie = "[{"
+		// + "label: "
+		// + "\""
+		// + maxPName
+		// + "\""
+		// + ", data: "
+		// + maxPCount
+		// + "},{"
+		// + "label: "
+		// + "\""
+		// + minPName
+		// + "\""
+		// + ", data: "
+		// + minPCount
+		// + "},{"
+		// + "label: "
+		// + "\""
+		// + other
+		// + "\""
+		// + ", data: "
+		// + (Long.parseLong(totalSoldProducts) - (maxPCount + minPCount))
+		// + "}]";
+		//
+		// System.out.println("String : " + dataForPie);
+		//
+		// // JSON Adaptor
+		// List<DtoAnalysisPie> pieDataList = new ArrayList<DtoAnalysisPie>();
+		// pieDataList.add(new DtoAnalysisPie(maxPName, maxPCount));
+		// pieDataList.add(new DtoAnalysisPie(minPName, minPCount));
+		// pieDataList.add(new DtoAnalysisPie("Other", Long
+		// .parseLong(totalSoldProducts) - (maxPCount + minPCount)));
+		//
+		// GsonBuilder gsonBuilder = new GsonBuilder();
+		// Gson pieGson = gsonBuilder.registerTypeAdapter(
+		// DtoAnalysisPie.class, new DtoAnalysisPieAdapter()).create();
+		// String jsonFormat = pieGson.toJson(pieDataList);
+		// System.out.println("JSON Adapter : " + jsonFormat);
+		// model.addAttribute("data", jsonFormat);
+		//
+		// model.addAttribute("data", dataForPie);
+		// }
 
 		return "Analysis";
 	}
