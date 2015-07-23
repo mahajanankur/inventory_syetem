@@ -1,5 +1,6 @@
 package com.web.util;
 
+import java.io.File;
 import java.util.Map;
 import java.util.Set;
 
@@ -38,8 +39,12 @@ public class PDFBuilder extends AbstractITextPdfView {
 
 		doc.add(new Paragraph("Invoice Details"));
 		// add the images
-		Image companyLogo = Image
-				.getInstance("/home/ankur/Desktop/App_Logo.png");
+		//System.out.println(ResourcesPlugin.getWorkspace().getRoot().getLocation().toString());
+		//String path = "/resources/images/logo.png";
+		String path = "logo.png";
+		File f = new File(path);
+		System.out.println(f.getAbsolutePath());
+		Image companyLogo = Image.getInstance(path);
 		companyLogo.setAbsolutePosition(5, 788);
 		companyLogo.scalePercent(100);
 		doc.add(companyLogo);
