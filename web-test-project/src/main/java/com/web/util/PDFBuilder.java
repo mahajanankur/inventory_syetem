@@ -1,6 +1,5 @@
 package com.web.util;
 
-import java.io.File;
 import java.util.Map;
 import java.util.Set;
 
@@ -11,7 +10,6 @@ import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
@@ -39,15 +37,15 @@ public class PDFBuilder extends AbstractITextPdfView {
 
 		doc.add(new Paragraph("Invoice Details"));
 		// add the images
-		//System.out.println(ResourcesPlugin.getWorkspace().getRoot().getLocation().toString());
-		//String path = "/resources/images/logo.png";
-		String path = "logo.png";
-		File f = new File(path);
-		System.out.println(f.getAbsolutePath());
-		Image companyLogo = Image.getInstance(path);
-		companyLogo.setAbsolutePosition(5, 788);
-		companyLogo.scalePercent(100);
-		doc.add(companyLogo);
+		// System.out.println(ResourcesPlugin.getWorkspace().getRoot().getLocation().toString());
+		// String path = "/resources/images/logo.png";
+		// String path = "logo.png";
+		// File f = new File(path);
+		// System.out.println(f.getAbsolutePath());
+		// Image companyLogo = Image.getInstance(path);
+		// companyLogo.setAbsolutePosition(5, 788);
+		// companyLogo.scalePercent(100);
+		// doc.add(companyLogo);
 
 		PdfPTable table = new PdfPTable(4);
 		table.setWidthPercentage(100.0f);
