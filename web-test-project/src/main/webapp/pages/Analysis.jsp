@@ -131,88 +131,93 @@ body {
 	<br>
 
 	<!-- Panel with product analysis details and PIE Chart -- START -->
-	<div class="container">
-		<div class="panel panel-success">
-			<div class="panel-heading">
-				<h3 class="panel-title">Product Analysis</h3>
-			</div>
-			<div class="panel-body">
-				<div class="pull-left">
-
-					<c:if test="${not empty totalStock}">
-						<p>
-							<b>Total Stock :</b> ${totalStock}
-						</p>
-					</c:if>
-
-					<c:if test="${not empty totalSoldProducts}">
-						<p>
-							<b>Total sold products :</b> ${totalSoldProducts}
-						</p>
-
-						<input type="hidden" id="totalSoldProducts"
-							value="${totalSoldProducts}">
-
-					</c:if>
-
-					<c:if test="${not empty sumOfCP}">
-						<p>
-							<b>Total sum of cost price :</b> ${sumOfCP}
-						</p>
-						<input type="hidden" id="sumOfCP" value="${sumOfCP}">
-					</c:if>
-
-					<c:if test="${not empty sumOfSP}">
-						<p>
-							<b>Total sum of sale price :</b> ${sumOfSP}
-						</p>
-
-						<input type="hidden" id="sumOfSP" value="${sumOfSP}">
-
-						<p id="profitPerc"></p>
-
-					</c:if>
-
-					<c:if test="${not empty maxSoldProductDetails}">
-						<p>
-							<b>Maximum sold product :</b> ${maxPName}
-						</p>
-						<p>
-							<b>Maximum sold quantities :</b> ${maxPCount}
-						</p>
-
-						<input type="hidden" id="maxPName" value="${maxPName}">
-						<input type="hidden" id="maxPCount" value="${maxPCount}">
-					</c:if>
-
-					<c:if test="${not empty minSoldProductDetails}">
-						<p>
-							<b>Minimum sold product :</b> ${minPName}
-						</p>
-						<p>
-							<b>Minimum sold quantities :</b> ${minPCount}
-						</p>
-
-						<input type="hidden" id="minPName" value="${minPName}">
-						<input type="hidden" id="minPCount" value="${minPCount}">
-					</c:if>
-
-					<input type="hidden" id="jsonData" value="${fn:escapeXml(data)}">
-
+	<c:if test="${not empty totalStock}">
+		<div class="container">
+			<div class="panel panel-success">
+				<div class="panel-heading">
+					<h3 class="panel-title">Product Analysis</h3>
 				</div>
-				<div id="placeholder" class="pull-right"></div>
+				<div class="panel-body">
+					<div class="pull-left">
+
+						<c:if test="${not empty totalStock}">
+							<p>
+								<b>Total Stock :</b> ${totalStock}
+							</p>
+						</c:if>
+
+						<c:if test="${not empty totalSoldProducts}">
+							<p>
+								<b>Total sold products :</b> ${totalSoldProducts}
+							</p>
+
+							<input type="hidden" id="totalSoldProducts"
+								value="${totalSoldProducts}">
+
+						</c:if>
+
+						<c:if test="${not empty sumOfCP}">
+							<p>
+								<b>Total sum of cost price :</b> ${sumOfCP}
+							</p>
+							<input type="hidden" id="sumOfCP" value="${sumOfCP}">
+						</c:if>
+
+						<c:if test="${not empty sumOfSP}">
+							<p>
+								<b>Total sum of sale price :</b> ${sumOfSP}
+							</p>
+
+							<input type="hidden" id="sumOfSP" value="${sumOfSP}">
+
+							<p id="profitPerc"></p>
+
+						</c:if>
+
+						<c:if test="${not empty maxSoldProductDetails}">
+							<p>
+								<b>Maximum sold product :</b> ${maxPName}
+							</p>
+							<p>
+								<b>Maximum sold quantities :</b> ${maxPCount}
+							</p>
+
+							<input type="hidden" id="maxPName" value="${maxPName}">
+							<input type="hidden" id="maxPCount" value="${maxPCount}">
+						</c:if>
+
+						<c:if test="${not empty minSoldProductDetails}">
+							<p>
+								<b>Minimum sold product :</b> ${minPName}
+							</p>
+							<p>
+								<b>Minimum sold quantities :</b> ${minPCount}
+							</p>
+
+							<input type="hidden" id="minPName" value="${minPName}">
+							<input type="hidden" id="minPCount" value="${minPCount}">
+						</c:if>
+
+						<input type="hidden" id="jsonData" value="${fn:escapeXml(data)}">
+
+					</div>
+					<div id="placeholder" class="pull-right"></div>
+				</div>
 			</div>
 		</div>
-	</div>
+	</c:if>
 	<!-- Panel with product analysis details and PIE Chart -- END -->
 
 	<br>
 	<footer>
 		<div class="container text-center">
 			<ul class="list-inline">
-				<li><a href="http://www.twitter.com/shivablast">Twitter</a></li>
-				<li><a href="http://www.facebook.com/shivablast">Facebook</a></li>
-				<li><a href="http://www.youtube.com/shivablast">YouTube</a></li>
+				<li><a href="http://www.twitter.com/shivablast">Twitter</a>
+				</li>
+				<li><a href="http://www.facebook.com/shivablast">Facebook</a>
+				</li>
+				<li><a href="http://www.youtube.com/shivablast">YouTube</a>
+				</li>
 			</ul>
 
 			<p>&copy; Copyright @ Shiva Blast - 2015</p>
