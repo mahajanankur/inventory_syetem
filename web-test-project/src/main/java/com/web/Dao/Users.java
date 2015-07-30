@@ -16,40 +16,16 @@ public class Users {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "user_id")
-	private int userId;
+	private int		userId;
 
 	@Column(name = "user_name")
-	private String username;
+	private String	username;
 
 	@Column(name = "password")
-	private String password;
+	private String	password;
 
-	@Column(name = "role")
-	private String role;
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
+	@Column(name = "status")
+	private String	status;
 
 	/**
 	 * @return the userId
@@ -66,15 +42,59 @@ public class Users {
 		this.userId = userId;
 	}
 
+	/**
+	 * @return the username
+	 */
+	public String getUsername() {
+		return username;
+	}
+
+	/**
+	 * @param username
+	 *            the username to set
+	 */
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	/**
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
+
+	/**
+	 * @param password
+	 *            the password to set
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	/**
+	 * @return the status
+	 */
+	public String getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status
+	 *            the status to set
+	 */
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Users [user_id=" + userId + ", username=" + username
-				+ ", password=" + password + ", role=" + role + "]";
+		return "Users [userId=" + userId + ", username=" + username
+				+ ", password=" + password + ", status=" + status + "]";
 	}
 
 }

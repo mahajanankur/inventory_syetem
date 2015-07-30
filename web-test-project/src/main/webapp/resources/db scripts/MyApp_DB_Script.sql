@@ -222,3 +222,17 @@ CREATE  TABLE `MyApp_DB`.`vandor` (
     ON UPDATE NO ACTION);
 
     ALTER TABLE `MyApp_DB`.`products` ADD COLUMN `sale_price` DOUBLE NOT NULL  AFTER `sold_quantity` , CHANGE COLUMN `product_price` `cost_price` DOUBLE NOT NULL  ;
+
+    CREATE  TABLE `MyApp_DB`.`user_role` (
+  `user_role_id` INT NOT NULL AUTO_INCREMENT ,
+  `user_id` INT NOT NULL ,
+  `role` VARCHAR(45) NOT NULL ,
+  PRIMARY KEY (`user_role_id`) ,
+  INDEX `fk_user_role_1` (`user_id` ASC) ,
+  CONSTRAINT `fk_user_role_1`
+    FOREIGN KEY (`user_id` )
+    REFERENCES `MyApp_DB`.`users` (`user_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+ALTER TABLE `MyApp_DB`.`users` CHANGE COLUMN `role` `status` VARCHAR(10) NOT NULL  ;
