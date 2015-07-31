@@ -24,8 +24,8 @@ public class Users {
 	@Column(name = "password")
 	private String	password;
 
-	@Column(name = "status")
-	private String	status;
+	@Column(name = "enable")
+	private boolean	enable;
 
 	/**
 	 * @return the userId
@@ -73,28 +73,29 @@ public class Users {
 	}
 
 	/**
-	 * @return the status
+	 * @return the enable
 	 */
-	public String getStatus() {
-		return status;
+	public boolean isEnable() {
+		return enable;
 	}
 
 	/**
-	 * @param status
-	 *            the status to set
+	 * @param enable
+	 *            the enable to set
 	 */
-	public void setStatus(String status) {
-		this.status = status;
+	public void setEnable(boolean enable) {
+		this.enable = enable;
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "Users [userId=" + userId + ", username=" + username
-				+ ", password=" + password + ", status=" + status + "]";
+				+ ", password=" + password + ", enable=" + enable + "]";
 	}
 
 }
