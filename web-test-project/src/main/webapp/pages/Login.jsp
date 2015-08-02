@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page session="true"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +43,7 @@
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/js/bootstrapvalidator.min.js"></script>
  --%>
- <!-- Login Script -->
+<!-- Login Script -->
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/js/pagesJS/Login.js"></script>
 </head>
@@ -52,9 +56,11 @@
 					<h2>Welcome to My Application</h2>
 				</div>
 
-				<form id="loginId" class="form-horizontal" action="loginFormAction">
-					<div class="form-group">
+				<!-- <form id="loginId" class="form-horizontal" action="loginFormAction"> -->
+				<form id="loginId" class="form-horizontal"
+					action="<c:url value='/j_spring_security_check' />" method='POST'>
 
+					<div class="form-group">
 						<div class="well">${failMsg}</div>
 						<label class="col-lg-3 control-label">Username</label>
 						<div class="col-lg-5">

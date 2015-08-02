@@ -56,7 +56,15 @@ public class WelcomeController {
 	private static final Logger	logger	= LoggerFactory
 												.getLogger(WelcomeController.class);
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+//	@RequestMapping(value = "/", method = RequestMethod.GET)
+//	public String welcome() {
+//		logger.debug("In welcome() method.");
+//		// return "Login";
+//
+//		return "redirect:/welcome";
+//	}
+
+	@RequestMapping(value = "/welcome", method = RequestMethod.GET)
 	public String login() {
 		logger.debug("In login() method.");
 		return "Login";
@@ -73,36 +81,36 @@ public class WelcomeController {
 	 * @param pwd
 	 * @return url
 	 */
-	@RequestMapping(value = "/loginFormAction", method = RequestMethod.GET)
-	public String submit(HttpSession session,
-			@RequestParam(value = "username") String username,
-			@RequestParam(value = "password") String pwd) {
-
-		int userId = 0;
-
-		boolean loginSuccess = false;
-		List<Users> userList = serviceImpl.getUserList();
-		for (Users user : userList) {
-			if (user.getUsername().equals(username)
-					&& user.getPassword().equals(pwd)) {
-				userId = user.getUserId();
-				loginSuccess = true;
-				break;
-			}
-		}
-
-		if (loginSuccess) {
-			session.setAttribute("sessionId", userId);
-			session.setAttribute("username", username);
-
-			redirectedURL = new String("home");
-
-		} else {
-			redirectedURL = new String("login");
-		}
-		String url = "redirect:/" + redirectedURL;
-		return url;
-	}
+	// @RequestMapping(value = "/loginFormAction", method = RequestMethod.GET)
+	// public String submit(HttpSession session,
+	// @RequestParam(value = "username") String username,
+	// @RequestParam(value = "password") String pwd) {
+	//
+	// int userId = 0;
+	//
+	// boolean loginSuccess = false;
+	// List<Users> userList = serviceImpl.getUserList();
+	// for (Users user : userList) {
+	// if (user.getUsername().equals(username)
+	// && user.getPassword().equals(pwd)) {
+	// userId = user.getUserId();
+	// loginSuccess = true;
+	// break;
+	// }
+	// }
+	//
+	// if (loginSuccess) {
+	// session.setAttribute("sessionId", userId);
+	// session.setAttribute("username", username);
+	//
+	// redirectedURL = new String("home");
+	//
+	// } else {
+	// redirectedURL = new String("login");
+	// }
+	// String url = "redirect:/" + redirectedURL;
+	// return url;
+	// }
 
 	/**
 	 * If login is successful, then page should redirect to Home page.
@@ -1302,7 +1310,7 @@ public class WelcomeController {
 		long maxPCount = 0;
 		if (maxSoldProductDetails != null && !maxSoldProductDetails.equals("")) {
 			String[] maxSplit = maxSoldProductDetails.toString().split(",");
-			//maxPId = Integer.parseInt(maxSplit[0].trim());
+			// maxPId = Integer.parseInt(maxSplit[0].trim());
 			maxPName = maxSplit[1];
 			maxPCount = Long.parseLong(maxSplit[2]);
 
@@ -1314,7 +1322,7 @@ public class WelcomeController {
 		long minPCount = 0;
 		if (minSoldProductDetails != null && !minSoldProductDetails.equals("")) {
 			String[] minSplit = minSoldProductDetails.toString().split(",");
-			//minPId = Integer.parseInt(minSplit[0].trim());
+			// minPId = Integer.parseInt(minSplit[0].trim());
 			minPName = minSplit[1];
 			minPCount = Long.parseLong(minSplit[2]);
 
