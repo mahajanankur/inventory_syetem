@@ -10,16 +10,23 @@
 		http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
 	<security:http auto-config="true" use-expressions="true">
+
 		<security:intercept-url pattern="/welcome"
+			access="permitAll" />
+		<security:intercept-url pattern="/resources/**"
 			access="permitAll" />
 		<security:intercept-url pattern="/**"
 			access="hasRole('ROLE_ADMIN')" />
+
 		<security:access-denied-handler
 			error-page="/login" />
+
 		<security:form-login login-page="/welcome"
-			default-target-url="/home" authentication-failure-url="/login"
-			username-parameter="username" password-parameter="password" />
-		<security:logout logout-success-url="/login?logout" />
+			default-target-url="/home" always-use-default-target="true"
+			authentication-failure-url="/login" username-parameter="username"
+			password-parameter="password" />
+
+		<security:logout logout-success-url="/logout" />
 	</security:http>
 
 	<security:authentication-manager>
