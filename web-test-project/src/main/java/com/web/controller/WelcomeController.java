@@ -2,6 +2,7 @@ package com.web.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -10,6 +11,11 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -34,10 +40,10 @@ import com.web.Dao.Products;
 import com.web.Dao.Stock;
 import com.web.Dao.SubProductCategory;
 import com.web.Dao.Transaction;
-import com.web.Dao.Users;
 import com.web.Dao.VendorProducts;
 import com.web.Dao.Vendors;
 import com.web.ServiceImpl.UsersServiceImpl;
+import com.web.dto.DtoCustomUser;
 import com.web.dto.DtoInvoice;
 import com.web.jsonAdaptor.ProductAdaptor;
 import com.web.util.CommonUtil;
@@ -123,6 +129,23 @@ public class WelcomeController {
 	public String loginSuccess(HttpSession session, Model model) {
 
 		System.out.println("On Home Page !!!");
+
+		// getting Authentication details from spring security.
+
+		String name = null;
+		Set<GrantedAuthority> role = new HashSet<GrantedAuthority>();
+
+		// check if user is login
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		if (!(auth instanceof AnonymousAuthenticationToken)) {
+			// Get the user details
+			DtoCustomUser userDetail = (DtoCustomUser) auth.getPrincipal();
+			name = userDetail.getUsername();
+			int id = userDetail.getUserId();
+			role = (Set<GrantedAuthority>) userDetail.getAuthorities();
+		}
+
 		return "Home";
 	}
 
