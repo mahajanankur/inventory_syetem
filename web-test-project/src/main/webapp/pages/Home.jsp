@@ -1,3 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page session="true"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,13 +66,21 @@ body {
 
 				<a href="" class="navbar-brand"><img class="img-circle"
 					alt="Shiva Blast"
-					src="<%=request.getContextPath()%>/resources/images/logo.png"></a>
+					src="<%=request.getContextPath()%>/resources/images/logo.png">
+				</a>
 			</div>
 			<!-- Navbar Header-->
 			<div class="collapse navbar-collapse" id="navbar-collapse">
 
-				<a href="" class="btn btn-warning navbar-btn navbar-right">Download
-					Now</a>
+				<!-- Logout button - START -->
+				<c:url value="/j_spring_security_logout" var="logoutUrl" />
+				<form action="${logoutUrl}" method="post" id="logoutForm">
+					<input type="submit"
+						class="btn btn-warning navbar-btn navbar-right" name="logout"
+						value="Logout" />
+				</form>
+				<!-- <a href="" class="btn btn-warning navbar-btn navbar-right">Logout</a> -->
+				<!-- Logout button - END -->
 				<ul class="nav navbar-nav">
 					<li><a href="#feedback">Feedback</a>
 					<li><a href="#gallery">Gallery</a>
@@ -86,7 +100,7 @@ body {
 	<div class="jumbotron">
 		<div class="container text-center">
 			<h2>
-				<b><u>Shiva Blast</u></b>
+				<b><u>Shiva Blast</u> </b>
 			</h2>
 			<p>Application for Stock Management</p>
 
@@ -243,11 +257,10 @@ body {
 				<!-- End Carousel inner -->
 				<a href="#screenshot-carousel" class="left carousel-control"
 					data-slide="prev"> <span
-					class="glyphicon glyphicon-chevron-left"></span>
-				</a> <a href="#screenshot-carousel" class="right carousel-control"
+					class="glyphicon glyphicon-chevron-left"></span> </a> <a
+					href="#screenshot-carousel" class="right carousel-control"
 					data-slide="next"> <span
-					class="glyphicon glyphicon-chevron-right"></span>
-				</a>
+					class="glyphicon glyphicon-chevron-right"></span> </a>
 			</div>
 			<!-- End Carousel -->
 

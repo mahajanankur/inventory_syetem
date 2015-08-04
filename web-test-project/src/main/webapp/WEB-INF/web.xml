@@ -41,4 +41,9 @@
 		/WEB-INF/applicationContext*.xml 
 		/WEB-INF/spring-security-servlet.xml</param-value>
 	</context-param>
+
+	<!-- Session time out in minutes -->
+	<session-config>
+		<session-timeout>10</session-timeout>
+	</session-config>
 </web-app>

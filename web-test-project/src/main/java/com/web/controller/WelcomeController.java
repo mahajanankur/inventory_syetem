@@ -56,15 +56,15 @@ public class WelcomeController {
 	private static final Logger	logger	= LoggerFactory
 												.getLogger(WelcomeController.class);
 
-//	@RequestMapping(value = "/", method = RequestMethod.GET)
-//	public String welcome() {
-//		logger.debug("In welcome() method.");
-//		// return "Login";
-//
-//		return "redirect:/welcome";
-//	}
+	// @RequestMapping(value = "/", method = RequestMethod.GET)
+	// public String welcome() {
+	// logger.debug("In welcome() method.");
+	// // return "Login";
+	//
+	// return "redirect:/welcome";
+	// }
 
-	@RequestMapping(value = "/welcome", method = RequestMethod.GET)
+	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
 	public String login() {
 		logger.debug("In login() method.");
 		return "Login";
@@ -134,12 +134,21 @@ public class WelcomeController {
 	 * @param model
 	 * @return Login page
 	 */
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/loginFail", method = RequestMethod.GET)
 	public String loginFail(HttpSession session, Model model) {
 
 		System.out.println("Login Fails !!!");
 		String failMsg = "Username or password is invalid.";
 		model.addAttribute("failMsg", failMsg);
+		return "Login";
+	}
+
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(Model model) {
+
+		System.out.println("Logout button clicked. !!!");
+		String logoutMsg = "You've been logged out successfully.";
+		model.addAttribute("failMsg", logoutMsg);
 		return "Login";
 	}
 

@@ -11,7 +11,7 @@
 
 	<security:http auto-config="true" use-expressions="true">
 
-		<security:intercept-url pattern="/welcome"
+		<security:intercept-url pattern="/login"
 			access="permitAll" />
 		<security:intercept-url pattern="/resources/**"
 			access="permitAll" />
@@ -21,9 +21,9 @@
 		<security:access-denied-handler
 			error-page="/login" />
 
-		<security:form-login login-page="/welcome"
+		<security:form-login login-page="/login"
 			default-target-url="/home" always-use-default-target="true"
-			authentication-failure-url="/login" username-parameter="username"
+			authentication-failure-url="/loginFail" username-parameter="username"
 			password-parameter="password" />
 
 		<security:logout logout-success-url="/logout" />
