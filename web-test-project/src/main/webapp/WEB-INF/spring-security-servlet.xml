@@ -33,7 +33,7 @@
 		<security:authentication-provider>
 			<security:jdbc-user-service
 				data-source-ref="dataSource"
-				users-by-username-query="select user_name,password,enable from users where user_name=?"
+				users-by-username-query="select user_name,password,enable,user_id from users where user_name=?"
 				authorities-by-username-query="select u.user_name, r.role from users u, user_role r where u.user_id = r.user_id and u.user_name =?" />
 		</security:authentication-provider>
 	</security:authentication-manager>

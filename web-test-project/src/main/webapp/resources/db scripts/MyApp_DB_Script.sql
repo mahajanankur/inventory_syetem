@@ -236,3 +236,6 @@ CREATE  TABLE `MyApp_DB`.`vandor` (
     ON UPDATE NO ACTION);
 
 ALTER TABLE `MyApp_DB`.`users` CHANGE COLUMN `role` `status` VARCHAR(10) NOT NULL  ;
+
+ALTER TABLE `MyApp_DB`.`users` 
+ADD UNIQUE INDEX `user_name_UNIQUE` (`user_name` ASC) ;
