@@ -74,7 +74,8 @@ public class WelcomeController {
 	public String login() {
 		logger.debug("In login() method.");
 		return "Login";
-
+		// TODO - this code is working fine.
+		// return "forward:/nc/testMap";
 	}
 
 	/**

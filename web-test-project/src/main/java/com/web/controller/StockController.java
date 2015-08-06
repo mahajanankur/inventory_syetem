@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 @RequestMapping(value = "/nc")
+//working
 public class StockController {
 
 	@RequestMapping(value = "/testMap", method = RequestMethod.GET)
