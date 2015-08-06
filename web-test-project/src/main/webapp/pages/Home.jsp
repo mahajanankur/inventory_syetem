@@ -79,8 +79,8 @@ body {
 						class="btn btn-warning navbar-btn navbar-right" name="logout"
 						value="Logout" />
 				</form>
-				<!-- <a href="" class="btn btn-warning navbar-btn navbar-right">Logout</a> -->
 				<!-- Logout button - END -->
+
 				<ul class="nav navbar-nav">
 					<li><a href="#feedback">Feedback</a>
 					<li><a href="#gallery">Gallery</a>
@@ -257,10 +257,11 @@ body {
 				<!-- End Carousel inner -->
 				<a href="#screenshot-carousel" class="left carousel-control"
 					data-slide="prev"> <span
-					class="glyphicon glyphicon-chevron-left"></span> </a> <a
-					href="#screenshot-carousel" class="right carousel-control"
+					class="glyphicon glyphicon-chevron-left"></span>
+				</a> <a href="#screenshot-carousel" class="right carousel-control"
 					data-slide="next"> <span
-					class="glyphicon glyphicon-chevron-right"></span> </a>
+					class="glyphicon glyphicon-chevron-right"></span>
+				</a>
 			</div>
 			<!-- End Carousel -->
 

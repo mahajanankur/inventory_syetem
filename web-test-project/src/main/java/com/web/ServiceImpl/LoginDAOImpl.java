@@ -1,37 +1,39 @@
 package com.web.ServiceImpl;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.web.Dao.Users;
 
+/**
+ * @author ankur
+ * 
+ */
 @Repository
 public class LoginDAOImpl {
 
 	@Autowired
-	private SessionFactory	sessionFactory;
+	private EntityManagerFactory	entityManager;
 
-	@SuppressWarnings("unchecked")
+	/**
+	 * This method is used to authenticate user by spring security's
+	 * user-service-ref="loginService"(LoginServiceImpl.class).
+	 * 
+	 * @param username
+	 * @return user
+	 */
 	public Users findUserByUsername(String username) {
-		Session session = sessionFactory.getCurrentSession();
-		List<Users> userList = new ArrayList<Users>();
-		// Set<UserRole> userRole = new HashSet<UserRole>(0);
-
-		Query query = session
-				.createQuery("select from Users u where u.username = :username");
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
+		Query query = em.createNamedQuery("userByUsername", Users.class);
 		query.setParameter("username", username);
-		userList = query.list();
-		if (userList.size() > 0) {
-			return userList.get(0);
-		} else {
-			return null;
-		}
+		Users user = (Users) query.getSingleResult();
+		em.close();
+		return user;
 
 	}
 }

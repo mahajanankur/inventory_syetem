@@ -13,13 +13,20 @@
 
 		<security:intercept-url pattern="/login"
 			access="permitAll" />
+		<security:intercept-url pattern="/accessDenied"
+			access="permitAll" />
+		<security:intercept-url pattern="/loginFail"
+			access="permitAll" />
+		<security:intercept-url pattern="/logout"
+			access="permitAll" />
+
 		<security:intercept-url pattern="/resources/**"
 			access="permitAll" />
 		<security:intercept-url pattern="/**"
 			access="hasRole('ROLE_ADMIN')" />
 
 		<security:access-denied-handler
-			error-page="/login" />
+			error-page="/accessDenied" />
 
 		<security:form-login login-page="/login"
 			default-target-url="/home" always-use-default-target="true"

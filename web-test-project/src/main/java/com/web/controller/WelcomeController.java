@@ -2,7 +2,6 @@ package com.web.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -13,9 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -57,70 +54,20 @@ public class WelcomeController {
 
 	@Autowired
 	private UsersServiceImpl	serviceImpl;
-	private String				redirectedURL;
 
 	private static final Logger	logger	= LoggerFactory
 												.getLogger(WelcomeController.class);
 
-	// @RequestMapping(value = "/", method = RequestMethod.GET)
-	// public String welcome() {
-	// logger.debug("In welcome() method.");
-	// // return "Login";
-	//
-	// return "redirect:/welcome";
-	// }
-
 	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
 	public String login() {
 		logger.debug("In login() method.");
+		// TODO - return "forward:/nc/testMap";
 		return "Login";
-		// TODO - this code is working fine.
-		// return "forward:/nc/testMap";
 	}
 
 	/**
-	 * This method will validate the username and password and redirect the page
-	 * accordingly.
-	 * 
-	 * @param session
-	 * @param username
-	 * @param body
-	 * @param pwd
-	 * @return url
-	 */
-	// @RequestMapping(value = "/loginFormAction", method = RequestMethod.GET)
-	// public String submit(HttpSession session,
-	// @RequestParam(value = "username") String username,
-	// @RequestParam(value = "password") String pwd) {
-	//
-	// int userId = 0;
-	//
-	// boolean loginSuccess = false;
-	// List<Users> userList = serviceImpl.getUserList();
-	// for (Users user : userList) {
-	// if (user.getUsername().equals(username)
-	// && user.getPassword().equals(pwd)) {
-	// userId = user.getUserId();
-	// loginSuccess = true;
-	// break;
-	// }
-	// }
-	//
-	// if (loginSuccess) {
-	// session.setAttribute("sessionId", userId);
-	// session.setAttribute("username", username);
-	//
-	// redirectedURL = new String("home");
-	//
-	// } else {
-	// redirectedURL = new String("login");
-	// }
-	// String url = "redirect:/" + redirectedURL;
-	// return url;
-	// }
-
-	/**
-	 * If login is successful, then page should redirect to Home page.
+	 * If login is successful by spring security, then page should redirect to
+	 * Home page.
 	 * 
 	 * @param session
 	 * @param model
@@ -132,10 +79,8 @@ public class WelcomeController {
 		System.out.println("On Home Page !!!");
 
 		// getting Authentication details from spring security.
-
+		int userId = 0;
 		String name = null;
-		Set<GrantedAuthority> role = new HashSet<GrantedAuthority>();
-
 		// check if user is login
 		Authentication auth = SecurityContextHolder.getContext()
 				.getAuthentication();
@@ -143,10 +88,11 @@ public class WelcomeController {
 			// Get the user details
 			DtoCustomUser userDetail = (DtoCustomUser) auth.getPrincipal();
 			name = userDetail.getUsername();
-			int id = userDetail.getUserId();
-			role = (Set<GrantedAuthority>) userDetail.getAuthorities();
+			userId = userDetail.getUserId();
 		}
 
+		session.setAttribute("sessionId", userId);
+		session.setAttribute("username", name);
 		return "Home";
 	}
 
@@ -154,12 +100,11 @@ public class WelcomeController {
 	 * If login is unsuccessful, the page should redirect to same page(login)
 	 * with a login fails message.
 	 * 
-	 * @param session
 	 * @param model
 	 * @return Login page
 	 */
 	@RequestMapping(value = "/loginFail", method = RequestMethod.GET)
-	public String loginFail(HttpSession session, Model model) {
+	public String loginFail(Model model) {
 
 		System.out.println("Login Fails !!!");
 		String failMsg = "Username or password is invalid.";
@@ -167,6 +112,30 @@ public class WelcomeController {
 		return "Login";
 	}
 
+	/**
+	 * If user is not authorized according the role specified in spring
+	 * security, the page should redirect to same page(login) with a access
+	 * denied message.
+	 * 
+	 * @param model
+	 * @return Login page
+	 */
+	@RequestMapping(value = "/accessDenied", method = RequestMethod.GET)
+	public String accessDenied(Model model) {
+
+		System.out.println("Access Denied !!!");
+		String failMsg = "You are not authorized to login !!";
+		model.addAttribute("failMsg", failMsg);
+		return "Login";
+	}
+
+	/**
+	 * This method is used to logout from the user, it is handled by spring
+	 * security.
+	 * 
+	 * @param model
+	 * @return Login page
+	 */
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(Model model) {
 

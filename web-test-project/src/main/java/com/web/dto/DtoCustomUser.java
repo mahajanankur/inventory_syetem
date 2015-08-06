@@ -6,8 +6,24 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
+/**
+ * @author ankur
+ * 
+ */
 public class DtoCustomUser extends User implements UserDetails {
 
+	/**
+	 * Parameterized Constructor
+	 * 
+	 * @param username
+	 * @param password
+	 * @param enabled
+	 * @param accountNonExpired
+	 * @param credentialsNonExpired
+	 * @param accountNonLocked
+	 * @param authorities
+	 * @param userId
+	 */
 	public DtoCustomUser(String username, String password, boolean enabled,
 			boolean accountNonExpired, boolean credentialsNonExpired,
 			boolean accountNonLocked,

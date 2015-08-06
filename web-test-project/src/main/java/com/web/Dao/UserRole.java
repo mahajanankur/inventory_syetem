@@ -11,6 +11,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+/**
+ * @author ankur
+ *
+ */
 @Entity
 @Table(name = "user_role")
 @NamedQuery(name = "userRole", query = "select u from UserRole u")
@@ -25,7 +29,7 @@ public class UserRole {
 	private String	role;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_name", nullable = false)
+	@JoinColumn(name = "user_id", nullable = false)
 	private Users	user;
 
 	/**
@@ -75,7 +79,6 @@ public class UserRole {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
