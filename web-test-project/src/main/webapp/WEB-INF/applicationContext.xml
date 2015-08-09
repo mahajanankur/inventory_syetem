@@ -91,5 +91,26 @@
 		</property>
 	</bean>
 
+	<!-- Configuration for javax-mail api - START -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="ankurmahajan009@gmail.com" />
+		<property name="password" value="clashofclan" />
+
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtps.debug">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- <bean id="sendMail" class="com.web.util.MailSenderUtil">
+		<property name="mailSender" ref="mailSender" />
+	</bean> -->
+	<!-- Configuration for javax-mail api - END -->
+
 	<bean id="usersService" class="com.web.ServiceImpl.UsersServiceImpl" />
 </beans>

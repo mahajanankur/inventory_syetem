@@ -147,6 +147,20 @@
 			<version>3.1.3.RELEASE</version>
 		</dependency>
 
+		<!-- Java Mail API - START -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-support</artifactId>
+			<version>2.0.8</version>
+		</dependency>
+		<!-- Java Mail API -END -->
+
 	</dependencies>
 
 	<!-- Jetty Server plugin -->
