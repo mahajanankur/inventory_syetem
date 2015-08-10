@@ -122,6 +122,8 @@ body {
 						name="invoice_name" value="Invoice">Invoice</button>
 					<button type="submit" class="btn btn-lg btn-warning"
 						name="analysis_name" value="analysis">Analysis</button>
+					<button type="submit" class="btn btn-lg btn-success"
+						name="email_name" value="email">E-Mail</button>
 				</div>
 			</form>
 

@@ -107,9 +107,9 @@
 		</property>
 	</bean>
 
-	<!-- <bean id="sendMail" class="com.web.util.MailSenderUtil">
+	<bean id="sendMail" class="com.web.util.MailSenderUtil">
 		<property name="mailSender" ref="mailSender" />
-	</bean> -->
+	</bean>
 	<!-- Configuration for javax-mail api - END -->
 
 	<bean id="usersService" class="com.web.ServiceImpl.UsersServiceImpl" />

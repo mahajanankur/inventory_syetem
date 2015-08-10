@@ -44,6 +44,7 @@ import com.web.dto.DtoCustomUser;
 import com.web.dto.DtoInvoice;
 import com.web.jsonAdaptor.ProductAdaptor;
 import com.web.util.CommonUtil;
+import com.web.util.MailSenderUtil;
 
 /**
  * @author ankur
@@ -54,6 +55,9 @@ public class WelcomeController {
 
 	@Autowired
 	private UsersServiceImpl	serviceImpl;
+
+	@Autowired
+	private MailSenderUtil mailUtil;
 
 	private static final Logger	logger	= LoggerFactory
 												.getLogger(WelcomeController.class);
@@ -166,7 +170,8 @@ public class WelcomeController {
 			@RequestParam(value = "stock_name", required = false, defaultValue = "") String stock,
 			@RequestParam(value = "vendor_name", required = false, defaultValue = "") String vendor,
 			@RequestParam(value = "invoice_name", required = false) String invoice,
-			@RequestParam(value = "analysis_name", required = false) String analysis) {
+			@RequestParam(value = "analysis_name", required = false) String analysis,
+			@RequestParam(value = "email_name", required = false) String email) {
 
 		String url = null;
 		int sessionId = 0;
@@ -202,6 +207,11 @@ public class WelcomeController {
 		} else if (analysis != null && analysis.equalsIgnoreCase("analysis")) {
 			System.out.println("Analysis Button pressed !!!");
 			url = "redirect:/analysis";
+		} else if (email != null && email.equalsIgnoreCase(email)) {
+			System.out.println("E-Mail Button pressed !!!");
+			mailUtil.sendMail("mahajanankur.nith@gmail.com",
+					"ankur.mahajan@atos.net", "Test Mail Functionality",
+					"SUCCESSFULL !!!!!!");
 		}
 		return url;
 

@@ -22,7 +22,7 @@ public class MailSenderUtil {
 	 * @param subject
 	 * @param message
 	 */
-	private void sendMail(String from, String to, String subject, String message) {
+	public void sendMail(String from, String to, String subject, String message) {
 
 		SimpleMailMessage mailMessage = new SimpleMailMessage();
 		mailMessage.setFrom(from);
