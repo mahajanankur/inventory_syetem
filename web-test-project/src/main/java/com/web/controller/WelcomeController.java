@@ -57,7 +57,7 @@ public class WelcomeController {
 	private UsersServiceImpl	serviceImpl;
 
 	@Autowired
-	private MailSenderUtil mailUtil;
+	private MailSenderUtil		mailUtil;
 
 	private static final Logger	logger	= LoggerFactory
 												.getLogger(WelcomeController.class);
@@ -66,7 +66,8 @@ public class WelcomeController {
 	public String login() {
 		logger.debug("In login() method.");
 		// TODO - return "forward:/nc/testMap";
-		return "Login";
+		// return "Login";
+		return "Index";
 	}
 
 	/**
@@ -209,8 +210,8 @@ public class WelcomeController {
 			url = "redirect:/analysis";
 		} else if (email != null && email.equalsIgnoreCase(email)) {
 			System.out.println("E-Mail Button pressed !!!");
-			mailUtil.sendMail("mahajanankur.nith@gmail.com",
-					"ankur.mahajan@atos.net", "Test Mail Functionality",
+			mailUtil.sendMail("ankurmahajan009@gmail.com",
+					"mahajanankur.nith@gmail.com", "Test Mail Functionality",
 					"SUCCESSFULL !!!!!!");
 		}
 		return url;
