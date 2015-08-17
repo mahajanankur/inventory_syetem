@@ -72,9 +72,8 @@ a:hover,a:focus {
 	text-decoration: none;
 }
 
-#home {
-	background:
-		url('#{request.contextPath}/resources/images/forIndex/bg1.jpg');
+/* #home {
+	background: url("/resources/images/forIndex/bg1.jpg");
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -83,8 +82,7 @@ a:hover,a:focus {
 	min-height: 710px;
 	padding-top: 60px;
 	color: #ffffff;
-}
-
+} */
 #home a.down-btn span.fa.fa-angle-down {
 	font-size: 26px;
 	border: 1px solid #c59a6d;
@@ -136,16 +134,102 @@ keyframes blink { 0% {
 50%
 {
 opacity
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 :
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 0;
- 
 }
 100%
 {
 opacity
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 :
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 1;
- 
 }
 }
 @
@@ -156,16 +240,102 @@ opacity
 50%
 {
 opacity
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 :
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 0;
- 
 }
 100%
 {
 opacity
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 :
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 1;
- 
 }
 }
 @
@@ -176,16 +346,102 @@ opacity
 50%
 {
 opacity
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 :
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 0;
- 
 }
 100%
 {
 opacity
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 :
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 1;
- 
 }
 }
 span.typed-cursor {
@@ -286,15 +542,14 @@ a.down-btn span.fa.fa-angle-down {
 	margin-top: 30px;
 }
 
-#overview-video {
-	background: url(resources/images/forIndex/bg2.jpg);
+/* #overview-video {
+	background: url("resources/images/forIndex/bg2.jpg");
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
 	background-attachment: scroll;
 	text-align: center;
-}
-
+} */
 #overview-video .overlay {
 	background: rgba(34, 34, 34, 0.85);
 	height: auto;
@@ -463,15 +718,14 @@ a.btn.send-btn:hover {
 	color: #ffffff;
 }
 
-#clients {
-	background: url(resources/images/forIndex/bg3.jpg);
+/* #clients {
+	background: url("/resources/images/forIndex/bg3.jpg");
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	text-align: center;
-}
-
+} */
 #clients .overlay {
 	background: rgba(34, 34, 34, 0.85);
 	height: auto;
@@ -528,15 +782,14 @@ ul.clients li {
 	margin: 0 auto;
 }
 
-#testimonials {
+/* #testimonials {
 	background: url(/resources/images/forIndex/bg4.jpg);
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
 	background-attachment: scroll;
 	text-align: center;
-}
-
+} */
 #testimonials .overlay {
 	background: rgba(34, 34, 34, 0.85);
 	height: auto;
@@ -685,4 +938,40 @@ nav#footer {
 
 #footer a:hover {
 	color: #c59a6d;
+}
+
+/* For Login Model*/
+.login-tab {
+	margin: 0 auto;
+	max-width: 380px;
+}
+
+.login-modal-header {
+	background: #27ae60;
+	color: #fff;
+}
+
+.login-modal-header .modal-title {
+	color: #fff;
+}
+
+.login-modal-header .close {
+	color: #fff;
+}
+
+.login-modal i {
+	color: #000;
+}
+
+.login-modal form {
+	max-width: 340px;
+}
+
+.tab-pane form {
+	margin: 0 auto;
+}
+
+.login-modal-footer {
+	margin-top: 15px;
+	margin-bottom: 15px;
 }

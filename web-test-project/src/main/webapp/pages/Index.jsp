@@ -61,6 +61,51 @@
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/js/forIndex/modernizr.custom.js"></script>
 
+<!-- This is used, because url attribute is not able to read in style.css file. -->
+<style type="text/css">
+#home {
+	background:
+		url("<%=request.getContextPath()%>/resources/images/forIndex/bg1.jpg");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	height: auto;
+	min-height: 710px;
+	padding-top: 60px;
+	color: #ffffff;
+}
+
+#overview-video {
+	background:
+		url("<%=request.getContextPath()%>/resources/images/forIndex/bg2.jpg");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-attachment: scroll;
+	text-align: center;
+}
+
+#clients {
+	background:
+		url("<%=request.getContextPath()%>/resources/images/forIndex/bg3.jpg");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	text-align: center;
+}
+
+#testimonials {
+	background:
+		url("<%=request.getContextPath()%>/resources/images/forIndex/bg4.jpg");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-attachment: scroll;
+	text-align: center;
+}
+</style>
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -208,7 +253,190 @@
 	<!-- Call-to-Action Section -->
 	<div id="cta">
 		<div class="container text-center">
-			<a href="#" class="btn go-to-btn">Check our shop</a>
+
+			<!-- Test Login Functionality. - START -->
+
+			<a class="btn go-to-btn" href="javascript:;" data-toggle="modal"
+				data-target="#loginModal">User</a>
+
+			<!-- -Login Modal -->
+			<div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
+				aria-labelledby="loginModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content login-modal">
+						<div class="modal-header login-modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title text-center" id="loginModalLabel">USER
+								AUTHENTICATION</h4>
+						</div>
+						<div class="modal-body">
+							<div class="text-center">
+								<div role="tabpanel" class="login-tab">
+									<!-- Nav tabs -->
+									<ul class="nav nav-tabs" role="tablist">
+										<li role="presentation" class="active"><a
+											id="signin-taba" href="#login" aria-controls="login"
+											role="tab" data-toggle="tab">Sign In</a></li>
+										<li role="presentation"><a id="signup-taba"
+											href="#profile" aria-controls="profile" role="tab"
+											data-toggle="tab">Sign Up</a></li>
+										<li role="presentation"><a id="forgetpass-taba"
+											href="#forget_password" aria-controls="forget_password"
+											role="tab" data-toggle="tab">Forget Password</a></li>
+									</ul>
+
+									<!-- Tab panes -->
+									<div class="tab-content">
+										<div role="tabpanel" class="tab-pane active text-center"
+											id="login">
+											&nbsp;&nbsp; <span id="login_fail" class="response_error"
+												style="display: none;">Loggin failed, please try
+												again.</span>
+											<div class="clearfix"></div>
+											<form>
+												<div class="form-group">
+													<div class="input-group">
+														<div class="input-group-addon">
+															<i class="fa fa-user"></i>
+														</div>
+														<input type="text" class="form-control"
+															id="login_username" placeholder="Username">
+													</div>
+													<span class="help-block has-error" id="email-error"></span>
+												</div>
+												<div class="form-group">
+													<div class="input-group">
+														<div class="input-group-addon">
+															<i class="fa fa-lock"></i>
+														</div>
+														<input type="password" class="form-control" id="password"
+															placeholder="Password">
+													</div>
+													<span class="help-block has-error" id="password-error"></span>
+												</div>
+												<button type="button" id="login_btn"
+													class="btn btn-block bt-login"
+													data-loading-text="Signing In....">Login</button>
+												<div class="clearfix"></div>
+												<div class="login-modal-footer">
+													<div class="row">
+														<div class="col-xs-8 col-sm-8 col-md-8">
+															<i class="fa fa-lock"></i> <a href="javascript:;"
+																class="forgetpass-tab"> Forgot password? </a>
+
+														</div>
+
+														<div class="col-xs-4 col-sm-4 col-md-4">
+															<i class="fa fa-check"></i> <a href="javascript:;"
+																class="signup-tab"> Sign Up </a>
+														</div>
+													</div>
+												</div>
+											</form>
+										</div>
+										<div role="tabpanel" class="tab-pane" id="profile">
+											&nbsp;&nbsp; <span id="registration_fail"
+												class="response_error" style="display: none;">Registration
+												failed, please try again.</span>
+											<div class="clearfix"></div>
+											<form>
+												<div class="form-group">
+													<div class="input-group">
+														<div class="input-group-addon">
+															<i class="fa fa-user"></i>
+														</div>
+														<input type="text" class="form-control" id="username"
+															placeholder="Username">
+													</div>
+													<span class="help-block has-error" data-error='0'
+														id="username-error"></span>
+												</div>
+												<div class="form-group">
+													<div class="input-group">
+														<div class="input-group-addon">
+															<i class="fa fa-at"></i>
+														</div>
+														<input type="text" class="form-control" id="remail"
+															placeholder="Email">
+													</div>
+													<span class="help-block has-error" data-error='0'
+														id="remail-error"></span>
+												</div>
+												<button type="button" id="register_btn"
+													class="btn btn-block bt-login"
+													data-loading-text="Registering....">Register</button>
+												<div class="clearfix"></div>
+												<div class="login-modal-footer">
+													<div class="row">
+														<div class="col-xs-8 col-sm-8 col-md-8">
+															<i class="fa fa-lock"></i> <a href="javascript:;"
+																class="forgetpass-tab"> Forgot password? </a>
+
+														</div>
+
+														<div class="col-xs-4 col-sm-4 col-md-4">
+															<i class="fa fa-check"></i> <a href="javascript:;"
+																class="signin-tab"> Sign In </a>
+														</div>
+													</div>
+												</div>
+											</form>
+										</div>
+										<div role="tabpanel" class="tab-pane text-center"
+											id="forget_password">
+											&nbsp;&nbsp; <span id="reset_fail" class="response_error"
+												style="display: none;"></span>
+											<div class="clearfix"></div>
+											<form>
+												<div class="form-group">
+													<div class="input-group">
+														<div class="input-group-addon">
+															<i class="fa fa-user"></i>
+														</div>
+														<input type="text" class="form-control" id="femail"
+															placeholder="Email">
+													</div>
+													<span class="help-block has-error" data-error='0'
+														id="femail-error"></span>
+												</div>
+
+												<button type="button" id="reset_btn"
+													class="btn btn-block bt-login"
+													data-loading-text="Please wait....">Forget
+													Password</button>
+												<div class="clearfix"></div>
+												<div class="login-modal-footer">
+													<div class="row">
+														<div class="col-xs-6 col-sm-6 col-md-6">
+															<i class="fa fa-lock"></i> <a href="javascript:;"
+																class="signin-tab"> Sign In </a>
+
+														</div>
+
+														<div class="col-xs-6 col-sm-6 col-md-6">
+															<i class="fa fa-check"></i> <a href="javascript:;"
+																class="signup-tab"> Sign Up </a>
+														</div>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<!-- - Login Model Ends Here -->
+
+			<!-- Test Login Functionality. - END -->
+
 		</div>
 	</div>
 
@@ -352,7 +580,7 @@
 								<img
 									src="<%=request.getContextPath()%>/resources/images/forIndex/team/02.jpg"
 									class="img-responsive img-circle" alt="..."> <br>
-								<h4>Lian Gwapa</h4>
+								<h4>Sunny Leone</h4>
 								<p class="small">CEO/Founder</p>
 								<hr>
 							</div>
@@ -363,7 +591,7 @@
 								<img
 									src="<%=request.getContextPath()%>/resources/images/forIndex/team/04.jpg"
 									class="img-responsive img-circle" alt="..."> <br>
-								<h4>Jenn Pereira</h4>
+								<h4>Messi</h4>
 								<p class="small">Web Coder</p>
 								<hr>
 							</div>
@@ -457,9 +685,9 @@
 			<div class="row">
 				<div class="col-md-3">
 					<address>
-						<strong>Address</strong><br> <br> ThemeForces.Com<br>
-						Igbalangao, Bugasong, Anitque<br> 5704, Philippines<br>
-						Phone: (123) 456-7890
+						<strong>Address</strong><br> <br> ShivaBlast.Com<br>
+						123, Baner, Pune<br> 411045, India<br> Phone: (+91)
+						86007-99099
 						<ul class="social">
 							<li><a href="#"><span class="fa fa-facebook"></span></a></li>
 							<li><a href="#"><span class="fa fa-google-plus"></span></a></li>
@@ -495,9 +723,9 @@
 		<div class="container">
 			<div class="pull-left">
 				<p>
-					2014 © Arcadia. All Rights Reserved. Coded by <a
-						href="https://dribbble.com/jennpereira">Jenn</a> & Designed by <a
-						href="https://dribbble.com/alanpodemski">Alan</a>
+					2015 © ShivaBlast. All Rights Reserved. Coded & Designed by <a
+						href="https://stackoverflow.com/users/3932396/ankur-mahajan?tab=profile">Ankur
+						Mahajan</a>
 				</p>
 			</div>
 			<div class="pull-right">
@@ -526,12 +754,29 @@
 	<script
 		src="<%=request.getContextPath()%>/resources/js/forIndex/typed.js"></script>
 	<script>
+		$(document).ready(function() {
+			$(document).on('click', '.signup-tab', function(e) {
+				e.preventDefault();
+				$('#signup-taba').tab('show');
+			});
+
+			$(document).on('click', '.signin-tab', function(e) {
+				e.preventDefault();
+				$('#signin-taba').tab('show');
+			});
+
+			$(document).on('click', '.forgetpass-tab', function(e) {
+				e.preventDefault();
+				$('#forgetpass-taba').tab('show');
+			});
+		});
 		$(function() {
 			$("#head-title").typed(
 					{
-						strings : [ "We make websites^1000",
-								"24/7 available for hire^1000",
-								"Web design with diffence^1000" ],
+						strings : [
+								"We create dreams, one pixel at a time.^1000",
+								"Navigating YOU to future success.^1000",
+								"A thousand dimensions for web apps.^1000" ],
 						typeSpeed : 100,
 						loop : true,
 						startDelay : 100
