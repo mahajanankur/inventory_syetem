@@ -296,14 +296,16 @@
 												style="display: none;">Loggin failed, please try
 												again.</span>
 											<div class="clearfix"></div>
-											<form>
+											<!-- <form> -->
+											<form action="<c:url value='/j_spring_security_check' />"
+												method='POST'>
 												<div class="form-group">
 													<div class="input-group">
 														<div class="input-group-addon">
 															<i class="fa fa-user"></i>
 														</div>
-														<input type="text" class="form-control"
-															id="login_username" placeholder="Username">
+														<input type="text" class="form-control" name="username"
+															id="username" placeholder="Username">
 													</div>
 													<span class="help-block has-error" id="email-error"></span>
 												</div>
@@ -312,12 +314,12 @@
 														<div class="input-group-addon">
 															<i class="fa fa-lock"></i>
 														</div>
-														<input type="password" class="form-control" id="password"
-															placeholder="Password">
+														<input type="password" class="form-control"
+															name="password" id="password" placeholder="Password">
 													</div>
 													<span class="help-block has-error" id="password-error"></span>
 												</div>
-												<button type="button" id="login_btn"
+												<button type="submit" id="login_btn"
 													class="btn btn-block bt-login"
 													data-loading-text="Signing In....">Login</button>
 												<div class="clearfix"></div>
@@ -580,7 +582,7 @@
 								<img
 									src="<%=request.getContextPath()%>/resources/images/forIndex/team/02.jpg"
 									class="img-responsive img-circle" alt="..."> <br>
-								<h4>Sunny Leone</h4>
+								<h4>Akriti Mahajan</h4>
 								<p class="small">CEO/Founder</p>
 								<hr>
 							</div>
@@ -589,9 +591,9 @@
 						<div class="col-md-4 col-sm-4">
 							<div class="team">
 								<img
-									src="<%=request.getContextPath()%>/resources/images/forIndex/team/04.jpg"
+									src="<%=request.getContextPath()%>/resources/images/forIndex/team/lionel-messi.jpg"
 									class="img-responsive img-circle" alt="..."> <br>
-								<h4>Messi</h4>
+								<h4>Lionel Messi</h4>
 								<p class="small">Web Coder</p>
 								<hr>
 							</div>
@@ -602,7 +604,7 @@
 								<img
 									src="<%=request.getContextPath()%>/resources/images/forIndex/team/03.jpg"
 									class="img-responsive img-circle" alt="..."> <br>
-								<h4>Alan Podemski</h4>
+								<h4>Abhishek Mahajan</h4>
 								<p class="small">Web Designer</p>
 								<hr>
 							</div>
