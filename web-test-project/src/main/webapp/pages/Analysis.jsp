@@ -26,31 +26,26 @@
 <!-- Optional theme -->
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/bootstrap-theme.min.css" />
-<!-- Jquery data table CSS Library -->
-<link rel="stylesheet"
-	href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css" />
 <!-- jQuery UI -css -->
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/jquery-ui.css" />
 
-
 <!-- Bootstrap and Jquery CSS Library - End-->
-
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) - Start-->
 <script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	src="<%=request.getContextPath()%>/resources/js/jquery.1.11.1.js"></script>
 
 <!-- jQuery UI (necessary for Bootstrap's JavaScript plugins) - Start-->
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/js/jquery-ui.min.js"></script>
 
 <!-- Bootstrap.min.js -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+		src="<%=request.getContextPath()%>/resources/js/bootstrap.min.js"></script>
 <!-- BootstrapValidator JS Library -->
 <script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
+	src="<%=request.getContextPath()%>/resources/js/bootstrapValidator.min.js"></script>
 <!-- Jquery data table JS Library -->
 <script type="text/javascript"
 	src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
