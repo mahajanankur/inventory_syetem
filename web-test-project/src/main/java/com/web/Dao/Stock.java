@@ -4,12 +4,16 @@
 package com.web.Dao;
 
 import java.sql.Timestamp;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -23,28 +27,26 @@ public class Stock {
 
 	@Id
 	@Column(name = "stock_id")
-	private int			stockId;
+	private int						stockId;
 
-	@Column(name = "cat_id")
-	private int			catId;
+	@Column(name = "stock_name")
+	private String					stockName;
 
-	@Column(name = "sub_cat_id")
-	private int			subCatId;
+	@Column(name = "vendor_id")
+	private int						vendorId;
 
-	@Column(name = "product_id")
-	private int			productId;
+	@Column(name = "user_id")
+	private int						userId;
 
-	@Column(name = "product_name")
-	private String		productName;
-
-	@Column(name = "stock_in")
-	private int			stockIn;
-
-	@Column(name = "stock_out")
-	private int			soldStock;
+	@Column(name = "total_quantities")
+	private int						stockIn;
 
 	@Column(name = "created_on")
-	private Timestamp	createdOn;
+	private Timestamp				createdOn;
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "stock_id", nullable = false)
+	private Set<PerProductStock>	perProductStock;
 
 	/**
 	 * @return the stockId
@@ -62,63 +64,48 @@ public class Stock {
 	}
 
 	/**
-	 * @return the catId
+	 * @return the stockName
 	 */
-	public int getCatId() {
-		return catId;
+	public String getStockName() {
+		return stockName;
 	}
 
 	/**
-	 * @param catId
-	 *            the catId to set
+	 * @param stockName
+	 *            the stockName to set
 	 */
-	public void setCatId(int catId) {
-		this.catId = catId;
+	public void setStockName(String stockName) {
+		this.stockName = stockName;
 	}
 
 	/**
-	 * @return the subCatId
+	 * @return the vendorId
 	 */
-	public int getSubCatId() {
-		return subCatId;
+	public int getVendorId() {
+		return vendorId;
 	}
 
 	/**
-	 * @param subCatId
-	 *            the subCatId to set
+	 * @param vendorId
+	 *            the vendorId to set
 	 */
-	public void setSubCatId(int subCatId) {
-		this.subCatId = subCatId;
+	public void setVendorId(int vendorId) {
+		this.vendorId = vendorId;
 	}
 
 	/**
-	 * @return the productId
+	 * @return the userId
 	 */
-	public int getProductId() {
-		return productId;
+	public int getUserId() {
+		return userId;
 	}
 
 	/**
-	 * @param productId
-	 *            the productId to set
+	 * @param userId
+	 *            the userId to set
 	 */
-	public void setProductId(int productId) {
-		this.productId = productId;
-	}
-
-	/**
-	 * @return the productName
-	 */
-	public String getProductName() {
-		return productName;
-	}
-
-	/**
-	 * @param productName
-	 *            the productName to set
-	 */
-	public void setProductName(String productName) {
-		this.productName = productName;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	/**
@@ -137,21 +124,6 @@ public class Stock {
 	}
 
 	/**
-	 * @return the soldStock
-	 */
-	public int getSoldStock() {
-		return soldStock;
-	}
-
-	/**
-	 * @param soldStock
-	 *            the soldStock to set
-	 */
-	public void setSoldStock(int soldStock) {
-		this.soldStock = soldStock;
-	}
-
-	/**
 	 * @return the createdOn
 	 */
 	public Timestamp getCreatedOn() {
@@ -166,16 +138,31 @@ public class Stock {
 		this.createdOn = createdOn;
 	}
 
+	/**
+	 * @return the perProductStock
+	 */
+	public Set<PerProductStock> getPerProductStock() {
+		return perProductStock;
+	}
+
+	/**
+	 * @param perProductStock
+	 *            the perProductStock to set
+	 */
+	public void setPerProductStock(Set<PerProductStock> perProductStock) {
+		this.perProductStock = perProductStock;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Stock [stockId=" + stockId + ", catId=" + catId + ", subCatId="
-				+ subCatId + ", productId=" + productId + ", productName="
-				+ productName + ", stockIn=" + stockIn
-				+ ", soldStock=" + soldStock + ", createdOn=" + createdOn + "]";
+		return "Stock [stockId=" + stockId + ", stockName=" + stockName
+				+ ", vendorId=" + vendorId + ", userId=" + userId
+				+ ", stockIn=" + stockIn + ", createdOn=" + createdOn
+				+ ", perProductStock=" + perProductStock + "]";
 	}
 
 }
