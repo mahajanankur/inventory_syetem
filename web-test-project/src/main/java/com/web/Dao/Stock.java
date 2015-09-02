@@ -46,7 +46,7 @@ public class Stock {
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "stock_id", nullable = false)
-	private Set<PerProductStock>	perProductStock;
+	private Set<ProductWiseStock>	perProductStock;
 
 	/**
 	 * @return the stockId
@@ -141,7 +141,7 @@ public class Stock {
 	/**
 	 * @return the perProductStock
 	 */
-	public Set<PerProductStock> getPerProductStock() {
+	public Set<ProductWiseStock> getPerProductStock() {
 		return perProductStock;
 	}
 
@@ -149,20 +149,8 @@ public class Stock {
 	 * @param perProductStock
 	 *            the perProductStock to set
 	 */
-	public void setPerProductStock(Set<PerProductStock> perProductStock) {
+	public void setPerProductStock(Set<ProductWiseStock> perProductStock) {
 		this.perProductStock = perProductStock;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Stock [stockId=" + stockId + ", stockName=" + stockName
-				+ ", vendorId=" + vendorId + ", userId=" + userId
-				+ ", stockIn=" + stockIn + ", createdOn=" + createdOn
-				+ ", perProductStock=" + perProductStock + "]";
 	}
 
 }

@@ -121,8 +121,8 @@ body {
 								<c:forEach items="${pListByQuantity}" var="product">
 									<li class="news-item">
 										<p>
-											<b>${product.productName},</b> only <b>${product.quantity}</b> pieces
-											are left in the stock.
+											<b>${product.productName},</b> only <b>${product.quantity}</b>
+											pieces are left in the stock.
 										</p>
 									</li>
 								</c:forEach>
@@ -158,14 +158,12 @@ body {
 							<!-- FORM Content - Start-->
 
 							<div class="form-group">
-								<label for="subCategory" class="control-label">Category</label>
-								<select class="form-control" name="category" id="category">
-									<option value="">--Please select category--</option>
-									<c:if test="${not empty productCategoryList}">
-										<c:forEach items="${productCategoryList}"
-											var="productCategory">
-											<option id="catOptionId"
-												value="${productCategory.pCatrgoryId}">${productCategory.pCategoryName}</option>
+								<label for="vendor" class="control-label">Vendor:</label> <select
+									class="form-control" name="vendor" id="vendor">
+									<option value="">--Please select Vendor--</option>
+									<c:if test="${not empty vendorList}">
+										<c:forEach items="${vendorList}" var="vendor">
+											<option id="vendorOptionId" value="${vendor.vendorId}">${vendor.company}</option>
 										</c:forEach>
 									</c:if>
 
@@ -173,26 +171,13 @@ body {
 							</div>
 
 							<div class="container">
-								<p id="helpSubCat" class="help-block" style="color: orange;"></p>
+								<p id="helpVendor" class="help-block" style="color: orange;"></p>
 							</div>
 
 							<div class="form-group">
-								<label for="subCategory" class="control-label">Sub
-									Category</label> <select class="form-control" name="subCategory"
-									id="subCategory">
-									<option value="">--Please select sub-category--</option>
-								</select>
-							</div>
-
-							<div class="container">
-								<p id="helpProduct" class="help-block" style="color: orange;"></p>
-							</div>
-
-							<div class="form-group">
-								<label for="product" class="control-label">Product</label> <select
-									class="form-control" name="product" id="product">
-									<option value="">--Please select product--</option>
-								</select>
+								<label for="stockName" class="control-label">Stock Name:</label>
+								<input type="text" class="form-control" name="stockname"
+									id="stockname" placeholder="Name">
 							</div>
 
 							<div class="form-group">
@@ -220,16 +205,17 @@ body {
 	<br>
 	<!--Product wise stock availability Table - Start -->
 	<div class="container">
-		<form action="stockAvailByProductFormAction"
-			id="stockAvailByProductForm" method="post">
+		<form action="stockTableFormAction"
+			id="stockTableForm" method="post">
 			<div class="table-responsive">
 				<table id="stockTable" class="display table" width="100%">
 					<thead>
 						<tr>
 							<th>Stock ID</th>
-							<th>Product Name</th>
+							<th>Stock Name</th>
 							<th>Stock Received</th>
 							<th>Received On</th>
+							<th>Vendor ID</th>
 							<th>Action</th>
 						</tr>
 					</thead>
@@ -238,15 +224,16 @@ body {
 							<c:forEach items="${stockList}" var="stock">
 								<tr>
 									<td>${stock.stockId}</td>
-									<td>${stock.productName}</td>
+									<td>${stock.stockName}</td>
 									<td>${stock.stockIn}</td>
 									<td>${stock.createdOn}</td>
+									<td>${stock.vendorId}</td>
 									<td>
 										<!-- See category Action button -->
-										<button type="submit" class="btn btn-primary" id="seeDetails"
-											name="seeDetailsName"
-											value="${productCategory.pCatrgoryId} seeButton"
-											data-toggle="tooltip" data-placement="bottom" title="See">
+										<button type="submit" class="btn btn-primary" id="productWiseStock"
+											name="productWiseStock"
+											value="${stock.vendorId}|${stock.stockId}|productWiseStock"
+											data-toggle="tooltip" data-placement="bottom" title="ProductWiseStock">
 											<span class="glyphicon glyphicon-eye-open"></span>
 										</button> <!-- Remove category Action button -->
 										<button type="submit" class="btn btn-primary"

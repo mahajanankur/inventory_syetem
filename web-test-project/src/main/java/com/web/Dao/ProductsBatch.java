@@ -10,8 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.web.enums.StockStatus;
-
 /**
  * @author ankur
  * 
@@ -37,14 +35,14 @@ public class ProductsBatch {
 	@Column(name = "stock_id")
 	private int			stockId;
 
-	@Column(name = "product_id")
-	private int			productId;
+	// @Column(name = "product_id")
+	// private int productId;
 
 	@Column(name = "product_name")
-	private String		productName;
+	private int			productName;
 
 	@Column(name = "status")
-	private StockStatus	status;
+	private String		status;
 
 	@Column(name = "sold_on")
 	private Timestamp	soldOn;
@@ -128,51 +126,6 @@ public class ProductsBatch {
 	}
 
 	/**
-	 * @return the productId
-	 */
-	public int getProductId() {
-		return productId;
-	}
-
-	/**
-	 * @param productId
-	 *            the productId to set
-	 */
-	public void setProductId(int productId) {
-		this.productId = productId;
-	}
-
-	/**
-	 * @return the productName
-	 */
-	public String getProductName() {
-		return productName;
-	}
-
-	/**
-	 * @param productName
-	 *            the productName to set
-	 */
-	public void setProductName(String productName) {
-		this.productName = productName;
-	}
-
-	/**
-	 * @return the status
-	 */
-	public StockStatus getStatus() {
-		return status;
-	}
-
-	/**
-	 * @param status
-	 *            the status to set
-	 */
-	public void setStatus(StockStatus status) {
-		this.status = status;
-	}
-
-	/**
 	 * @return the soldOn
 	 */
 	public Timestamp getSoldOn() {
@@ -202,17 +155,34 @@ public class ProductsBatch {
 		this.clientId = clientId;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see java.lang.Object#toString()
+	/**
+	 * @return the productName
 	 */
-	@Override
-	public String toString() {
-		return "ProductsBatch [batchId=" + batchId + ", manfDate=" + manfDate
-				+ ", expiryDate=" + expiryDate + ", vendorId=" + vendorId
-				+ ", stockId=" + stockId + ", productId=" + productId
-				+ ", productName=" + productName + ", status=" + status
-				+ ", soldOn=" + soldOn + ", clientId=" + clientId + "]";
+	public int getProductName() {
+		return productName;
+	}
+
+	/**
+	 * @param productName
+	 *            the productName to set
+	 */
+	public void setProductName(int productName) {
+		this.productName = productName;
+	}
+
+	/**
+	 * @return the status
+	 */
+	public String getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status
+	 *            the status to set
+	 */
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

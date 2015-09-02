@@ -1040,9 +1040,8 @@ public class WelcomeController {
 	public String redirectToStockList(Model model,
 			@ModelAttribute(value = "popUpMessage") String popUpMessage) {
 		System.out.println("redirected to Stock List page !!");
-		// category list
-		List<ProductCategory> productCategoryList = serviceImpl
-				.getProductCategoryList();
+		// vendor list
+		List<Vendors> vendorList = serviceImpl.getVendorList();
 		// stock list
 		List<Stock> stockList = serviceImpl.getStockList();
 		// product list according to quantity range here range is hard coded to
@@ -1051,7 +1050,7 @@ public class WelcomeController {
 				.getProductListByQuantity(10);
 
 		model.addAttribute("stockList", stockList);
-		model.addAttribute("productCategoryList", productCategoryList);
+		model.addAttribute("vendorList", vendorList);
 		model.addAttribute("pListByQuantity", pListByQuantity);
 
 		return "StockList";
@@ -1071,17 +1070,14 @@ public class WelcomeController {
 	 */
 	@RequestMapping(value = "/createStockFormAction", method = RequestMethod.POST)
 	public String submitCreateStockPopUp(RedirectAttributes redirectAttributes,
-			@RequestParam(value = "category") int catId,
-			@RequestParam(value = "subCategory") int subCatId,
-			@RequestParam(value = "product") String pDetails,
+			HttpSession session, @RequestParam(value = "vendor") int vendorId,
+			@RequestParam(value = "stockname") String stockName,
 			@RequestParam(value = "quantity") int quantity) {
 		System.out.println("create stock pop up submitted !!");
-		String[] split = pDetails.split("\\|");
-		int productId = Integer.parseInt(split[0]);
-		String productName = split[1];
-
-		String message = serviceImpl.createStock(catId, subCatId, productId,
-				productName, quantity);
+		int userId = Integer.parseInt(session.getAttribute("sessionId")
+				.toString());
+		String message = serviceImpl.createStock(vendorId, stockName, quantity,
+				userId);
 		redirectAttributes.addFlashAttribute("popUpMessage", message);
 		return "redirect:/stockList";
 	}
@@ -1424,4 +1420,22 @@ public class WelcomeController {
 
 		return "redirect:/analysis";
 	}
+
+	// NEW FUNCTIONALITIES - START
+
+	@RequestMapping(value = "/stockTableFormAction", method = RequestMethod.POST)
+	public String stockTableFormAction(
+			@RequestParam(value = "productWiseStock", required = false) String productWiseStock) {
+		if (productWiseStock != null && !productWiseStock.equals("")) {
+			String[] split = productWiseStock.split("\\|");
+			int vendorId = Integer.parseInt(split[0]);
+			int stockId = Integer.parseInt(split[1]);
+			
+			
+		} else {
+			System.out.println("Other Buttons are pressed !!");
+		}
+		return null;
+	}
+	// NEW FUNCTIONALITIES - END
 }

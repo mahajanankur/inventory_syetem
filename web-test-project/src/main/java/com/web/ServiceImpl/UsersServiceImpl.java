@@ -29,7 +29,7 @@ import com.web.dto.DtoInvoice;
 
 /**
  * @author ankur
- *
+ * 
  */
 public class UsersServiceImpl {
 
@@ -578,29 +578,29 @@ public class UsersServiceImpl {
 	 * This method is used to create stock and also it will update the quantity
 	 * field in product table according to new stock.
 	 * 
-	 * @param catId
-	 * @param subCatId
-	 * @param productId
-	 * @param productName
+	 * @param vendorId
+	 * @param stockName
 	 * @param quantity
-	 * @return successMessage
+	 * @param userId
+	 * @return success message
 	 */
-	public String createStock(int catId, int subCatId, int productId,
-			String productName, int quantity) {
+	public String createStock(int vendorId, String stockName, int quantity,
+			int userId) {
 		EntityManager em = this.entityManager.createEntityManager();
 		em.getTransaction().begin();
 		// to update quantity in product table.
 		boolean fromCreateStock = true;
-		this.updateProductById(productId, null, null, null, null, null, null,
-				null, null, quantity, null, fromCreateStock, null, null);
+		// CHECK THIS !!!!
+
+		// this.updateProductById(productId, null, null, null, null, null, null,
+		// null, null, quantity, null, fromCreateStock, null, null);
 		// for stock table
 		Stock stock = new Stock();
 
-		stock.setCatId(catId);
-		stock.setSubCatId(subCatId);
-		stock.setProductId(productId);
-		stock.setProductName(productName);
+		stock.setVendorId(vendorId);
+		stock.setStockName(stockName);
 		stock.setStockIn(quantity);
+		stock.setUserId(userId);
 
 		em.persist(stock);
 		em.getTransaction().commit();
@@ -1011,4 +1011,5 @@ public class UsersServiceImpl {
 
 		return totalStock;
 	}
+
 }
