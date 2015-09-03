@@ -4,13 +4,13 @@
 package com.web.Dao;
 
 import java.sql.Timestamp;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -44,9 +44,10 @@ public class Stock {
 	@Column(name = "created_on")
 	private Timestamp				createdOn;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "stock_id", nullable = false)
-	private Set<ProductWiseStock>	perProductStock;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "stock")
+	// @OneToMany(cascade = CascadeType.ALL)
+	// @JoinColumn(name = "stock_id", nullable = false)
+	private List<ProductWiseStock>	productWiseStock;
 
 	/**
 	 * @return the stockId
@@ -139,18 +140,18 @@ public class Stock {
 	}
 
 	/**
-	 * @return the perProductStock
+	 * @return the productWiseStock
 	 */
-	public Set<ProductWiseStock> getPerProductStock() {
-		return perProductStock;
+	public List<ProductWiseStock> getProductWiseStock() {
+		return productWiseStock;
 	}
 
 	/**
-	 * @param perProductStock
-	 *            the perProductStock to set
+	 * @param productWiseStock
+	 *            the productWiseStock to set
 	 */
-	public void setPerProductStock(Set<ProductWiseStock> perProductStock) {
-		this.perProductStock = perProductStock;
+	public void setProductWiseStock(List<ProductWiseStock> productWiseStock) {
+		this.productWiseStock = productWiseStock;
 	}
 
 }

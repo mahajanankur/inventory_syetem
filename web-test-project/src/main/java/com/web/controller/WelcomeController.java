@@ -33,6 +33,7 @@ import com.web.Dao.Clients;
 import com.web.Dao.Invoice;
 import com.web.Dao.InvoiceDetail;
 import com.web.Dao.ProductCategory;
+import com.web.Dao.ProductWiseStock;
 import com.web.Dao.Products;
 import com.web.Dao.Stock;
 import com.web.Dao.SubProductCategory;
@@ -1425,16 +1426,44 @@ public class WelcomeController {
 
 	@RequestMapping(value = "/stockTableFormAction", method = RequestMethod.POST)
 	public String stockTableFormAction(
+			Model model,
 			@RequestParam(value = "productWiseStock", required = false) String productWiseStock) {
+		String url = null;
 		if (productWiseStock != null && !productWiseStock.equals("")) {
 			String[] split = productWiseStock.split("\\|");
 			int vendorId = Integer.parseInt(split[0]);
 			int stockId = Integer.parseInt(split[1]);
-			
-			
+			// getProductsLinkedToAVendor List by vendor id
+			List<VendorProducts> pLinked = serviceImpl
+					.getProductsLinkedToVendor(vendorId);
+			model.addAttribute("pLinkedList", pLinked);
+			model.addAttribute("vendorId", vendorId);
+			model.addAttribute("stockId", stockId);
+			// get product-wise stock details for a particular stock.
+			Stock sDetails = serviceImpl.getStockByStockId(stockId);
+			if (sDetails != null) {
+				List<ProductWiseStock> pWSList = sDetails.getProductWiseStock();
+				model.addAttribute("productWiseStockList", pWSList);
+			}
+			url = "ProductWiseStock";
 		} else {
 			System.out.println("Other Buttons are pressed !!");
 		}
+		return url;
+	}
+
+	@RequestMapping(value = "/createProductWiseStockPopUpAction", method = RequestMethod.POST)
+	public String submitCreateProductWiseStockPopUp(Model model,
+			@RequestParam(value = "product") String pDetails,
+			@RequestParam(value = "quantity") int quantity,
+			@RequestParam(value = "vendorId") int vendorId,
+			@RequestParam(value = "stockId") int stockId) {
+
+		String[] split = pDetails.split("\\|");
+		int pId = Integer.parseInt(split[0]);
+		String pName = split[1];
+		String message = serviceImpl.createProductWiseStock(pId, pName,
+				quantity, vendorId, stockId);
 		return null;
 	}
 	// NEW FUNCTIONALITIES - END

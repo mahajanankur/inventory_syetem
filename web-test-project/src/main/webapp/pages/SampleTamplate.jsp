@@ -24,7 +24,7 @@
 	href="<%=request.getContextPath()%>/resources/css/bootstrap-theme.min.css" />
 <!-- Jquery data table CSS Library -->
 <link rel="stylesheet"
-	href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css" />
+	href="<%=request.getContextPath()%>/resources/css/jquery.dataTables.min.css" />
 
 
 <!-- Bootstrap and Jquery CSS Library - End-->
@@ -66,7 +66,9 @@ body {
 		<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
 			<div class="container">
 				<div class="navbar-header">
-					<a href="home" class="navbar-brand"><img class="img-circle" alt="Shiva Blast" src="<%=request.getContextPath()%>/resources/images/logo.png"></a>
+					<a href="home" class="navbar-brand"><img class="img-circle"
+						alt="Shiva Blast"
+						src="<%=request.getContextPath()%>/resources/images/logo.png"></a>
 				</div>
 
 				<div class="collpase navbar-collpase" id="collpase">

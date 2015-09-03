@@ -18,6 +18,7 @@ import com.web.Dao.Invoice;
 import com.web.Dao.InvoiceDetail;
 import com.web.Dao.ProductCategory;
 import com.web.Dao.ProductSpecifications;
+import com.web.Dao.ProductWiseStock;
 import com.web.Dao.Products;
 import com.web.Dao.Stock;
 import com.web.Dao.SubProductCategory;
@@ -589,7 +590,7 @@ public class UsersServiceImpl {
 		EntityManager em = this.entityManager.createEntityManager();
 		em.getTransaction().begin();
 		// to update quantity in product table.
-		boolean fromCreateStock = true;
+		// boolean fromCreateStock = true;
 		// CHECK THIS !!!!
 
 		// this.updateProductById(productId, null, null, null, null, null, null,
@@ -1010,6 +1011,36 @@ public class UsersServiceImpl {
 		em.close();
 
 		return totalStock;
+	}
+
+	public Stock getStockByStockId(int stockId) {
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
+		Stock sDetails = em.find(Stock.class, stockId);
+		em.close();
+		return sDetails;
+	}
+
+	public String createProductWiseStock(int pId, String pName, int quantity,
+			int vendorId, int stockId) {
+
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
+
+		ProductWiseStock productWiseStock = new ProductWiseStock();
+		productWiseStock.setProductId(pId);
+		productWiseStock.setProductName(pName);
+		productWiseStock.setPpQuantities(quantity);
+		productWiseStock.setVendorId(vendorId);
+
+		// /Stock object
+		Stock stock = new Stock();
+		stock.setStockId(stockId);
+		productWiseStock.setStock(stock);
+		em.persist(productWiseStock);
+		em.getTransaction().commit();
+		em.close();
+		return "Product-Wise Stock entry has been created successfully.";
 	}
 
 }

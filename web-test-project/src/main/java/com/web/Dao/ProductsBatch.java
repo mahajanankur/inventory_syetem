@@ -3,11 +3,15 @@ package com.web.Dao;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -21,34 +25,35 @@ public class ProductsBatch {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "batch_id")
-	private int			batchId;
+	private int					batchId;
 
 	@Column(name = "manf_date")
-	private Date		manfDate;
+	private Date				manfDate;
 
 	@Column(name = "expiry_date")
-	private Date		expiryDate;
+	private Date				expiryDate;
 
 	@Column(name = "vendor_id")
-	private int			vendorId;
+	private int					vendorId;
 
 	@Column(name = "stock_id")
-	private int			stockId;
+	private int					stockId;
 
-	// @Column(name = "product_id")
-	// private int productId;
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "product_id")
+	private ProductWiseStock	productWiseStock;
 
 	@Column(name = "product_name")
-	private int			productName;
+	private int					productName;
 
 	@Column(name = "status")
-	private String		status;
+	private String				status;
 
 	@Column(name = "sold_on")
-	private Timestamp	soldOn;
+	private Timestamp			soldOn;
 
 	@Column(name = "client_id")
-	private int			clientId;
+	private int					clientId;
 
 	/**
 	 * @return the batchId
@@ -183,6 +188,21 @@ public class ProductsBatch {
 	 */
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	/**
+	 * @return the productWiseStock
+	 */
+	public ProductWiseStock getProductWiseStock() {
+		return productWiseStock;
+	}
+
+	/**
+	 * @param productWiseStock
+	 *            the productWiseStock to set
+	 */
+	public void setProductWiseStock(ProductWiseStock productWiseStock) {
+		this.productWiseStock = productWiseStock;
 	}
 
 }

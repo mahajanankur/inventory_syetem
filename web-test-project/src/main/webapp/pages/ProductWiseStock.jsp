@@ -9,7 +9,7 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Create Product Category</title>
+<title>Title??</title>
 
 
 <!-- Bootstrap and Jquery CSS Library - Start-->
@@ -24,11 +24,9 @@
 	href="<%=request.getContextPath()%>/resources/css/bootstrap-theme.min.css" />
 <!-- Jquery data table CSS Library -->
 <link rel="stylesheet"
-	href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css" />
-
+	href="<%=request.getContextPath()%>/resources/css/jquery.dataTables.min.css" />
 
 <!-- Bootstrap and Jquery CSS Library - End-->
-
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) - Start-->
 <script
@@ -45,13 +43,9 @@
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) - End-->
 
-<!-- Bootstrap NewsBox Script -->
-<script type="text/javascript"
-	src="<%=request.getContextPath()%>/resources/js/jquery.bootstrap.newsbox.min.js"></script>
-
-<!-- StockList Script -->
-<script type="text/javascript"
-	src="<%=request.getContextPath()%>/resources/js/pagesJS/StockList.js"></script>
+<!-- Manual Script -->
+<%-- <%=request.getContextPath()%> --%>
+<script type="text/javascript" src="/resources/js/manualScript.js"></script>
 
 <style>
 body {
@@ -76,15 +70,14 @@ body {
 				</div>
 
 				<div class="collpase navbar-collpase" id="collpase">
-					<!-- Create stock Modal Button to Trigger Modal - Start -->
+					<!-- Create product wise stock Modal Button to Trigger Modal - Start -->
 					<button type="button"
 						class="btn btn-warning navbar-btn navbar-right"
-						data-toggle="modal" data-target="#stockModal">Stock
-						Management</button>
-					<!-- Create stock Modal Button to Trigger Modal - End -->
+						data-toggle="modal" data-target="#createProductWiseStock">Create
+						ProductWise Stock</button>
+					<!-- Create product wise stock Modal Button to Trigger Modal - End -->
 
 					<p class="text-center text-primary">Welcome: ${username}</p>
-
 				</div>
 			</div>
 		</div>
@@ -93,7 +86,7 @@ body {
 	<!-- Jumbotron - Start-->
 	<div class="jumbotron">
 		<div class="container">
-			<h3>Please manage your stock here.</h3>
+			<h3>Please fill required details for product wise stock.</h3>
 			<p class="text-center text-danger">${redirectAttribute}</p>
 
 			<!-- Pop up submission parameter -->
@@ -104,90 +97,45 @@ body {
 	</div>
 	<!-- Jumbotron - End-->
 
-
-	<!-- News Ticker for showing product having less quantity - START-->
-
-	<div class="container">
-		<div class="row">
-
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<span class="glyphicon glyphicon-list-alt"></span><b>News</b>
-				</div>
-				<div class="panel-body">
-					<div class="row">
-						<ul class="stockNewsTicker">
-							<c:if test="${not empty pListByQuantity}">
-								<c:forEach items="${pListByQuantity}" var="product">
-									<li class="news-item">
-										<p>
-											<b>${product.productName},</b> only <b>${product.quantity}</b>
-											pieces are left in the stock.
-										</p>
-									</li>
-								</c:forEach>
-							</c:if>
-						</ul>
-					</div>
-				</div>
-				<div class="panel-footer">Less stock Products.</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- News Ticker for showing product having less quantity - END-->
-
-
-	<!--  Modal (Create Stock Pop Up View and Form) - Start-->
+	<!--  Modal (Create product wise stock Pop Up View and Form) - Start-->
 
 	<div class="container">
+
 		<!-- Modal HTML -->
-		<div id="stockModal" class="modal fade">
+		<div id="createProductWiseStock" class="modal fade">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-hidden="true">&times;</button>
-						<h4 class="modal-title text-danger">Create Stock</h4>
+						<h4 class="modal-title text-danger">Create Product-Wise Stock</h4>
 					</div>
 
-					<form action="createStockFormAction" id="createStockPopUpForm"
-						method="post">
+					<form action="createProductWiseStockPopUpAction"
+						id="createProductWiseStockPopUpForm" method="post">
 						<div class="modal-body">
 
-							<!-- FORM Content - Start-->
-
 							<div class="form-group">
-								<label for="vendor" class="control-label">Vendor:</label> <select
-									class="form-control" name="vendor" id="vendor">
-									<option value="">--Please select Vendor--</option>
-									<c:if test="${not empty vendorList}">
-										<c:forEach items="${vendorList}" var="vendor">
-											<option id="vendorOptionId" value="${vendor.vendorId}">${vendor.company}</option>
+								<label for="product" class="control-label">Product Name:</label>
+								<select class="form-control" name="product" id="product">
+									<option value="">--Please select Product--</option>
+									<c:if test="${not empty pLinkedList}">
+										<c:forEach items="${pLinkedList}" var="pLinked">
+											<option id="pLinkedOptionId"
+												value="${pLinked.productId}|${pLinked.productName}">${pLinked.productName}</option>
 										</c:forEach>
 									</c:if>
-
 								</select>
 							</div>
 
-							<div class="container">
-								<p id="helpVendor" class="help-block" style="color: orange;"></p>
-							</div>
-
 							<div class="form-group">
-								<label for="stockName" class="control-label">Stock Name:</label>
-								<input type="text" class="form-control" name="stockname"
-									id="stockname" placeholder="Name">
+								<label for="quantity" class="control-label">Quantity
+									Received:</label> <input type="text" class="form-control"
+									name="quantity" id="quantity" placeholder="Quantity Received">
 							</div>
 
-							<div class="form-group">
-								<label for="quantity" class="control-label">Quantity:</label> <input
-									type="text" class="form-control" id="quantity" name="quantity"
-									placeholder="Quantity Received">
-							</div>
-
-							<!-- FORM Content - End-->
-
+							<input type="hidden" name="vendorId" value="${vendorId}" /> <input
+								type="hidden" name="stockId" value="${stockId}" />
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
@@ -199,49 +147,51 @@ body {
 			</div>
 		</div>
 	</div>
-
-	<!--  Modal (Create Stock Pop Up View and Form) - End-->
+	<!--  Modal (Create product wise stock Pop Up View and Form) - End-->
 
 	<br>
-	<!--Stock Entry Table - Start -->
+	<!--Product-Wise Stock Entry Table - Start -->
 	<div class="container">
-		<form action="stockTableFormAction"
-			id="stockTableForm" method="post">
+		<form action="productWiseStockTableFormAction"
+			id="productWiseStockTableForm" method="post">
 			<div class="table-responsive">
-				<table id="stockTable" class="display table" width="100%">
+				<table id="productWiseStockTable" class="display table" width="100%">
 					<thead>
 						<tr>
-							<th>Stock ID</th>
-							<th>Stock Name</th>
-							<th>Stock Received</th>
-							<th>Received On</th>
+							<th>PP ID</th>
+							<th>Product ID</th>
+							<th>Product Name</th>
+							<th>Quantity</th>
 							<th>Vendor ID</th>
+							<th>Stock ID</th>
 							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:if test="${not empty stockList}">
-							<c:forEach items="${stockList}" var="stock">
+						<c:if test="${not empty productWiseStockList}">
+							<c:forEach items="${productWiseStockList}" var="productWiseStock">
 								<tr>
-									<td>${stock.stockId}</td>
-									<td>${stock.stockName}</td>
-									<td>${stock.stockIn}</td>
-									<td>${stock.createdOn}</td>
-									<td>${stock.vendorId}</td>
+									<td>${productWiseStock.ppId}</td>
+									<td>${productWiseStock.productId}</td>
+									<td>${productWiseStock.productName}</td>
+									<td>${productWiseStock.ppQuantities}</td>
+									<td>${productWiseStock.vendorId}</td>
+									<td>${productWiseStock.stock}</td>
 									<td>
-										<!-- See category Action button -->
-										<button type="submit" class="btn btn-primary" id="productWiseStock"
-											name="productWiseStock"
+										<!-- See Action button -->
+										<button type="submit" class="btn btn-primary"
+											id="productWiseStock" name="productWiseStock"
 											value="${stock.vendorId}|${stock.stockId}|productWiseStock"
-											data-toggle="tooltip" data-placement="bottom" title="ProductWiseStock">
+											data-toggle="tooltip" data-placement="bottom"
+											title="ProductWiseStock">
 											<span class="glyphicon glyphicon-eye-open"></span>
-										</button> <!-- Remove category Action button -->
+										</button> <!-- Remove Action button -->
 										<button type="submit" class="btn btn-primary"
 											id="removeCategory" name="removeCategoryName"
 											value="${productCategory.pCatrgoryId} removeButton"
 											data-toggle="tooltip" data-placement="bottom" title="Remove">
 											<span class="glyphicon glyphicon-remove"></span>
-										</button> <!-- Update category Action button -->
+										</button> <!-- Update Action button -->
 										<button type="submit" class="btn btn-primary"
 											id="updateCategory" name="updateCategoryName"
 											value="${productCategory.pCatrgoryId} updateButton"
@@ -258,7 +208,7 @@ body {
 			</div>
 		</form>
 	</div>
-	<!--Stock Entry Table - End -->
+	<!--Product-Wise Stock Entry Table - End -->
 
 	<footer>
 
@@ -274,5 +224,42 @@ body {
 		</div>
 	</footer>
 
+	<script type="text/javascript">
+		$(document)
+				.ready(
+						function() {
+							// function for productWiseStockTable view.
+							$('#productWiseStockTable').dataTable();
+
+							// validations for remove product popup form.
+							$('#removeProductCategoryPopUpForm')
+									.bootstrapValidator(
+											{
+												framework : 'bootstrap',
+												icon : {
+													valid : 'glyphicon glyphicon-ok',
+													invalid : 'glyphicon glyphicon-remove',
+													validating : 'glyphicon glyphicon-refresh'
+												},
+												fields : {
+													pCatId_name : {
+														row : '.col-xs-4',
+														validators : {
+															notEmpty : {
+																message : 'The product category ID is required.'
+															},
+															regexp : {
+																regexp : /^\d*$/,
+																message : 'The product category ID should be integer only.'
+															}
+
+														}
+
+													}
+												}
+											});
+
+						});
+	</script>
 </body>
 </html>

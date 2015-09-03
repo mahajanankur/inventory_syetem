@@ -1,14 +1,16 @@
 package com.web.Dao;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -17,7 +19,9 @@ import javax.persistence.Table;
  * 
  */
 @Entity
-@Table(name = "per_product_stock")
+@Table(name = "product_wise_stock")
+// @NamedQueries({ @NamedQuery(name = "productWiseStockByStockId", query =
+// "SELECT p FROM ProductWiseStock p WHERE p.") })
 public class ProductWiseStock {
 
 	@Id
@@ -37,12 +41,12 @@ public class ProductWiseStock {
 	@Column(name = "vendor_id")
 	private int					vendorId;
 
-	// @Column(name = "stock_id")
-	// private int stockId;
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "stock_id")
+	private Stock				stock;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "product_id", nullable = false)
-	private Set<ProductsBatch>	productsBatch;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "productWiseStock")
+	private List<ProductsBatch>	productsBatch;
 
 	/**
 	 * @return the ppId
@@ -120,9 +124,24 @@ public class ProductWiseStock {
 	}
 
 	/**
+	 * @return the stock
+	 */
+	public Stock getStock() {
+		return stock;
+	}
+
+	/**
+	 * @param stock
+	 *            the stock to set
+	 */
+	public void setStock(Stock stock) {
+		this.stock = stock;
+	}
+
+	/**
 	 * @return the productsBatch
 	 */
-	public Set<ProductsBatch> getProductsBatch() {
+	public List<ProductsBatch> getProductsBatch() {
 		return productsBatch;
 	}
 
@@ -130,7 +149,7 @@ public class ProductWiseStock {
 	 * @param productsBatch
 	 *            the productsBatch to set
 	 */
-	public void setProductsBatch(Set<ProductsBatch> productsBatch) {
+	public void setProductsBatch(List<ProductsBatch> productsBatch) {
 		this.productsBatch = productsBatch;
 	}
 
