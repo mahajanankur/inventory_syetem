@@ -1436,15 +1436,15 @@ public class WelcomeController {
 			// getProductsLinkedToAVendor List by vendor id
 			List<VendorProducts> pLinked = serviceImpl
 					.getProductsLinkedToVendor(vendorId);
+			// get product-wise stock details for a particular stock for table.
+			List<ProductWiseStock> pwStock = serviceImpl
+					.getProductWiseStockByStockId(stockId);
+
 			model.addAttribute("pLinkedList", pLinked);
 			model.addAttribute("vendorId", vendorId);
 			model.addAttribute("stockId", stockId);
-			// get product-wise stock details for a particular stock.
-			Stock sDetails = serviceImpl.getStockByStockId(stockId);
-			if (sDetails != null) {
-				List<ProductWiseStock> pWSList = sDetails.getProductWiseStock();
-				model.addAttribute("productWiseStockList", pWSList);
-			}
+			model.addAttribute("productWiseStockList", pwStock);
+
 			url = "ProductWiseStock";
 		} else {
 			System.out.println("Other Buttons are pressed !!");
@@ -1454,16 +1454,26 @@ public class WelcomeController {
 
 	@RequestMapping(value = "/createProductWiseStockPopUpAction", method = RequestMethod.POST)
 	public String submitCreateProductWiseStockPopUp(Model model,
-			@RequestParam(value = "product") String pDetails,
-			@RequestParam(value = "quantity") int quantity,
 			@RequestParam(value = "vendorId") int vendorId,
-			@RequestParam(value = "stockId") int stockId) {
+			@RequestParam(value = "stockId") int stockId,
+			@RequestParam(value = "json") String tableData) {
 
-		String[] split = pDetails.split("\\|");
-		int pId = Integer.parseInt(split[0]);
-		String pName = split[1];
-		String message = serviceImpl.createProductWiseStock(pId, pName,
-				quantity, vendorId, stockId);
+		//convert json to a list of specific objects.
+		Gson gson = new Gson();
+		JsonParser jParser = new JsonParser();
+		JsonArray jArray = jParser.parse(tableData).getAsJsonArray();
+
+		ArrayList<DtoInvoice> iList = new ArrayList<DtoInvoice>();
+
+		for (JsonElement jElement : jArray) {
+			DtoInvoice invoice = gson.fromJson(jElement, DtoInvoice.class);
+			iList.add(invoice);
+		}
+		// To remove header and footer information of table.
+		iList.remove(0);
+		iList.remove(0);
+		// String message = serviceImpl.createProductWiseStock(pId, pName,
+		// quantity, vendorId, stockId);
 		return null;
 	}
 	// NEW FUNCTIONALITIES - END

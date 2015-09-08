@@ -4,16 +4,12 @@
 package com.web.Dao;
 
 import java.sql.Timestamp;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -27,27 +23,22 @@ public class Stock {
 
 	@Id
 	@Column(name = "stock_id")
-	private int						stockId;
+	private int			stockId;
 
 	@Column(name = "stock_name")
-	private String					stockName;
+	private String		stockName;
 
 	@Column(name = "vendor_id")
-	private int						vendorId;
+	private int			vendorId;
 
 	@Column(name = "user_id")
-	private int						userId;
+	private int			userId;
 
 	@Column(name = "total_quantities")
-	private int						stockIn;
+	private int			stockIn;
 
 	@Column(name = "created_on")
-	private Timestamp				createdOn;
-
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "stock")
-	// @OneToMany(cascade = CascadeType.ALL)
-	// @JoinColumn(name = "stock_id", nullable = false)
-	private List<ProductWiseStock>	productWiseStock;
+	private Timestamp	createdOn;
 
 	/**
 	 * @return the stockId
@@ -137,21 +128,6 @@ public class Stock {
 	 */
 	public void setCreatedOn(Timestamp createdOn) {
 		this.createdOn = createdOn;
-	}
-
-	/**
-	 * @return the productWiseStock
-	 */
-	public List<ProductWiseStock> getProductWiseStock() {
-		return productWiseStock;
-	}
-
-	/**
-	 * @param productWiseStock
-	 *            the productWiseStock to set
-	 */
-	public void setProductWiseStock(List<ProductWiseStock> productWiseStock) {
-		this.productWiseStock = productWiseStock;
 	}
 
 }

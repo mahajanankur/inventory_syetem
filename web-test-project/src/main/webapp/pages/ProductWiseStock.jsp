@@ -41,6 +41,10 @@
 <script type="text/javascript"
 	src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 
+<!-- jQuery Table to JSON Script -->
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/resources/js/jquery.tabletojson.min.js"></script>
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) - End-->
 
 <!-- Manual Script -->
@@ -134,13 +138,47 @@ body {
 									name="quantity" id="quantity" placeholder="Quantity Received">
 							</div>
 
-							<input type="hidden" name="vendorId" value="${vendorId}" /> <input
-								type="hidden" name="stockId" value="${stockId}" />
+							<input type="hidden" id="vendorId" name="vendorId"
+								value="${vendorId}" /> <input type="hidden" id="stockId"
+								name="stockId" value="${stockId}" />
 						</div>
+						<div class="container">
+							<button type="button" id="addRow">Add New Row</button>
+							<button type="button" id="deleteRow">Delete Selected Row</button>
+							<br> <br>
+							<table id="pwsModalTable"
+								class="table table-striped table-bordered"
+								style="width: 50%; margin-left: 0px;">
+								<thead>
+									<tr>
+										<th>Product</th>
+										<th>Quantity</th>
+										<th>PID</th>
+										<th>Vendor ID</th>
+										<th>Stock ID</th>
+									</tr>
+								</thead>
+
+								<tfoot>
+									<tr>
+										<th>Product</th>
+										<th>Quantity</th>
+										<th>PID</th>
+										<th>Vendor ID</th>
+										<th>Stock ID</th>
+									</tr>
+								</tfoot>
+								<tbody>
+								</tbody>
+							</table>
+							<input type="hidden" class="form-control" id="jsonData"
+								name="json">
+						</div>
+
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal">Cancel</button>
-							<button type="submit" class="btn btn-primary">Send</button>
+							<button type="submit" id="submit" class="btn btn-primary">Send</button>
 						</div>
 					</form>
 				</div>
@@ -176,7 +214,7 @@ body {
 									<td>${productWiseStock.productName}</td>
 									<td>${productWiseStock.ppQuantities}</td>
 									<td>${productWiseStock.vendorId}</td>
-									<td>${productWiseStock.stock}</td>
+									<td>${productWiseStock.stockId}</td>
 									<td>
 										<!-- See Action button -->
 										<button type="submit" class="btn btn-primary"
@@ -257,6 +295,91 @@ body {
 
 													}
 												}
+											});
+
+							// Dynamic table function
+
+							// Add row function
+
+							var vendorId = $('#vendorId').val();
+							var stockId = $('#stockId').val();
+
+							var t = $('#pwsModalTable').DataTable({
+								"columnDefs" : [/*  {
+									"targets" : [ 2 ],
+									"visible" : false,
+									"searchable" : false
+								},  */{
+									"targets" : [ 3 ],
+									"visible" : false,
+									"searchable" : false
+								}, {
+									"targets" : [ 4 ],
+									"visible" : false,
+									"searchable" : false
+								} ]
+							});
+							$('#addRow').on(
+									'click',
+									function() {
+										// split method for product
+										var product = $('#product').val()
+												.split("|");
+										var pId = product[0];
+										var pName = product[1];
+
+										t.row
+												.add(
+														[
+																pName,
+																$('#quantity')
+																		.val(),
+																pId, vendorId,
+																stockId ])
+												.draw();
+									});
+
+							// Delete row Function
+							$('#pwsModalTable tbody').on(
+									'click',
+									'tr',
+									function() {
+										if ($(this).hasClass('selected')) {
+											$(this).removeClass('selected');
+										} else {
+											t.$('tr.selected').removeClass(
+													'selected');
+											$(this).addClass('selected');
+										}
+									});
+
+							$('#deleteRow').click(function() {
+								t.row('.selected').remove().draw(false);
+
+							});
+
+							// converting all the table data into JSON format and send
+							// it as request in ajax method.
+							$('#submit')
+									.click(
+											function() {
+												var tableData = $(
+														'#pwsModalTable')
+														.tableToJSON(
+																{
+																	headings : [
+																			'productName',
+																			'quantity',
+																			'productId',
+																			'vendorId',
+																			'stockId' ]
+																});
+												// console.log(data);
+												alert(JSON.stringify(tableData));
+												var json = JSON
+														.stringify(tableData);
+												// assign json to a hidden field value.
+												$('#jsonData').val(json);
 											});
 
 						});

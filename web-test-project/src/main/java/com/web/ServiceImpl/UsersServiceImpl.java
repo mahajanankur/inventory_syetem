@@ -1032,15 +1032,25 @@ public class UsersServiceImpl {
 		productWiseStock.setProductName(pName);
 		productWiseStock.setPpQuantities(quantity);
 		productWiseStock.setVendorId(vendorId);
+		productWiseStock.setStockId(stockId);
 
-		// /Stock object
-		Stock stock = new Stock();
-		stock.setStockId(stockId);
-		productWiseStock.setStock(stock);
 		em.persist(productWiseStock);
 		em.getTransaction().commit();
 		em.close();
 		return "Product-Wise Stock entry has been created successfully.";
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<ProductWiseStock> getProductWiseStockByStockId(int stockId) {
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
+		Query query = em.createNamedQuery("productWiseStockByStockId",
+				ProductWiseStock.class);
+		query.setParameter("stockId", stockId);
+		List<ProductWiseStock> pwStockList = query.getResultList();
+
+		em.close();
+		return pwStockList;
 	}
 
 }
