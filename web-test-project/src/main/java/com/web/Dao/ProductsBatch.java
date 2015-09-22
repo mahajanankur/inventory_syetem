@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -16,6 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "product_batch")
+@NamedQueries({ @NamedQuery(name = "batchListLinkedToAStock", query = "SELECT b FROM ProductsBatch b WHERE b.vendorId = :vendorId AND b.stockId = :stockId AND b.productId = :productId") })
 public class ProductsBatch {
 
 	@Id
@@ -39,7 +42,7 @@ public class ProductsBatch {
 	private int			productId;
 
 	@Column(name = "product_name")
-	private int			productName;
+	private String		productName;
 
 	@Column(name = "status")
 	private String		status;
@@ -158,7 +161,7 @@ public class ProductsBatch {
 	/**
 	 * @return the productName
 	 */
-	public int getProductName() {
+	public String getProductName() {
 		return productName;
 	}
 
@@ -166,7 +169,7 @@ public class ProductsBatch {
 	 * @param productName
 	 *            the productName to set
 	 */
-	public void setProductName(int productName) {
+	public void setProductName(String productName) {
 		this.productName = productName;
 	}
 

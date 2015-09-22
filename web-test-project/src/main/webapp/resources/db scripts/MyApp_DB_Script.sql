@@ -239,3 +239,7 @@ ALTER TABLE `MyApp_DB`.`users` CHANGE COLUMN `role` `status` VARCHAR(10) NOT NUL
 
 ALTER TABLE `MyApp_DB`.`users` 
 ADD UNIQUE INDEX `user_name_UNIQUE` (`user_name` ASC) ;
+
+ALTER TABLE `MyApp_New_Release_DB`.`per_product_stock` RENAME TO  `MyApp_New_Release_DB`.`product_wise_stock` ;
+ALTER TABLE `MyApp_New_Release_DB`.`product_batch` DROP COLUMN `product_name` ;
+ALTER TABLE `MyApp_New_Release_DB`.`product_batch` ADD COLUMN `product_name` VARCHAR(45) NOT NULL AFTER `client_id` ;

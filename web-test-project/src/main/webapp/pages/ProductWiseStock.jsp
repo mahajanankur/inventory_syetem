@@ -217,11 +217,11 @@ body {
 									<td>${productWiseStock.stockId}</td>
 									<td>
 										<!-- See Action button -->
-										<button type="submit" class="btn btn-primary"
-											id="productWiseStock" name="productWiseStock"
-											value="${stock.vendorId}|${stock.stockId}|productWiseStock"
+										<button type="submit" class="btn btn-primary" id="seeBatch"
+											name="seeBatch"
+											value="${productWiseStock.vendorId}|${productWiseStock.stockId}|${productWiseStock.productId}|seeButton"
 											data-toggle="tooltip" data-placement="bottom"
-											title="ProductWiseStock">
+											title="See Batch">
 											<span class="glyphicon glyphicon-eye-open"></span>
 										</button> <!-- Remove Action button -->
 										<button type="submit" class="btn btn-primary"
@@ -305,11 +305,7 @@ body {
 							var stockId = $('#stockId').val();
 
 							var t = $('#pwsModalTable').DataTable({
-								"columnDefs" : [/*  {
-									"targets" : [ 2 ],
-									"visible" : false,
-									"searchable" : false
-								},  */{
+								"columnDefs" : [ {
 									"targets" : [ 3 ],
 									"visible" : false,
 									"searchable" : false

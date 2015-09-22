@@ -235,9 +235,9 @@ body {
 				<table id="createProductTable" class="display table" width="100%">
 					<thead>
 						<tr>
-							<th>Product Id</th>
+							<th>Batch Id</th>
 							<th>Name</th>
-							<th>Brand</th>
+							<th>Vendor</th>
 							<th>Price</th>
 							<th>Offer</th>
 							<th>Action</th>

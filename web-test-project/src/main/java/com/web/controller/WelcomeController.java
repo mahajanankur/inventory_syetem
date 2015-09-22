@@ -35,6 +35,7 @@ import com.web.Dao.InvoiceDetail;
 import com.web.Dao.ProductCategory;
 import com.web.Dao.ProductWiseStock;
 import com.web.Dao.Products;
+import com.web.Dao.ProductsBatch;
 import com.web.Dao.Stock;
 import com.web.Dao.SubProductCategory;
 import com.web.Dao.Transaction;
@@ -43,6 +44,7 @@ import com.web.Dao.Vendors;
 import com.web.ServiceImpl.UsersServiceImpl;
 import com.web.dto.DtoCustomUser;
 import com.web.dto.DtoInvoice;
+import com.web.dto.DtoProductWiseStock;
 import com.web.jsonAdaptor.ProductAdaptor;
 import com.web.util.CommonUtil;
 import com.web.util.MailSenderUtil;
@@ -1143,7 +1145,7 @@ public class WelcomeController {
 	 * @return url
 	 */
 	@RequestMapping(value = "/vendorTableFormAction", method = RequestMethod.POST)
-	public String tableActoinOnVendo(
+	public String tableActoinOnVendor(
 			Model model,
 			RedirectAttributes redirectAttributes,
 			@RequestParam(value = "seeVendor", defaultValue = "") String seeButton,
@@ -1458,23 +1460,71 @@ public class WelcomeController {
 			@RequestParam(value = "stockId") int stockId,
 			@RequestParam(value = "json") String tableData) {
 
-		//convert json to a list of specific objects.
+		// convert json to a list of specific objects.
 		Gson gson = new Gson();
 		JsonParser jParser = new JsonParser();
 		JsonArray jArray = jParser.parse(tableData).getAsJsonArray();
 
-		ArrayList<DtoInvoice> iList = new ArrayList<DtoInvoice>();
+		ArrayList<DtoProductWiseStock> pList = new ArrayList<DtoProductWiseStock>();
 
 		for (JsonElement jElement : jArray) {
-			DtoInvoice invoice = gson.fromJson(jElement, DtoInvoice.class);
-			iList.add(invoice);
+			DtoProductWiseStock dto = gson.fromJson(jElement,
+					DtoProductWiseStock.class);
+			// Same for all and dto will take input as string i.e + "" is used.
+			dto.setStockId(stockId + "");
+			dto.setVendorId(vendorId + "");
+
+			pList.add(dto);
 		}
 		// To remove header and footer information of table.
-		iList.remove(0);
-		iList.remove(0);
-		// String message = serviceImpl.createProductWiseStock(pId, pName,
-		// quantity, vendorId, stockId);
-		return null;
+		pList.remove(0);
+		pList.remove(0);
+		// Separate call to create ProductWiseStock entries.
+		String message = null;
+		for (DtoProductWiseStock dto : pList) {
+			int pId = Integer.parseInt(dto.getProductId());
+			int quantity = Integer.parseInt(dto.getQuantity());
+			int vId = Integer.parseInt(dto.getVendorId());
+			int sId = Integer.parseInt(dto.getStockId());
+			message = serviceImpl.createProductWiseStock(pId,
+					dto.getProductName(), quantity, vId, sId);
+		}
+		return "ProductWiseStock";
+	}
+
+	@RequestMapping(value = "/productWiseStockTableFormAction", method = RequestMethod.POST)
+	public String tableActionOnProductWiseStock(
+			Model model,
+			RedirectAttributes redirectAttributes,
+			@RequestParam(value = "seeBatch", defaultValue = "") String seeButton,
+			@RequestParam(value = "removeProductName", defaultValue = "") String removeButton,
+			@RequestParam(value = "updateProductName", defaultValue = "") String updateButton) {
+		String[] split = null;
+		String url = null;
+		boolean seeButtonPressed = seeButton.contains("seeButton");
+		boolean createEnable = false;
+		if (seeButtonPressed) {
+			split = seeButton.split("\\|");
+			int vendorId = Integer.parseInt(split[0]);
+			int stockId = Integer.parseInt(split[1]);
+			int productId = Integer.parseInt(split[2]);
+
+			List<ProductsBatch> pBatchList = serviceImpl
+					.getProductBatchListLinkedToAStock(vendorId, stockId,
+							productId);
+			if (pBatchList != null && !pBatchList.isEmpty()) {
+				model.addAttribute("createEnable", createEnable);
+			} else {
+				createEnable = true;
+				model.addAttribute("createEnable", createEnable);
+				model.addAttribute("pBatchList", pBatchList);
+			}
+			model.addAttribute("pId", productId);
+			model.addAttribute("pName", productId);
+			url = "ProductBatch";
+		}
+
+		return url;
 	}
 	// NEW FUNCTIONALITIES - END
 }

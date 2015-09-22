@@ -20,6 +20,7 @@ import com.web.Dao.ProductCategory;
 import com.web.Dao.ProductSpecifications;
 import com.web.Dao.ProductWiseStock;
 import com.web.Dao.Products;
+import com.web.Dao.ProductsBatch;
 import com.web.Dao.Stock;
 import com.web.Dao.SubProductCategory;
 import com.web.Dao.Transaction;
@@ -1051,6 +1052,23 @@ public class UsersServiceImpl {
 
 		em.close();
 		return pwStockList;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<ProductsBatch> getProductBatchListLinkedToAStock(int vendorId,
+			int stockId, int productId) {
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
+
+		Query query = em.createNamedQuery("batchListLinkedToAStock",
+				ProductsBatch.class);
+		query.setParameter("vendorId", vendorId);
+		query.setParameter("stockId", stockId);
+		query.setParameter("productId", productId);
+		List<ProductsBatch> pBList = query.getResultList();
+
+		em.close();
+		return pBList;
 	}
 
 }
