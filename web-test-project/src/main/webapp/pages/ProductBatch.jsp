@@ -9,8 +9,7 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Title??</title>
-
+<title>Product Batch</title>
 
 <!-- Bootstrap and Jquery CSS Library - Start-->
 <!-- jQuery UI -css -->
@@ -29,9 +28,7 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/jquery.dataTables.min.css" />
 
-
 <!-- Bootstrap and Jquery CSS Library - End-->
-
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) - Start-->
 <script
@@ -53,9 +50,10 @@
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) - End-->
 
-<!-- Manual Script -->
-<%-- <%=request.getContextPath()%> --%>
-<script type="text/javascript" src="/resources/js/manualScript.js"></script>
+<!-- ProductBatch Script -->
+
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/resources/js/pagesJS/ProductBatch.js"></script>
 
 <style>
 body {
@@ -69,7 +67,6 @@ body {
 </style>
 </head>
 <body>
-
 	<header>
 		<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
 			<div class="container">
@@ -80,15 +77,7 @@ body {
 				</div>
 
 				<div class="collpase navbar-collpase" id="collpase">
-					<!-- Create product category Modal Button to Trigger Modal - Start -->
-					<button type="button"
-						class="btn btn-warning navbar-btn navbar-right"
-						data-toggle="modal" data-target="#myCreateModal">Create
-						Category</button>
-					<!-- Create product category Modal Button to Trigger Modal - End -->
-
-					<p class="text-center text-primary">Welcome: ${username}</p>
-
+					<p class="text-right text-primary">Welcome: ${username}</p>
 				</div>
 			</div>
 		</div>
@@ -97,13 +86,11 @@ body {
 	<!-- Jumbotron - Start-->
 	<div class="jumbotron">
 		<div class="container">
-			<h3>Please fill required details for products.</h3>
+			<h3>Please fill required details for product batch.</h3>
 			<p class="text-center text-danger">${redirectAttribute}</p>
 
 			<!-- Pop up submission parameter -->
 			<p class="text-center text-warning">${popUpMessage}</p>
-
-
 		</div>
 	</div>
 	<!-- Jumbotron - End-->
@@ -113,15 +100,15 @@ body {
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="well">
-					<p style="color: red">
+					<p style="color: blue">
 						<b>Product ID : </b> ${pId}
 					</p>
 				</div>
 			</div>
 			<div class="col-sm-6">
 				<div class="well">
-					<p style="color: red">
-						<b>Product Name : </b> ${pId}
+					<p style="color: blue">
+						<b>Product Name : </b> ${pName}
 					</p>
 				</div>
 			</div>
@@ -161,7 +148,6 @@ body {
 										<td>${batch.status}</td>
 										<td>${batch.soldOn}</td>
 										<td>${batch.clientId}</td>
-
 									</tr>
 								</c:forEach>
 							</c:if>
@@ -178,40 +164,27 @@ body {
 
 			<div class="container" id="createBatchList">
 
-
 				<form action="createProductBatchFormAction"
 					id="createProductBatchForm" method="post" class="form-horizontal">
 
-
 					<div class="form-group">
-						<label for="status" class="col-lg-1 control-label">Status</label>
 						<div class="col-lg-4">
-							<select name="status" id="status">
-								<option value="">--Please select the status--</option>
+							<select name="status" id="status" class="form-control">
+								<option value="">----Please select the status----</option>
 								<option value="IN PROCESS">IN PROCESS</option>
 								<option value="AVAILABLE">AVAILABLE</option>
 								<option value="SOLD">SOLD</option>
 							</select>
 						</div>
-					</div>
 
-					<div class="form-group">
-						<label for="manufacture" class="col-lg-1 control-label">Manufacture
-							Date</label>
 						<div class="col-lg-4">
-							<input type="text" id="manufacture" name="manufacture">
+							<input type="text" id="manufacture" name="manufacture"
+								class="form-control" placeholder="Manufacture Date">
 						</div>
-					</div>
 
-					<div class="container">
-						<p id="helpSubCat" class="help-block" style="color: orange;"></p>
-					</div>
-
-					<div class="form-group">
-						<label for="expiry" class="col-lg-1 control-label">Expiry
-							Date</label>
 						<div class="col-lg-4">
-							<input type="text" id="expiry" name="expiry">
+							<input type="text" id="expiry" name="expiry" class="form-control"
+								placeholder="Expiry Date">
 						</div>
 					</div>
 
@@ -239,105 +212,26 @@ body {
 						<tbody>
 						</tbody>
 					</table>
-					<br>
-					<p id="priceSum" class="help-block text-right"></p>
-
+					<br> <input type="hidden" id="quantityRequired" value="${quantity}">
 					<input type="hidden" class="form-control" id="jsonData" name="json">
-
-					<button type="submit" class="btn btn-primary" id="submit">Submit</button>
+					<!-- <button type="submit" class="btn btn-primary" id="submit">Submit</button> -->
+					<button type="button" class="btn btn-primary" id="submit">Submit</button>
 				</form>
-
-
 			</div>
-
-
-
-			<!-- Section for create product batch detail - START -->
+			<!-- Section for create product batch detail - END -->
 		</c:otherwise>
 	</c:choose>
 
 	<footer>
-
 		<div class="container text-center">
 			<ul class="list-inline">
 				<li><a href="http://www.twitter.com/shivablast">Twitter</a></li>
 				<li><a href="http://www.facebook.com/shivablast">Facebook</a></li>
 				<li><a href="http://www.youtube.com/shivablast">YouTube</a></li>
 			</ul>
-
 			<p>&copy; Copyright @ Shiva Blast - 2015</p>
-
 		</div>
 	</footer>
 
-	<script type="text/javascript">
-		$(document)
-				.ready(
-						function() {
-							// function for seeProductBatchTable table view.
-							$('#seeProductBatchTable').dataTable();
-
-							// function for createProductBatchTable table view.
-							$('#createProductBatchTable').dataTable();
-
-							// date pickers
-							$('#manufacture').datepicker(
-									{
-										numberOfMonths : 1,
-										// dateFormat : 'dd/mm/yy',
-										changeMonth : true,
-										changeYear : true,
-										maxDate : -1,
-										onSelect : function(selected) {
-											var dt = new Date(selected);
-											dt.setDate(dt.getDate() + 1);
-											$("#expiry").datepicker("option",
-													"minDate", dt);
-										}
-									});
-							$('#expiry').datepicker(
-									{
-										numberOfMonths : 1,
-										// dateFormat : 'dd/mm/yy',
-										changeMonth : true,
-										changeYear : true,
-										onSelect : function(selected) {
-											var dt = new Date(selected);
-											dt.setDate(dt.getDate() - 1);
-											$("#manufacture").datepicker(
-													"option", "maxDate", dt);
-										}
-									});
-
-							// validations for remove product popup form.
-							$('#removeProductCategoryPopUpForm')
-									.bootstrapValidator(
-											{
-												framework : 'bootstrap',
-												icon : {
-													valid : 'glyphicon glyphicon-ok',
-													invalid : 'glyphicon glyphicon-remove',
-													validating : 'glyphicon glyphicon-refresh'
-												},
-												fields : {
-													pCatId_name : {
-														row : '.col-xs-4',
-														validators : {
-															notEmpty : {
-																message : 'The product category ID is required.'
-															},
-															regexp : {
-																regexp : /^\d*$/,
-																message : 'The product category ID should be integer only.'
-															}
-
-														}
-
-													}
-												}
-											});
-
-						});
-	</script>
 </body>
 </html>

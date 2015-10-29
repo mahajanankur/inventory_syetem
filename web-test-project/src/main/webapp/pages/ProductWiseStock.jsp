@@ -219,7 +219,7 @@ body {
 										<!-- See Action button -->
 										<button type="submit" class="btn btn-primary" id="seeBatch"
 											name="seeBatch"
-											value="${productWiseStock.vendorId}|${productWiseStock.stockId}|${productWiseStock.productId}|seeButton"
+											value="${productWiseStock.vendorId}|${productWiseStock.stockId}|${productWiseStock.productId}|${productWiseStock.productName}|${productWiseStock.ppQuantities}|seeButton"
 											data-toggle="tooltip" data-placement="bottom"
 											title="See Batch">
 											<span class="glyphicon glyphicon-eye-open"></span>

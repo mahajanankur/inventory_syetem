@@ -69,8 +69,8 @@ public class WelcomeController {
 	public String login() {
 		logger.debug("In login() method.");
 		// TODO - return "forward:/nc/testMap";
-		return "Login";
-		// return "Index";
+		// return "Login";
+		return "Index";
 	}
 
 	/**
@@ -1342,54 +1342,6 @@ public class WelcomeController {
 			model.addAttribute("minPCount", minPCount);
 		}
 
-		// // JSON format for Flot Pie chart.
-		// if ((maxSoldProductDetails != null &&
-		// !maxSoldProductDetails.equals(""))
-		// && (minSoldProductDetails != null && !minSoldProductDetails
-		// .equals(""))) {
-		// String other = "Other";
-		// String dataForPie = "[{"
-		// + "label: "
-		// + "\""
-		// + maxPName
-		// + "\""
-		// + ", data: "
-		// + maxPCount
-		// + "},{"
-		// + "label: "
-		// + "\""
-		// + minPName
-		// + "\""
-		// + ", data: "
-		// + minPCount
-		// + "},{"
-		// + "label: "
-		// + "\""
-		// + other
-		// + "\""
-		// + ", data: "
-		// + (Long.parseLong(totalSoldProducts) - (maxPCount + minPCount))
-		// + "}]";
-		//
-		// System.out.println("String : " + dataForPie);
-		//
-		// // JSON Adaptor
-		// List<DtoAnalysisPie> pieDataList = new ArrayList<DtoAnalysisPie>();
-		// pieDataList.add(new DtoAnalysisPie(maxPName, maxPCount));
-		// pieDataList.add(new DtoAnalysisPie(minPName, minPCount));
-		// pieDataList.add(new DtoAnalysisPie("Other", Long
-		// .parseLong(totalSoldProducts) - (maxPCount + minPCount)));
-		//
-		// GsonBuilder gsonBuilder = new GsonBuilder();
-		// Gson pieGson = gsonBuilder.registerTypeAdapter(
-		// DtoAnalysisPie.class, new DtoAnalysisPieAdapter()).create();
-		// String jsonFormat = pieGson.toJson(pieDataList);
-		// System.out.println("JSON Adapter : " + jsonFormat);
-		// model.addAttribute("data", jsonFormat);
-		//
-		// model.addAttribute("data", dataForPie);
-		// }
-
 		return "Analysis";
 	}
 
@@ -1508,7 +1460,8 @@ public class WelcomeController {
 			int vendorId = Integer.parseInt(split[0]);
 			int stockId = Integer.parseInt(split[1]);
 			int productId = Integer.parseInt(split[2]);
-
+			String pName = split[3];
+			int quantity = Integer.parseInt(split[4]);
 			List<ProductsBatch> pBatchList = serviceImpl
 					.getProductBatchListLinkedToAStock(vendorId, stockId,
 							productId);
@@ -1520,7 +1473,8 @@ public class WelcomeController {
 				model.addAttribute("pBatchList", pBatchList);
 			}
 			model.addAttribute("pId", productId);
-			model.addAttribute("pName", productId);
+			model.addAttribute("pName", pName);
+			model.addAttribute("quantity", quantity);
 			url = "ProductBatch";
 		}
 
