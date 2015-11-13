@@ -69,8 +69,8 @@ public class WelcomeController {
 	public String login() {
 		logger.debug("In login() method.");
 		// TODO - return "forward:/nc/testMap";
-		// return "Login";
-		return "Index";
+		return "Login";
+		// return "Index";
 	}
 
 	/**
@@ -1479,6 +1479,12 @@ public class WelcomeController {
 		}
 
 		return url;
+	}
+
+	@RequestMapping(value = "/testFun", method = RequestMethod.GET)
+	public String testUpload(@RequestParam(value = "fileN") String name) {
+		System.out.println(name);
+		return "Hi";
 	}
 	// NEW FUNCTIONALITIES - END
 }

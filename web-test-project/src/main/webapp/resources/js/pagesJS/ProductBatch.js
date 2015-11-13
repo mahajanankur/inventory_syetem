@@ -41,16 +41,19 @@ $(document)
 					// used to
 					// enable or
 					// disable the addRow button according to fields values.
-					$("#status, #manufacture, #expiry").on("keyup", function() {
-						var status = $('#status').val();
-						var manufacture = $('#manufacture').val();
-						var expiry = $('#expiry').val();
-						if (status == "" || manufacture == "" || expiry == "") {
-							$('#addRow').attr('disabled', true);
-						} else {
-							$('#addRow').attr('disabled', false);
-						}
-					});
+					$("#status, #manufacture, #expiry").bind(
+							'keyup change',
+							function() {
+								var status = $('#status').val();
+								var manufacture = $('#manufacture').val();
+								var expiry = $('#expiry').val();
+								if (status == "" || manufacture == ""
+										|| expiry == "") {
+									$('#addRow').attr('disabled', true);
+								} else {
+									$('#addRow').attr('disabled', false);
+								}
+							});
 
 					// Add row function
 					$('#addRow').on('click', function() {

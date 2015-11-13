@@ -27,6 +27,14 @@
 		<property name="basename" value="myApp" />
 	</bean>
 
+	<!-- To utilize Apache Commons FileUpload for handling multipart requests, 
+		we need to configure multipartResolver -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- setting maximum upload size -->
+		<property name="maxUploadSize" value="100000" />
+	</bean>
+
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 	<mvc:default-servlet-handler />
 

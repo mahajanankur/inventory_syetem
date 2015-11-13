@@ -116,6 +116,14 @@ body {
 	</div>
 	<!-- Product Details - END -->
 
+	<!-- Test Function- File upload -START -->
+	<form action="testFun" id="testF">
+		<input type="file" id="file" name="fileN" /> <input type="submit"
+			value="Submit" />
+	</form>
+	<!-- Test Function- File upload -END -->
+
+
 	<!-- Section for see product batch detail - START -->
 	<c:choose>
 		<c:when test="${not createEnable}">
@@ -212,8 +220,9 @@ body {
 						<tbody>
 						</tbody>
 					</table>
-					<br> <input type="hidden" id="quantityRequired" value="${quantity}">
-					<input type="hidden" class="form-control" id="jsonData" name="json">
+					<br> <input type="hidden" id="quantityRequired"
+						value="${quantity}"> <input type="hidden"
+						class="form-control" id="jsonData" name="json">
 					<!-- <button type="submit" class="btn btn-primary" id="submit">Submit</button> -->
 					<button type="button" class="btn btn-primary" id="submit">Submit</button>
 				</form>
