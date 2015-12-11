@@ -57,20 +57,20 @@ import com.web.util.MailSenderUtil;
 public class WelcomeController {
 
 	@Autowired
-	private UsersServiceImpl	serviceImpl;
+	private UsersServiceImpl serviceImpl;
 
 	@Autowired
-	private MailSenderUtil		mailUtil;
+	private MailSenderUtil mailUtil;
 
-	private static final Logger	logger	= LoggerFactory
-												.getLogger(WelcomeController.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(WelcomeController.class);
 
 	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
 	public String login() {
 		logger.debug("In login() method.");
 		// TODO - return "forward:/nc/testMap";
-		return "Login";
-		// return "Index";
+		// return "Login";
+		return "Index";
 	}
 
 	/**
