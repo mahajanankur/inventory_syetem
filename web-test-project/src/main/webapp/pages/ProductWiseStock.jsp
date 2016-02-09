@@ -101,6 +101,16 @@ body {
 	</div>
 	<!-- Jumbotron - End-->
 
+	<!-- Test Function- File upload -START -->
+	<div class="container">
+		<form action="fileUpload" id="fileUpload" method="post"
+			enctype="multipart/form-data">
+			<input type="file" id="file" name="file" /> <input type="submit"
+				value="Submit" />
+		</form>
+	</div>
+	<!-- Test Function- File upload -END -->
+
 	<!--  Modal (Create product wise stock Pop Up View and Form) - Start-->
 
 	<div class="container">
@@ -263,122 +273,92 @@ body {
 	</footer>
 
 	<script type="text/javascript">
-		$(document)
-				.ready(
-						function() {
-							// function for productWiseStockTable view.
-							$('#productWiseStockTable').dataTable();
+		$(document).ready(function() {
+			// function for productWiseStockTable view.
+			$('#productWiseStockTable').dataTable();
 
-							// validations for remove product popup form.
-							$('#removeProductCategoryPopUpForm')
-									.bootstrapValidator(
-											{
-												framework : 'bootstrap',
-												icon : {
-													valid : 'glyphicon glyphicon-ok',
-													invalid : 'glyphicon glyphicon-remove',
-													validating : 'glyphicon glyphicon-refresh'
-												},
-												fields : {
-													pCatId_name : {
-														row : '.col-xs-4',
-														validators : {
-															notEmpty : {
-																message : 'The product category ID is required.'
-															},
-															regexp : {
-																regexp : /^\d*$/,
-																message : 'The product category ID should be integer only.'
-															}
+			// validations for remove product popup form.
+			$('#removeProductCategoryPopUpForm').bootstrapValidator({
+				framework : 'bootstrap',
+				icon : {
+					valid : 'glyphicon glyphicon-ok',
+					invalid : 'glyphicon glyphicon-remove',
+					validating : 'glyphicon glyphicon-refresh'
+				},
+				fields : {
+					pCatId_name : {
+						row : '.col-xs-4',
+						validators : {
+							notEmpty : {
+								message : 'The product category ID is required.'
+							},
+							regexp : {
+								regexp : /^\d*$/,
+								message : 'The product category ID should be integer only.'
+							}
 
-														}
+						}
 
-													}
-												}
-											});
+					}
+				}
+			});
 
-							// Dynamic table function
+			// Dynamic table function
 
-							// Add row function
+			// Add row function
 
-							var vendorId = $('#vendorId').val();
-							var stockId = $('#stockId').val();
+			var vendorId = $('#vendorId').val();
+			var stockId = $('#stockId').val();
 
-							var t = $('#pwsModalTable').DataTable({
-								"columnDefs" : [ {
-									"targets" : [ 3 ],
-									"visible" : false,
-									"searchable" : false
-								}, {
-									"targets" : [ 4 ],
-									"visible" : false,
-									"searchable" : false
-								} ]
-							});
-							$('#addRow').on(
-									'click',
-									function() {
-										// split method for product
-										var product = $('#product').val()
-												.split("|");
-										var pId = product[0];
-										var pName = product[1];
+			var t = $('#pwsModalTable').DataTable({
+				"columnDefs" : [ {
+					"targets" : [ 3 ],
+					"visible" : false,
+					"searchable" : false
+				}, {
+					"targets" : [ 4 ],
+					"visible" : false,
+					"searchable" : false
+				} ]
+			});
+			$('#addRow').on('click', function() {
+				// split method for product
+				var product = $('#product').val().split("|");
+				var pId = product[0];
+				var pName = product[1];
 
-										t.row
-												.add(
-														[
-																pName,
-																$('#quantity')
-																		.val(),
-																pId, vendorId,
-																stockId ])
-												.draw();
-									});
+				t.row.add([ pName, $('#quantity').val(), pId, vendorId, stockId ]).draw();
+			});
 
-							// Delete row Function
-							$('#pwsModalTable tbody').on(
-									'click',
-									'tr',
-									function() {
-										if ($(this).hasClass('selected')) {
-											$(this).removeClass('selected');
-										} else {
-											t.$('tr.selected').removeClass(
-													'selected');
-											$(this).addClass('selected');
-										}
-									});
+			// Delete row Function
+			$('#pwsModalTable tbody').on('click', 'tr', function() {
+				if ($(this).hasClass('selected')) {
+					$(this).removeClass('selected');
+				} else {
+					t.$('tr.selected').removeClass('selected');
+					$(this).addClass('selected');
+				}
+			});
 
-							$('#deleteRow').click(function() {
-								t.row('.selected').remove().draw(false);
+			$('#deleteRow').click(function() {
+				t.row('.selected').remove().draw(false);
 
-							});
+			});
 
-							// converting all the table data into JSON format and send
-							// it as request in ajax method.
-							$('#submit')
-									.click(
-											function() {
-												var tableData = $(
-														'#pwsModalTable')
-														.tableToJSON(
-																{
-																	headings : [
-																			'productName',
-																			'quantity',
-																			'productId',
-																			'vendorId',
-																			'stockId' ]
-																});
-												// console.log(data);
-												alert(JSON.stringify(tableData));
-												var json = JSON
-														.stringify(tableData);
-												// assign json to a hidden field value.
-												$('#jsonData').val(json);
-											});
+			// converting all the table data into JSON format and send
+			// it as request in ajax method.
+			$('#submit').click(function() {
+				var tableData = $('#pwsModalTable').tableToJSON({
+					headings : [ 'productName', 'quantity', 'productId', 'vendorId', 'stockId' ]
+				});
+				// console.log(data);
+				alert(JSON.stringify(tableData));
+				var json = JSON.stringify(tableData);
+				// assign json to a hidden field value.
+				$('#jsonData').val(json);
+			});
 
-						});
+		});
 	</script>
 </body>
 </html>

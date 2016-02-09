@@ -1,12 +1,16 @@
 package com.web.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -45,6 +50,7 @@ import com.web.ServiceImpl.UsersServiceImpl;
 import com.web.dto.DtoCustomUser;
 import com.web.dto.DtoInvoice;
 import com.web.dto.DtoProductWiseStock;
+import com.web.dto.DtoStockExcelUpload;
 import com.web.jsonAdaptor.ProductAdaptor;
 import com.web.util.CommonUtil;
 import com.web.util.MailSenderUtil;
@@ -57,13 +63,13 @@ import com.web.util.MailSenderUtil;
 public class WelcomeController {
 
 	@Autowired
-	private UsersServiceImpl serviceImpl;
+	private UsersServiceImpl	serviceImpl;
 
 	@Autowired
-	private MailSenderUtil mailUtil;
+	private MailSenderUtil		mailUtil;
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(WelcomeController.class);
+	private static final Logger	logger	= LoggerFactory
+												.getLogger(WelcomeController.class);
 
 	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
 	public String login() {
@@ -1481,9 +1487,28 @@ public class WelcomeController {
 		return url;
 	}
 
-	@RequestMapping(value = "/testFun", method = RequestMethod.GET)
-	public String testUpload(@RequestParam(value = "fileN") String name) {
-		System.out.println(name);
+	@RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
+	public String fileUpload(
+			@RequestParam(value = "file") MultipartFile multipartFile) {
+		String dataDir = "d://FileUpload";
+		List<DtoStockExcelUpload> dataList = null;
+		// String dateModifed = new Date().toString();
+		String originalFileName = multipartFile.getOriginalFilename();
+		if (originalFileName != null
+				&& (originalFileName.indexOf(".xlsx") > -1)) {
+			File newFile = new File(dataDir, originalFileName);
+			try {
+				FileUtils.writeByteArrayToFile(newFile,
+						multipartFile.getBytes());
+				dataList = CommonUtil.readExcelFile(newFile);
+				Set<DtoStockExcelUpload> set = new LinkedHashSet<DtoStockExcelUpload>();
+				set.addAll(dataList);
+				System.out.println(set);
+				System.out.println(dataList);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		return "Hi";
 	}
 	// NEW FUNCTIONALITIES - END

@@ -101,7 +101,7 @@ body {
 	<div class="jumbotron">
 		<div class="container text-center">
 			<h2>
-				<b><u>Shiva Blast</u> </b>
+				<b><u>Inventory Management</u> </b>
 			</h2>
 			<p>Application for Stock Management</p>
 
@@ -452,8 +452,8 @@ body {
 
 
 					<address>
-						<strong>Shiva Blast Pvt Ltd.</strong></br> Flat No. 1 </br> Baner, Pune-45</br>
-						P: +91 8600799099
+						<strong>Inventory Management Pvt Ltd.</strong></br> Flat No. 1 </br> Bilaspur, Himachal Pradesh</br>
+						P: +91 9882476225
 					</address>
 				</div>
 
@@ -542,7 +542,7 @@ body {
 				<li><a href="http://www.youtube.com/shivablast">YouTube</a></li>
 			</ul>
 
-			<p>&copy; Copyright @ Shiva Blast - 2015</p>
+			<p>&copy; Copyright @ Inventory Management - 2015</p>
 
 		</div>
 		<!-- end Container-->

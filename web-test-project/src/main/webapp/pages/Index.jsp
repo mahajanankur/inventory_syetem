@@ -593,7 +593,7 @@
 								<img
 									src="<%=request.getContextPath()%>/resources/images/forIndex/team/lionel-messi.jpg"
 									class="img-responsive img-circle" alt="..."> <br>
-								<h4>Lionel Messi</h4>
+								<h4>Gaurav Kanwar</h4>
 								<p class="small">Web Coder</p>
 								<hr>
 							</div>
@@ -687,9 +687,9 @@
 			<div class="row">
 				<div class="col-md-3">
 					<address>
-						<strong>Address</strong><br> <br> ShivaBlast.Com<br>
-						123, Baner, Pune<br> 411045, India<br> Phone: (+91)
-						86007-99099
+						<strong>Address</strong><br> <br> InventoryManagement.com<br>
+						123, Bilaspur, Himachal Pradesh<br> 174001, India<br>
+						Phone: (+91) 98824-76225
 						<ul class="social">
 							<li><a href="#"><span class="fa fa-facebook"></span></a></li>
 							<li><a href="#"><span class="fa fa-google-plus"></span></a></li>
@@ -725,9 +725,9 @@
 		<div class="container">
 			<div class="pull-left">
 				<p>
-					2015 © ShivaBlast. All Rights Reserved. Coded & Designed by <a
-						href="https://stackoverflow.com/users/3932396/ankur-mahajan?tab=profile">Ankur
-						Mahajan</a>
+					2015 © InventoryManagement. All Rights Reserved. Coded & Designed by <a
+						href="https://stackoverflow.com/users/3932396/ankur-mahajan?tab=profile">Abhishek
+						Mahajan, Gaurav Kanwar and Pankaj Chauhan</a>
 				</p>
 			</div>
 			<div class="pull-right">
@@ -773,16 +773,12 @@
 			});
 		});
 		$(function() {
-			$("#head-title").typed(
-					{
-						strings : [
-								"We create dreams, one pixel at a time.^1000",
-								"Navigating YOU to future success.^1000",
-								"A thousand dimensions for web apps.^1000" ],
-						typeSpeed : 100,
-						loop : true,
-						startDelay : 100
-					});
+			$("#head-title").typed({
+				strings : [ "We create dreams, one pixel at a time.^1000", "Navigating YOU to future success.^1000", "A thousand dimensions for web apps.^1000" ],
+				typeSpeed : 100,
+				loop : true,
+				startDelay : 100
+			});
 		});
 	</script>
 
