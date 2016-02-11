@@ -4,41 +4,54 @@
 package com.web.Dao;
 
 import java.sql.Timestamp;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- * @author ankur
+ * @author amahajan
  * 
  */
 @Entity
 @Table(name = "stock")
-@NamedQueries({ @NamedQuery(name = "stockList", query = "select s from Stock s") })
+@NamedQueries({
+		@NamedQuery(name = "stockList", query = "select s from Stock s"),
+		@NamedQuery(name = "stockByStockId", query = "select s from Stock s where s.stockId = :stockId") })
 public class Stock {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "stock_id")
-	private int			stockId;
+	private int						stockId;
 
 	@Column(name = "stock_name")
-	private String		stockName;
+	private String					stockName;
 
 	@Column(name = "vendor_id")
-	private int			vendorId;
+	private int						vendorId;
 
 	@Column(name = "user_id")
-	private int			userId;
+	private int						userId;
 
 	@Column(name = "total_quantities")
-	private int			stockIn;
+	private int						stockIn;
 
-	@Column(name = "created_on")
-	private Timestamp	createdOn;
+	@Column(name = "created_on", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	private Timestamp				createdOn;
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "stock_id", nullable = false)
+	private List<ProductWiseStock>	productWiseStock;
 
 	/**
 	 * @return the stockId
@@ -128,6 +141,21 @@ public class Stock {
 	 */
 	public void setCreatedOn(Timestamp createdOn) {
 		this.createdOn = createdOn;
+	}
+
+	/**
+	 * @return the productWiseStock
+	 */
+	public List<ProductWiseStock> getProductWiseStock() {
+		return productWiseStock;
+	}
+
+	/**
+	 * @param productWiseStock
+	 *            the productWiseStock to set
+	 */
+	public void setProductWiseStock(List<ProductWiseStock> productWiseStock) {
+		this.productWiseStock = productWiseStock;
 	}
 
 }

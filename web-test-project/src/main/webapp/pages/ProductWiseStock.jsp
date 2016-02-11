@@ -9,7 +9,7 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Title??</title>
+<title>ProductWise Stock</title>
 
 
 <!-- Bootstrap and Jquery CSS Library - Start-->
@@ -101,16 +101,6 @@ body {
 	</div>
 	<!-- Jumbotron - End-->
 
-	<!-- Test Function- File upload -START -->
-	<div class="container">
-		<form action="fileUpload" id="fileUpload" method="post"
-			enctype="multipart/form-data">
-			<input type="file" id="file" name="file" /> <input type="submit"
-				value="Submit" />
-		</form>
-	</div>
-	<!-- Test Function- File upload -END -->
-
 	<!--  Modal (Create product wise stock Pop Up View and Form) - Start-->
 
 	<div class="container">
@@ -165,7 +155,6 @@ body {
 										<th>Quantity</th>
 										<th>PID</th>
 										<th>Vendor ID</th>
-										<th>Stock ID</th>
 									</tr>
 								</thead>
 
@@ -175,7 +164,6 @@ body {
 										<th>Quantity</th>
 										<th>PID</th>
 										<th>Vendor ID</th>
-										<th>Stock ID</th>
 									</tr>
 								</tfoot>
 								<tbody>
@@ -188,7 +176,9 @@ body {
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal">Cancel</button>
-							<button type="submit" id="submit" class="btn btn-primary">Send</button>
+							<!-- <button type="submit" id="submit" class="btn btn-primary">Send</button> -->
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">Send</button>
 						</div>
 					</form>
 				</div>
@@ -211,7 +201,6 @@ body {
 							<th>Product Name</th>
 							<th>Quantity</th>
 							<th>Vendor ID</th>
-							<th>Stock ID</th>
 							<th>Action</th>
 						</tr>
 					</thead>
@@ -224,12 +213,11 @@ body {
 									<td>${productWiseStock.productName}</td>
 									<td>${productWiseStock.ppQuantities}</td>
 									<td>${productWiseStock.vendorId}</td>
-									<td>${productWiseStock.stockId}</td>
 									<td>
 										<!-- See Action button -->
 										<button type="submit" class="btn btn-primary" id="seeBatch"
 											name="seeBatch"
-											value="${productWiseStock.vendorId}|${productWiseStock.stockId}|${productWiseStock.productId}|${productWiseStock.productName}|${productWiseStock.ppQuantities}|seeButton"
+											value="${productWiseStock.ppId}|${stockId}|${productWiseStock.productId}|${productWiseStock.productName}|seeButton"
 											data-toggle="tooltip" data-placement="bottom"
 											title="See Batch">
 											<span class="glyphicon glyphicon-eye-open"></span>

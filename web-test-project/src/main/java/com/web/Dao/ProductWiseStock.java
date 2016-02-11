@@ -1,12 +1,17 @@
 package com.web.Dao;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -15,28 +20,31 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "product_wise_stock")
-@NamedQueries({ @NamedQuery(name = "productWiseStockByStockId", query = "SELECT p FROM ProductWiseStock p WHERE p.stockId = :stockId") })
+@NamedQueries({ @NamedQuery(name = "productWiseStockByStockId", query = "SELECT p FROM ProductWiseStock p") })
 public class ProductWiseStock {
-
+	// query = "SELECT p FROM ProductWiseStock p WHERE p.stockId = :stockId"
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "pp_id")
-	private int		ppId;
+	private int					ppId;
 
 	@Column(name = "product_id")
-	private int		productId;
+	private int					productId;
 
 	@Column(name = "product_name")
-	private String	productName;
+	private String				productName;
 
 	@Column(name = "pp_quantities")
-	private int		ppQuantities;
+	private int					ppQuantities;
 
 	@Column(name = "vendor_id")
-	private int		vendorId;
+	private int					vendorId;
 
-	@Column(name = "stock_id")
-	private int		stockId;
+	// @Column(name = "stock_id")
+	// private int stockId;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "pp_id", nullable = false)
+	private List<ProductsBatch>	productsBatch;
 
 	/**
 	 * @return the ppId
@@ -114,18 +122,33 @@ public class ProductWiseStock {
 	}
 
 	/**
-	 * @return the stockId
+	 * @return the productsBatch
 	 */
-	public int getStockId() {
-		return stockId;
+	public List<ProductsBatch> getProductsBatch() {
+		return productsBatch;
 	}
 
 	/**
-	 * @param stockId
-	 *            the stockId to set
+	 * @param productsBatch
+	 *            the productsBatch to set
 	 */
-	public void setStockId(int stockId) {
-		this.stockId = stockId;
+	public void setProductsBatch(List<ProductsBatch> productsBatch) {
+		this.productsBatch = productsBatch;
 	}
+
+	/**
+	 * @return the stockId
+	 */
+	// public int getStockId() {
+	// return stockId;
+	// }
+	//
+	// /**
+	// * @param stockId
+	// * the stockId to set
+	// */
+	// public void setStockId(int stockId) {
+	// this.stockId = stockId;
+	// }
 
 }

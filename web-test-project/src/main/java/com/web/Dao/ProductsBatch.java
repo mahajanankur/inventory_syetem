@@ -18,9 +18,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "product_batch")
-@NamedQueries({ @NamedQuery(name = "batchListLinkedToAStock", query = "SELECT b FROM ProductsBatch b WHERE b.vendorId = :vendorId AND b.stockId = :stockId AND b.productId = :productId") })
+@NamedQueries({ @NamedQuery(name = "batchListLinkedToAStock", query = "SELECT b FROM ProductsBatch b") })
 public class ProductsBatch {
-
+	// query =
+	// "SELECT b FROM ProductsBatch b WHERE b.vendorId = :vendorId AND b.stockId = :stockId AND b.productId = :productId")
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "batch_id")
@@ -32,11 +33,11 @@ public class ProductsBatch {
 	@Column(name = "expiry_date")
 	private Date		expiryDate;
 
-	@Column(name = "vendor_id")
-	private int			vendorId;
+	// @Column(name = "vendor_id")
+	// private int vendorId;
 
-	@Column(name = "stock_id")
-	private int			stockId;
+	// @Column(name = "stock_id")
+	// private int stockId;
 
 	@Column(name = "product_id")
 	private int			productId;
@@ -51,7 +52,7 @@ public class ProductsBatch {
 	private Timestamp	soldOn;
 
 	@Column(name = "client_id")
-	private int			clientId;
+	private Integer		clientId;
 
 	/**
 	 * @return the batchId
@@ -101,32 +102,32 @@ public class ProductsBatch {
 	/**
 	 * @return the vendorId
 	 */
-	public int getVendorId() {
-		return vendorId;
-	}
-
-	/**
-	 * @param vendorId
-	 *            the vendorId to set
-	 */
-	public void setVendorId(int vendorId) {
-		this.vendorId = vendorId;
-	}
-
-	/**
-	 * @return the stockId
-	 */
-	public int getStockId() {
-		return stockId;
-	}
-
-	/**
-	 * @param stockId
-	 *            the stockId to set
-	 */
-	public void setStockId(int stockId) {
-		this.stockId = stockId;
-	}
+	// public int getVendorId() {
+	// return vendorId;
+	// }
+	//
+	// /**
+	// * @param vendorId
+	// * the vendorId to set
+	// */
+	// public void setVendorId(int vendorId) {
+	// this.vendorId = vendorId;
+	// }
+	//
+	// /**
+	// * @return the stockId
+	// */
+	// public int getStockId() {
+	// return stockId;
+	// }
+	//
+	// /**
+	// * @param stockId
+	// * the stockId to set
+	// */
+	// public void setStockId(int stockId) {
+	// this.stockId = stockId;
+	// }
 
 	/**
 	 * @return the soldOn
@@ -146,7 +147,7 @@ public class ProductsBatch {
 	/**
 	 * @return the clientId
 	 */
-	public int getClientId() {
+	public Integer getClientId() {
 		return clientId;
 	}
 
@@ -154,7 +155,7 @@ public class ProductsBatch {
 	 * @param clientId
 	 *            the clientId to set
 	 */
-	public void setClientId(int clientId) {
+	public void setClientId(Integer clientId) {
 		this.clientId = clientId;
 	}
 

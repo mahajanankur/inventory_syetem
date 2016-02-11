@@ -580,9 +580,9 @@
 						<div class="col-md-4 col-sm-4">
 							<div class="team">
 								<img
-									src="<%=request.getContextPath()%>/resources/images/forIndex/team/02.jpg"
+									src="<%=request.getContextPath()%>/resources/images/forIndex/team/03.jpg"
 									class="img-responsive img-circle" alt="..."> <br>
-								<h4>Akriti Mahajan</h4>
+								<h4>Abhishek Mahajan</h4>
 								<p class="small">CEO/Founder</p>
 								<hr>
 							</div>
@@ -591,7 +591,7 @@
 						<div class="col-md-4 col-sm-4">
 							<div class="team">
 								<img
-									src="<%=request.getContextPath()%>/resources/images/forIndex/team/lionel-messi.jpg"
+									src="<%=request.getContextPath()%>/resources/images/forIndex/team/01.jpg"
 									class="img-responsive img-circle" alt="..."> <br>
 								<h4>Gaurav Kanwar</h4>
 								<p class="small">Web Coder</p>
@@ -604,7 +604,7 @@
 								<img
 									src="<%=request.getContextPath()%>/resources/images/forIndex/team/03.jpg"
 									class="img-responsive img-circle" alt="..."> <br>
-								<h4>Abhishek Mahajan</h4>
+								<h4>Pankaj Chauhan</h4>
 								<p class="small">Web Designer</p>
 								<hr>
 							</div>

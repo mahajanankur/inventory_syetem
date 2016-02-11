@@ -152,7 +152,7 @@ body {
 					</div>
 
 					<form action="createStockFormAction" id="createStockPopUpForm"
-						method="post">
+						method="post" enctype="multipart/form-data">
 						<div class="modal-body">
 
 							<!-- FORM Content - Start-->
@@ -180,12 +180,15 @@ body {
 									id="stockname" placeholder="Name">
 							</div>
 
-							<div class="form-group">
+							<!-- <div class="form-group">
 								<label for="quantity" class="control-label">Quantity:</label> <input
 									type="text" class="form-control" id="quantity" name="quantity"
 									placeholder="Quantity Received">
+							</div> -->
+							<div class="form-group">
+								<label for="file" class="control-label">Upload Excel:</label> <input
+									type="file" id="file" name="file" class="form-control" />
 							</div>
-
 							<!-- FORM Content - End-->
 
 						</div>
@@ -205,8 +208,7 @@ body {
 	<br>
 	<!--Stock Entry Table - Start -->
 	<div class="container">
-		<form action="stockTableFormAction"
-			id="stockTableForm" method="post">
+		<form action="stockTableFormAction" id="stockTableForm" method="post">
 			<div class="table-responsive">
 				<table id="stockTable" class="display table" width="100%">
 					<thead>
@@ -230,10 +232,11 @@ body {
 									<td>${stock.vendorId}</td>
 									<td>
 										<!-- See category Action button -->
-										<button type="submit" class="btn btn-primary" id="productWiseStock"
-											name="productWiseStock"
+										<button type="submit" class="btn btn-primary"
+											id="productWiseStock" name="productWiseStock"
 											value="${stock.vendorId}|${stock.stockId}|productWiseStock"
-											data-toggle="tooltip" data-placement="bottom" title="ProductWiseStock">
+											data-toggle="tooltip" data-placement="bottom"
+											title="ProductWiseStock">
 											<span class="glyphicon glyphicon-eye-open"></span>
 										</button> <!-- Remove category Action button -->
 										<button type="submit" class="btn btn-primary"

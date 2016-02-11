@@ -125,9 +125,6 @@ body {
 						<thead>
 							<tr>
 								<th>Batch Id</th>
-								<th>Product Name</th>
-								<th>Vendor</th>
-								<th>Stock Id</th>
 								<th>Manufacture</th>
 								<th>Expire</th>
 								<th>Status</th>
@@ -140,9 +137,6 @@ body {
 								<c:forEach items="${pBatchList}" var="batch">
 									<tr>
 										<td>${batch.batchId}</td>
-										<td>${batch.productName}</td>
-										<td>${batch.vendorId}</td>
-										<td>${batch.stockId}</td>
 										<td>${batch.manfDate}</td>
 										<td>${batch.expiryDate}</td>
 										<td>${batch.status}</td>

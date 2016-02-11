@@ -42,6 +42,15 @@
 		<property name="maxWait" value="16000" />
 		<property name="minIdle" value="0" />
 	</bean>
+
+	<!-- For OpenShift -->
+	<!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" 
+		destroy-method="close"> <property name="driverClassName" value="com.mysql.jdbc.Driver" 
+		/> <property name="url" value="jdbc:mysql://127.8.94.130:3306/hp" /> <property 
+		name="username" value="adminGRcacD4" /> <property name="password" value="5hbSg4MnX5l4" 
+		/> <property name="maxActive" value="100" /> <property name="maxIdle" value="30" 
+		/> <property name="maxWait" value="16000" /> <property name="minIdle" value="0" 
+		/> </bean> -->
 	<!-- MySql DB driver - End -->
 
 	<!-- Oracle DB driver - Start -->
@@ -70,7 +79,7 @@
 		</property>
 		<property name="jpaProperties">
 			<props>
-				<prop key="hibernate.hbm2ddl.auto">validate</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
 			</props>
 		</property>
 	</bean>

@@ -10,7 +10,6 @@ import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -1081,12 +1080,31 @@ public class WelcomeController {
 	public String submitCreateStockPopUp(RedirectAttributes redirectAttributes,
 			HttpSession session, @RequestParam(value = "vendor") int vendorId,
 			@RequestParam(value = "stockname") String stockName,
-			@RequestParam(value = "quantity") int quantity) {
+			// @RequestParam(value = "quantity") int quantity,
+			@RequestParam(value = "file") MultipartFile multipartFile) {
 		System.out.println("create stock pop up submitted !!");
 		int userId = Integer.parseInt(session.getAttribute("sessionId")
 				.toString());
-		String message = serviceImpl.createStock(vendorId, stockName, quantity,
-				userId);
+		// TODO - New Function Implementations - Start
+		List<DtoStockExcelUpload> dataList = null;
+		Set<DtoStockExcelUpload> pWiseSet = null;
+		String originalFileName = multipartFile.getOriginalFilename();
+		if (originalFileName != null
+				&& (originalFileName.indexOf(".xlsx") > -1)) {
+			try {
+				File newFile = CommonUtil.convertMultipartToFile(multipartFile);
+				dataList = CommonUtil.readExcelFile(newFile);
+				Set<DtoStockExcelUpload> set = new LinkedHashSet<DtoStockExcelUpload>();
+				set.addAll(dataList);
+				pWiseSet = CommonUtil.relateCollectionData(dataList, set);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		// TODO - New Function Implementations - End
+		String message = serviceImpl.createStock(vendorId, stockName, dataList,
+				pWiseSet, userId);
+
 		redirectAttributes.addFlashAttribute("popUpMessage", message);
 		return "redirect:/stockList";
 	}
@@ -1460,27 +1478,25 @@ public class WelcomeController {
 		String[] split = null;
 		String url = null;
 		boolean seeButtonPressed = seeButton.contains("seeButton");
-		boolean createEnable = false;
+		// boolean createEnable = false;
 		if (seeButtonPressed) {
 			split = seeButton.split("\\|");
-			int vendorId = Integer.parseInt(split[0]);
+			int ppId = Integer.parseInt(split[0]);
 			int stockId = Integer.parseInt(split[1]);
-			int productId = Integer.parseInt(split[2]);
+			int pId = Integer.parseInt(split[2]);
 			String pName = split[3];
-			int quantity = Integer.parseInt(split[4]);
 			List<ProductsBatch> pBatchList = serviceImpl
-					.getProductBatchListLinkedToAStock(vendorId, stockId,
-							productId);
-			if (pBatchList != null && !pBatchList.isEmpty()) {
-				model.addAttribute("createEnable", createEnable);
-			} else {
-				createEnable = true;
-				model.addAttribute("createEnable", createEnable);
-				model.addAttribute("pBatchList", pBatchList);
-			}
-			model.addAttribute("pId", productId);
+					.getProductBatchListLinkedToAStock(stockId, ppId);
+			// if (pBatchList != null && !pBatchList.isEmpty()) {
+			// model.addAttribute("createEnable", createEnable);
+			// } else {
+			// createEnable = true;
+			// model.addAttribute("createEnable", createEnable);
+			// model.addAttribute("pBatchList", pBatchList);
+			// }
+			model.addAttribute("pBatchList", pBatchList);
+			model.addAttribute("pId", pId);
 			model.addAttribute("pName", pName);
-			model.addAttribute("quantity", quantity);
 			url = "ProductBatch";
 		}
 
@@ -1490,16 +1506,17 @@ public class WelcomeController {
 	@RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
 	public String fileUpload(
 			@RequestParam(value = "file") MultipartFile multipartFile) {
-		String dataDir = "d://FileUpload";
+		// String dataDir = "d://FileUpload";
 		List<DtoStockExcelUpload> dataList = null;
 		// String dateModifed = new Date().toString();
 		String originalFileName = multipartFile.getOriginalFilename();
 		if (originalFileName != null
 				&& (originalFileName.indexOf(".xlsx") > -1)) {
-			File newFile = new File(dataDir, originalFileName);
+			// File newFile = new File(dataDir, originalFileName);
 			try {
-				FileUtils.writeByteArrayToFile(newFile,
-						multipartFile.getBytes());
+				File newFile = CommonUtil.convertMultipartToFile(multipartFile);
+				// FileUtils.writeByteArrayToFile(newFile,
+				// multipartFile.getBytes());
 				dataList = CommonUtil.readExcelFile(newFile);
 				Set<DtoStockExcelUpload> set = new LinkedHashSet<DtoStockExcelUpload>();
 				set.addAll(dataList);

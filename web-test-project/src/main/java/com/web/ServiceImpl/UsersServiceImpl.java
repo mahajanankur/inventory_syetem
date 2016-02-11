@@ -28,6 +28,7 @@ import com.web.Dao.Users;
 import com.web.Dao.VendorProducts;
 import com.web.Dao.Vendors;
 import com.web.dto.DtoInvoice;
+import com.web.dto.DtoStockExcelUpload;
 
 /**
  * @author ankur
@@ -1033,7 +1034,7 @@ public class UsersServiceImpl {
 		productWiseStock.setProductName(pName);
 		productWiseStock.setPpQuantities(quantity);
 		productWiseStock.setVendorId(vendorId);
-		productWiseStock.setStockId(stockId);
+		// TODO - productWiseStock.setStockId(stockId);
 
 		em.persist(productWiseStock);
 		em.getTransaction().commit();
@@ -1041,34 +1042,90 @@ public class UsersServiceImpl {
 		return "Product-Wise Stock entry has been created successfully.";
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<ProductWiseStock> getProductWiseStockByStockId(int stockId) {
 		EntityManager em = this.entityManager.createEntityManager();
 		em.getTransaction().begin();
-		Query query = em.createNamedQuery("productWiseStockByStockId",
-				ProductWiseStock.class);
-		query.setParameter("stockId", stockId);
-		List<ProductWiseStock> pwStockList = query.getResultList();
+		Query query = em.createNamedQuery("stockByStockId", Stock.class);
 
+		query.setParameter("stockId", stockId);
+		Stock stock = (Stock) query.getSingleResult();
+		List<ProductWiseStock> pwStockList = stock.getProductWiseStock();
 		em.close();
 		return pwStockList;
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<ProductsBatch> getProductBatchListLinkedToAStock(int vendorId,
-			int stockId, int productId) {
+	public List<ProductsBatch> getProductBatchListLinkedToAStock(int stockId,
+			int ppId) {
 		EntityManager em = this.entityManager.createEntityManager();
 		em.getTransaction().begin();
-
-		Query query = em.createNamedQuery("batchListLinkedToAStock",
-				ProductsBatch.class);
-		query.setParameter("vendorId", vendorId);
+		List<ProductsBatch> result = null;
+		Query query = em.createNamedQuery("stockByStockId", Stock.class);
 		query.setParameter("stockId", stockId);
-		query.setParameter("productId", productId);
-		List<ProductsBatch> pBList = query.getResultList();
+		Stock stock = (Stock) query.getSingleResult();
+		List<ProductWiseStock> pwStockList = stock.getProductWiseStock();
+
+		for (ProductWiseStock pw : pwStockList) {
+			if (ppId == pw.getPpId()) {
+				result = pw.getProductsBatch();
+				break;
+			}
+		}
 
 		em.close();
-		return pBList;
+		return result;
+	}
+
+	public String createStock(int vendorId, String stockName,
+			List<DtoStockExcelUpload> dataList,
+			Set<DtoStockExcelUpload> pWiseSet, int userId) {
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
+		// to update quantity in product table.
+		// boolean fromCreateStock = true;
+		// CHECK THIS !!!!
+
+		// this.updateProductById(productId, null, null, null, null, null, null,
+		// null, null, quantity, null, fromCreateStock, null, null);
+		// for stock table
+		Stock stock = new Stock();
+		List<ProductWiseStock> wiseStockList = new ArrayList<ProductWiseStock>();
+
+		stock.setVendorId(vendorId);
+		stock.setStockName(stockName);
+		stock.setUserId(userId);
+		// set current time stamp.
+		Date date = new Date();
+		stock.setCreatedOn(new Timestamp(date.getTime()));
+		// Set quantity.
+		stock.setStockIn(dataList.size());
+		for (DtoStockExcelUpload wiseData : pWiseSet) {
+			List<ProductsBatch> batchList = new ArrayList<ProductsBatch>();
+			ProductWiseStock wiseStock = new ProductWiseStock();
+			wiseStock.setProductId(wiseData.getProductId());
+			wiseStock.setPpQuantities(wiseData.getProductWiseQuantity());
+			wiseStock.setProductName(wiseData.getProductName());
+			wiseStock.setVendorId(vendorId);
+			for (DtoStockExcelUpload batchData : dataList) {
+				if (batchData.getProductId() == wiseData.getProductId()) {
+					ProductsBatch batch = new ProductsBatch();
+					batch.setExpiryDate(batchData.getExpDate());
+					batch.setManfDate(batchData.getManfDate());
+					batch.setProductId(batchData.getProductId());
+					batch.setProductName(batch.getProductName());
+					batch.setStatus(batchData.getStatus());
+					batchList.add(batch);
+				}
+			}
+			wiseStock.setProductsBatch(batchList);
+			wiseStockList.add(wiseStock);
+		}
+		stock.setProductWiseStock(wiseStockList);
+		em.persist(stock);
+		em.getTransaction().commit();
+		em.close();
+
+		return "Stock entry is successfull.";
+
 	}
 
 }

@@ -21,11 +21,11 @@
 	</bean>
 
 	<!-- viewResolver for property file -->
-	<bean id="viewResolver"
+	<!-- <bean id="viewResolver"
 		class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
 		<property name="order" value="2" />
 		<property name="basename" value="myApp" />
-	</bean>
+	</bean> -->
 
 	<!-- To utilize Apache Commons FileUpload for handling multipart requests, 
 		we need to configure multipartResolver -->
