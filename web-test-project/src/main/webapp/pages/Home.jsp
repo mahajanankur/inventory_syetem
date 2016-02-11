@@ -32,10 +32,10 @@ body {
 	padding-left: 0px;
 }
 
-/* Jumbotron background Image */
+/* Jumbotron background Image BambooSticks.jpg*/
 .bg {
 	background:
-		url('<%=request.getContextPath()%>/resources/images/BambooSticks.jpg')
+		url('<%=request.getContextPath()%>/resources/images/inventory4.jpg')
 		no-repeat center center;
 	position: fixed;
 	width: 100%;
@@ -43,6 +43,7 @@ body {
 	top: 0;
 	left: 0;
 	z-index: -1;
+	background-size: 100% 100%; 
 }
 
 .jumbotron {
@@ -452,8 +453,8 @@ body {
 
 
 					<address>
-						<strong>Inventory Management Pvt Ltd.</strong></br> Flat No. 1 </br> Bilaspur, Himachal Pradesh</br>
-						P: +91 9882476225
+						<strong>Inventory Management Pvt Ltd.</strong></br> Flat No. 1 </br>
+						Bilaspur, Himachal Pradesh</br> P: +91 9882476225
 					</address>
 				</div>
 

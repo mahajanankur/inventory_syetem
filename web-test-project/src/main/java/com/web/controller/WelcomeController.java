@@ -74,8 +74,8 @@ public class WelcomeController {
 	public String login() {
 		logger.debug("In login() method.");
 		// TODO - return "forward:/nc/testMap";
-		return "Login";
-		// return "Index";
+		// return "Login";
+		return "Index";
 	}
 
 	/**
@@ -155,7 +155,8 @@ public class WelcomeController {
 		System.out.println("Logout button clicked. !!!");
 		String logoutMsg = "You've been logged out successfully.";
 		model.addAttribute("failMsg", logoutMsg);
-		return "Login";
+		// return "Login";
+		return "Index";
 	}
 
 	/**
@@ -1327,7 +1328,10 @@ public class WelcomeController {
 		Invoice iDetail = serviceImpl.findInvoiceById(invoiceId);
 		Set<InvoiceDetail> invoiceDetail = iDetail.getInvoiceDetail();
 		// return a view which will be resolved by an excel view resolver
+
 		return new ModelAndView("pdfView", "invoiceDetail", invoiceDetail);
+		// return new ModelAndView("com.web.util.PDFBuilder", "invoiceDetail",
+		// invoiceDetail);
 	}
 
 	@RequestMapping(value = "/analysis", method = RequestMethod.GET, produces = "application/json")
