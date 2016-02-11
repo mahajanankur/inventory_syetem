@@ -1490,7 +1490,7 @@ public class WelcomeController {
 			int pId = Integer.parseInt(split[2]);
 			String pName = split[3];
 			List<ProductsBatch> pBatchList = serviceImpl
-					.getProductBatchListLinkedToAStock(stockId, ppId);
+					.getProductBatchListLinkedToAProduct(stockId, ppId);
 			// if (pBatchList != null && !pBatchList.isEmpty()) {
 			// model.addAttribute("createEnable", createEnable);
 			// } else {

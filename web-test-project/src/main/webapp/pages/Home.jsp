@@ -43,7 +43,9 @@ body {
 	top: 0;
 	left: 0;
 	z-index: -1;
+	background-position:  bottom -40px;
 	background-size: 100% 100%; 
+	
 }
 
 .jumbotron {
@@ -454,7 +456,7 @@ body {
 
 					<address>
 						<strong>Inventory Management Pvt Ltd.</strong></br> Flat No. 1 </br>
-						Bilaspur, Himachal Pradesh</br> P: +91 9882476225
+						Bilaspur, Himachal Pradesh</br> P: +91 8628847574
 					</address>
 				</div>
 

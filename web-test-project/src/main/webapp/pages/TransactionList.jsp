@@ -76,15 +76,13 @@ body {
 
 				<div class="collpase navbar-collpase" id="collpase">
 					<!-- Create product category Modal Button to Trigger Modal - Start -->
-					<button type="button"
+					<!-- <button type="button"
 						class="btn btn-warning navbar-btn navbar-right"
 						data-toggle="modal" data-target="#myCreateModal">Create
-						Category</button>
+						Category</button> -->
 					<!-- Create product category Modal Button to Trigger Modal - End -->
 
-
-
-					<p class="text-center text-primary">Welcome: ${username}</p>
+					<p class="text-right text-primary">Welcome: ${username}</p>
 
 				</div>
 			</div>

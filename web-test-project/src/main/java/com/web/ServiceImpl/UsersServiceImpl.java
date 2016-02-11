@@ -578,41 +578,6 @@ public class UsersServiceImpl {
 	}
 
 	/**
-	 * This method is used to create stock and also it will update the quantity
-	 * field in product table according to new stock.
-	 * 
-	 * @param vendorId
-	 * @param stockName
-	 * @param quantity
-	 * @param userId
-	 * @return success message
-	 */
-	public String createStock(int vendorId, String stockName, int quantity,
-			int userId) {
-		EntityManager em = this.entityManager.createEntityManager();
-		em.getTransaction().begin();
-		// to update quantity in product table.
-		// boolean fromCreateStock = true;
-		// CHECK THIS !!!!
-
-		// this.updateProductById(productId, null, null, null, null, null, null,
-		// null, null, quantity, null, fromCreateStock, null, null);
-		// for stock table
-		Stock stock = new Stock();
-
-		stock.setVendorId(vendorId);
-		stock.setStockName(stockName);
-		stock.setStockIn(quantity);
-		stock.setUserId(userId);
-
-		em.persist(stock);
-		em.getTransaction().commit();
-		em.close();
-
-		return "Stock entry is successfull.";
-	}
-
-	/**
 	 * This method is used to update the product according to the request.
 	 * 
 	 * @param pId
@@ -1005,6 +970,11 @@ public class UsersServiceImpl {
 		return productDetails;
 	}
 
+	/**
+	 * This method is used to get the total stock present.
+	 * 
+	 * @return totalStock
+	 */
 	public Long getTotalStock() {
 		EntityManager em = this.entityManager.createEntityManager();
 		em.getTransaction().begin();
@@ -1015,6 +985,12 @@ public class UsersServiceImpl {
 		return totalStock;
 	}
 
+	/**
+	 * This method is used to get the stock details by stock id.
+	 * 
+	 * @param stockId
+	 * @return sDetails
+	 */
 	public Stock getStockByStockId(int stockId) {
 		EntityManager em = this.entityManager.createEntityManager();
 		em.getTransaction().begin();
@@ -1023,6 +999,16 @@ public class UsersServiceImpl {
 		return sDetails;
 	}
 
+	/**
+	 * This method is used to create product wise stock.
+	 * 
+	 * @param pId
+	 * @param pName
+	 * @param quantity
+	 * @param vendorId
+	 * @param stockId
+	 * @return message
+	 */
 	public String createProductWiseStock(int pId, String pName, int quantity,
 			int vendorId, int stockId) {
 
@@ -1042,6 +1028,12 @@ public class UsersServiceImpl {
 		return "Product-Wise Stock entry has been created successfully.";
 	}
 
+	/**
+	 * This method is used to get the product wise stock list by the stock id.
+	 * 
+	 * @param stockId
+	 * @return pwStockList
+	 */
 	public List<ProductWiseStock> getProductWiseStockByStockId(int stockId) {
 		EntityManager em = this.entityManager.createEntityManager();
 		em.getTransaction().begin();
@@ -1054,39 +1046,22 @@ public class UsersServiceImpl {
 		return pwStockList;
 	}
 
-	public List<ProductsBatch> getProductBatchListLinkedToAStock(int stockId,
-			int ppId) {
-		EntityManager em = this.entityManager.createEntityManager();
-		em.getTransaction().begin();
-		List<ProductsBatch> result = null;
-		Query query = em.createNamedQuery("stockByStockId", Stock.class);
-		query.setParameter("stockId", stockId);
-		Stock stock = (Stock) query.getSingleResult();
-		List<ProductWiseStock> pwStockList = stock.getProductWiseStock();
-
-		for (ProductWiseStock pw : pwStockList) {
-			if (ppId == pw.getPpId()) {
-				result = pw.getProductsBatch();
-				break;
-			}
-		}
-
-		em.close();
-		return result;
-	}
-
+	/**
+	 * This method is used to create stock and also it will update the quantity
+	 * field in product table according to new stock.
+	 * 
+	 * @param vendorId
+	 * @param stockName
+	 * @param dataList
+	 * @param pWiseSet
+	 * @param userId
+	 * @return message
+	 */
 	public String createStock(int vendorId, String stockName,
 			List<DtoStockExcelUpload> dataList,
 			Set<DtoStockExcelUpload> pWiseSet, int userId) {
 		EntityManager em = this.entityManager.createEntityManager();
 		em.getTransaction().begin();
-		// to update quantity in product table.
-		// boolean fromCreateStock = true;
-		// CHECK THIS !!!!
-
-		// this.updateProductById(productId, null, null, null, null, null, null,
-		// null, null, quantity, null, fromCreateStock, null, null);
-		// for stock table
 		Stock stock = new Stock();
 		List<ProductWiseStock> wiseStockList = new ArrayList<ProductWiseStock>();
 
@@ -1123,9 +1098,46 @@ public class UsersServiceImpl {
 		em.persist(stock);
 		em.getTransaction().commit();
 		em.close();
+		// to update quantity in product table.
+		boolean fromCreateStock = true;
+		for (ProductWiseStock pws : wiseStockList) {
+			int productId = pws.getProductId();
+			int quantity = pws.getPpQuantities();
+			this.updateProductById(productId, null, null, null, null, null,
+					null, null, null, quantity, null, fromCreateStock, null,
+					null);
+		}
 
 		return "Stock entry is successfull.";
 
 	}
 
+	/**
+	 * This method is used to get the list of particular product batch of a
+	 * stock.
+	 * 
+	 * @param stockId
+	 * @param ppId
+	 * @return result
+	 */
+	public List<ProductsBatch> getProductBatchListLinkedToAProduct(int stockId,
+			int ppId) {
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
+		List<ProductsBatch> result = null;
+		Query query = em.createNamedQuery("stockByStockId", Stock.class);
+		query.setParameter("stockId", stockId);
+		Stock stock = (Stock) query.getSingleResult();
+		List<ProductWiseStock> pwStockList = stock.getProductWiseStock();
+
+		for (ProductWiseStock pw : pwStockList) {
+			if (ppId == pw.getPpId()) {
+				result = pw.getProductsBatch();
+				break;
+			}
+		}
+
+		em.close();
+		return result;
+	}
 }

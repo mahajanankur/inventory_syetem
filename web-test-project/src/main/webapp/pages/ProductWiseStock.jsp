@@ -60,6 +60,12 @@ body {
 	padding-top: 0.2px;
 	padding-left: 0px;
 }
+.modal-content .dataTables_wrapper .dataTables_filter {
+    float: left;
+    text-align: left;
+    margin-left:170px;
+    padding-bottom:10px;
+}
 </style>
 </head>
 <body>

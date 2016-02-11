@@ -689,7 +689,7 @@
 					<address>
 						<strong>Address</strong><br> <br> InventoryManagement.com<br>
 						123, Bilaspur, Himachal Pradesh<br> 174001, India<br>
-						Phone: (+91) 98824-76225
+						Phone: (+91) 86288-47574
 						<ul class="social">
 							<li><a href="#"><span class="fa fa-facebook"></span></a></li>
 							<li><a href="#"><span class="fa fa-google-plus"></span></a></li>
