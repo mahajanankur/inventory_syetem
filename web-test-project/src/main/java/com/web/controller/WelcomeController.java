@@ -1282,9 +1282,13 @@ public class WelcomeController {
 		// invoice list
 		List<Invoice> invoiceList = serviceImpl.getInvoiceList();
 
+		// Transaction Id List
+		List<Integer> transIdList = serviceImpl.getTransactionIdList();
+
 		model.addAttribute("clientList", clientList);
 		model.addAttribute("productCategoryList", productCategoryList);
 		model.addAttribute("invoiceList", invoiceList);
+		model.addAttribute("transIdList", transIdList);
 
 		return "InvoiceList";
 	}
@@ -1460,14 +1464,13 @@ public class WelcomeController {
 		pList.remove(0);
 		pList.remove(0);
 		// Separate call to create ProductWiseStock entries.
-		String message = null;
 		for (DtoProductWiseStock dto : pList) {
 			int pId = Integer.parseInt(dto.getProductId());
 			int quantity = Integer.parseInt(dto.getQuantity());
 			int vId = Integer.parseInt(dto.getVendorId());
 			int sId = Integer.parseInt(dto.getStockId());
-			message = serviceImpl.createProductWiseStock(pId,
-					dto.getProductName(), quantity, vId, sId);
+			serviceImpl.createProductWiseStock(pId, dto.getProductName(),
+					quantity, vId, sId);
 		}
 		return "ProductWiseStock";
 	}
@@ -1531,6 +1534,26 @@ public class WelcomeController {
 			}
 		}
 		return "Hi";
+	}
+
+	/**
+	 * This method is used to get the transaction list by id and give response
+	 * to the mapped ajax method.
+	 * 
+	 * @param tId
+	 * @param map
+	 * @return transactionsList
+	 */
+	@RequestMapping(value = "/getTransactionsById", method = RequestMethod.GET)
+	public @ResponseBody
+	List<Transaction> getTransactionsById(
+			@RequestParam(value = "transactionId", required = true) String tId,
+			ModelMap map) {
+		int transactionId = Integer.parseInt(tId.trim());
+
+		List<Transaction> transactionsList = serviceImpl
+				.getTransactionsById(transactionId);
+		return transactionsList;
 	}
 	// NEW FUNCTIONALITIES - END
 }

@@ -181,10 +181,62 @@ $(document).ready(function() {
 			headings : [ 'clientId', 'clientName', 'productId', 'productName', 'quantity', 'price' ]
 		});
 		// console.log(data);
-		alert(JSON.stringify(tableData));
 		var json = JSON.stringify(tableData);
 		// assign json to a hidden field value.
 		$('#jsonData').val(json);
+	});
+
+	$("input[name$='invoiceType']").change(function() {
+		var check = $(this).val();
+
+		if (check != '' && check == "manual") {
+			$('#manualDiv').show();
+			$('#transactionDiv').hide();
+		} else {
+			$('#manualDiv').hide();
+			$('#transactionDiv').show();
+		}
+	});
+
+	// method for auto complete
+	var transactionList = $("#transactionList").val();
+	if (transactionList) {
+		var alteredList = transactionList.substring(1, transactionList.length - 1);
+
+		var transactionArray = [];
+		transactionArray = alteredList.split(',');
+		$("#transactionId").autocomplete({
+			source : transactionArray,
+		// select : function(event, ui) {
+		// $('#transactionId').val((ui.item.value));
+		// // console.log("Request Id" + $('#reqId').val());
+		// // requestIDsData($('#reqId').val());
+		// }
+		});
+	}
+
+	// get the transaction list by id.
+
+	$('#transactionId').change(function() {
+		var id = $(this).val();
+
+		$.ajax({
+			type : 'GET',
+			url : 'getTransactionsById',
+			data : {
+				transactionId : id
+			},
+			headers : {
+				Accept : 'application/json'
+			},
+			dataType : 'json',
+			success : function(data) {
+				var jsonData = $.parseJSON(JSON.stringify(data));
+			},
+			error : function(ts) {
+				alert(ts.responseText);
+			},
+		});
 	});
 
 });

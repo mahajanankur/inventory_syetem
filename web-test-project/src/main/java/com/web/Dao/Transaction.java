@@ -26,7 +26,9 @@ import javax.persistence.Table;
 		@NamedQuery(name = "totalSoldProducts", query = "select SUM(t.quantity) FROM Transaction t where t.createdOn >= :fromDate AND t.createdOn < :toDate"),
 		@NamedQuery(name = "maximumSoldProduct", query = "select t.product.productId,t.product.productName, SUM(t.quantity) FROM Transaction t where t.createdOn >= :fromDate AND t.createdOn < :toDate GROUP BY t.product ORDER BY SUM(t.quantity) DESC"),
 		@NamedQuery(name = "minimumSoldProduct", query = "select t.product.productId,t.product.productName, SUM(t.quantity) FROM Transaction t where t.createdOn >= :fromDate AND t.createdOn < :toDate GROUP BY t.product ORDER BY SUM(t.quantity) ASC"),
-		@NamedQuery(name = "totalStock", query = "select SUM(t.product.quantity) FROM Transaction t") })
+		@NamedQuery(name = "totalStock", query = "select SUM(t.product.quantity) FROM Transaction t"),
+		@NamedQuery(name = "transactionIdList", query = "select t.transactionId FROM Transaction t"),
+		@NamedQuery(name = "transactionListById", query = "select t from Transaction t WHERE t.transactionId = :transactionId") })
 public class Transaction {
 
 	@Id

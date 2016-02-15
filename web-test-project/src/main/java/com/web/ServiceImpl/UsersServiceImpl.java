@@ -1140,4 +1140,38 @@ public class UsersServiceImpl {
 		em.close();
 		return result;
 	}
+
+	/**
+	 * This method is used to get the list of all transaction id's;
+	 * 
+	 * @return result
+	 */
+	@SuppressWarnings({ "unchecked" })
+	public List<Integer> getTransactionIdList() {
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
+		Query query = em.createNamedQuery("transactionIdList", Integer.class);
+		List<Integer> result = query.getResultList();
+		return result;
+	}
+
+	/**
+	 * This method is used to get all the transactions by transaction id.
+	 * 
+	 * @param transactionId
+	 * @return transactionList
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Transaction> getTransactionsById(int transactionId) {
+		EntityManager em = this.entityManager.createEntityManager();
+		em.getTransaction().begin();
+
+		Query query = em.createNamedQuery("transactionListById",
+				Transaction.class);
+		query.setParameter("transactionId", transactionId);
+
+		List<Transaction> transactionList = query.getResultList();
+		em.close();
+		return transactionList;
+	}
 }

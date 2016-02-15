@@ -33,6 +33,11 @@
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) - Start-->
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+<!-- jQuery Table to JSON Script -->
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/resources/js/jquery-ui.min.js"></script>
+
 <!-- Bootstrap.min.js -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -109,92 +114,110 @@ body {
 	</div>
 	<!-- Jumbotron - End-->
 
-
 	<!-- create invoice form - starts -->
 	<div class="container">
 		<form action="createInvoiceFormAction" id="createInvoiceForm"
 			method="post" class="form-horizontal">
-
-
-			<div class="form-group">
-				<label for="client" class="col-lg-1 control-label">Client</label>
-				<div class="col-lg-4">
-					<select class="form-control" name="client" id="client">
-						<option value="">--Please select client--</option>
-						<c:if test="${not empty clientList}">
-							<c:forEach items="${clientList}" var="client">
-								<option id="catOptionId"
-									value="${client.clientId}|${client.clientName}">${client.clientName}</option>
-							</c:forEach>
-						</c:if>
-
-					</select>
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="category" class="col-lg-1 control-label">Category</label>
-				<div class="col-lg-4">
-					<select class="form-control" name="category" id="category">
-						<option value="">--Please select category--</option>
-						<c:if test="${not empty productCategoryList}">
-							<c:forEach items="${productCategoryList}" var="productCategory">
-								<option id="catOptionId" value="${productCategory.pCatrgoryId}">${productCategory.pCategoryName}</option>
-							</c:forEach>
-						</c:if>
-
-					</select>
-				</div>
-			</div>
-
-			<div class="container">
-				<p id="helpSubCat" class="help-block" style="color: orange;"></p>
-			</div>
-
-			<div class="form-group">
-				<label for="subCategory" class="col-lg-1 control-label">SubCategory</label>
-				<div class="col-lg-4">
-					<select class="form-control" name="subCategory" id="subCategory">
-						<option value="">--Please select sub-category--</option>
-					</select>
-				</div>
-			</div>
-
-			<div class="container">
-				<p id="helpProduct" class="help-block" style="color: orange;"></p>
-			</div>
-
-			<div class="form-group">
-				<label for="product" class="col-lg-1 control-label">Product</label>
-				<div class="col-lg-4">
-					<select class="form-control" name="product" id="product">
-						<option value="">--Please select product--</option>
-					</select>
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="quantity" class="col-lg-1 control-label">Quantity:</label>
-				<div class="col-lg-4">
-					<input type="text" class="form-control" id="quantity"
-						name="quantity" placeholder="Quantity">
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="quantity" class="col-lg-1 control-label">Amount:</label>
-				<div class="col-lg-4">
-					<input type="hidden" class="form-control" id="hAmount"
-						name="amount">
-					<div class="container">
-						<p id="amount" class="help-block">Enter Quantity amount will
-							automatically visible.</p>
+			<!-- Test Radio Button Function -->
+			<label class="radio-inline"> <input type="radio"
+				name="invoiceType" id="manual" value="manual" checked="checked">Manual
+			</label> <label class="radio-inline"> <input type="radio"
+				name="invoiceType" id="transaction" value="transaction">Transaction
+			</label> <br> <br>
+			<div id="transactionDiv" style="display: none">
+				<div class="form-group">
+					<label for="transactionId" class="col-lg-1 control-label">Transaction
+						ID:</label>
+					<div class="col-lg-4">
+						<input type="text" class="form-control" id="transactionId"
+							name="transactionId" placeholder="Transaction">
 					</div>
 				</div>
+				<input type="hidden" id="transactionList" value="${transIdList}">
 			</div>
-			<button type="button" id="addRow">Add New Row</button>
-			<button type="button" id="deleteRow">Delete Selected Row</button>
-			<br> <br>
+			<!-- Test Radio Button Function -->
+
+			<div id="manualDiv">
+				<div class="form-group">
+					<label for="client" class="col-lg-1 control-label">Client</label>
+					<div class="col-lg-4">
+						<select class="form-control" name="client" id="client">
+							<option value="">--Please select client--</option>
+							<c:if test="${not empty clientList}">
+								<c:forEach items="${clientList}" var="client">
+									<option id="catOptionId"
+										value="${client.clientId}|${client.clientName}">${client.clientName}</option>
+								</c:forEach>
+							</c:if>
+
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="category" class="col-lg-1 control-label">Category</label>
+					<div class="col-lg-4">
+						<select class="form-control" name="category" id="category">
+							<option value="">--Please select category--</option>
+							<c:if test="${not empty productCategoryList}">
+								<c:forEach items="${productCategoryList}" var="productCategory">
+									<option id="catOptionId" value="${productCategory.pCatrgoryId}">${productCategory.pCategoryName}</option>
+								</c:forEach>
+							</c:if>
+
+						</select>
+					</div>
+				</div>
+
+				<div class="container">
+					<p id="helpSubCat" class="help-block" style="color: orange;"></p>
+				</div>
+
+				<div class="form-group">
+					<label for="subCategory" class="col-lg-1 control-label">SubCategory</label>
+					<div class="col-lg-4">
+						<select class="form-control" name="subCategory" id="subCategory">
+							<option value="">--Please select sub-category--</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="container">
+					<p id="helpProduct" class="help-block" style="color: orange;"></p>
+				</div>
+
+				<div class="form-group">
+					<label for="product" class="col-lg-1 control-label">Product</label>
+					<div class="col-lg-4">
+						<select class="form-control" name="product" id="product">
+							<option value="">--Please select product--</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="quantity" class="col-lg-1 control-label">Quantity:</label>
+					<div class="col-lg-4">
+						<input type="text" class="form-control" id="quantity"
+							name="quantity" placeholder="Quantity">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="quantity" class="col-lg-1 control-label">Amount:</label>
+					<div class="col-lg-4">
+						<input type="hidden" class="form-control" id="hAmount"
+							name="amount">
+						<div class="container">
+							<p id="amount" class="help-block">Enter Quantity amount will
+								automatically visible.</p>
+						</div>
+					</div>
+				</div>
+				<button type="button" id="addRow">Add New Row</button>
+				<button type="button" id="deleteRow">Delete Selected Row</button>
+				<br> <br>
+			</div>
 			<table id="invoiceTable" class="table table-striped table-bordered"
 				cellspacing="0" width="100%">
 				<thead>
