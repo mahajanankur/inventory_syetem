@@ -113,6 +113,16 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+<!-- GOOGLE ADS -->
+<script async
+	src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- MyFirstAd -->
+<ins class="adsbygoogle" style="display: block"
+	data-ad-client="ca-pub-8700675238486780" data-ad-slot="9560411555"
+	data-ad-format="auto"></ins>
+<script>
+		(adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
 </head>
 <body>
 
@@ -789,15 +799,5 @@
 	<script type="text/javascript"
 		src="<%=request.getContextPath()%>/resources/js/forIndex/main.js"></script>
 
-	<!-- GOOGLE ADS -->
-	<script async
-		src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-	<!-- MyFirstAd -->
-	<ins class="adsbygoogle" style="display: block"
-		data-ad-client="ca-pub-8700675238486780" data-ad-slot="9560411555"
-		data-ad-format="auto"></ins>
-	<script>
-		(adsbygoogle = window.adsbygoogle || []).push({});
-	</script>
 </body>
 </html>
