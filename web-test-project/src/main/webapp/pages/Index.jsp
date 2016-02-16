@@ -112,6 +112,7 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
 </head>
 <body>
 
@@ -687,9 +688,9 @@
 			<div class="row">
 				<div class="col-md-3">
 					<address>
-						<strong>Address</strong><br> <br> InventoryManagement.com<br>
-						123, Bilaspur, Himachal Pradesh<br> 174001, India<br>
-						Phone: (+91) 86288-47574
+						<strong>Address</strong><br> <br>
+						InventoryManagement.com<br> 123, Bilaspur, Himachal Pradesh<br>
+						174001, India<br> Phone: (+91) 86288-47574
 						<ul class="social">
 							<li><a href="#"><span class="fa fa-facebook"></span></a></li>
 							<li><a href="#"><span class="fa fa-google-plus"></span></a></li>
@@ -725,7 +726,8 @@
 		<div class="container">
 			<div class="pull-left">
 				<p>
-					2015 © InventoryManagement. All Rights Reserved. Coded & Designed by <a
+					2015 © InventoryManagement. All Rights Reserved. Coded & Designed
+					by <a
 						href="https://stackoverflow.com/users/3932396/ankur-mahajan?tab=profile">Abhishek
 						Mahajan, Gaurav Kanwar and Pankaj Chauhan</a>
 				</p>
@@ -787,5 +789,15 @@
 	<script type="text/javascript"
 		src="<%=request.getContextPath()%>/resources/js/forIndex/main.js"></script>
 
+	<!-- GOOGLE ADS -->
+	<script async
+		src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<!-- MyFirstAd -->
+	<ins class="adsbygoogle" style="display: block"
+		data-ad-client="ca-pub-8700675238486780" data-ad-slot="9560411555"
+		data-ad-format="auto"></ins>
+	<script>
+		(adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
 </body>
 </html>
