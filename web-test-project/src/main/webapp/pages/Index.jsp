@@ -13,7 +13,7 @@
 <meta charset="utf-8">
 <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Index</title>
+<title>HasBaba</title>
 <meta name="description" content="Your Description Here">
 <meta name="keywords"
 	content="free boostrap, bootstrap template, freebies, free theme, free website, free portfolio theme, portfolio, personal, cv">
@@ -121,8 +121,8 @@
 	data-ad-client="ca-pub-8700675238486780" data-ad-slot="9560411555"
 	data-ad-format="auto"></ins>
 <script>
-		(adsbygoogle = window.adsbygoogle || []).push({});
-	</script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 </head>
 <body>
 
@@ -180,10 +180,9 @@
 						<h2>Meet Us</h2>
 						<hr>
 					</div>
-					<p>At vero eos et accusamus et iusto odio dignissimos ducimus
-						qui blanditiis praesentium voluptatum deleniti atque corrupti quos
-						dolores et quas molestias excepturi sint occaecati cupiditate non
-						provident.</p>
+					<p>In a digital world, good old face to face meetings bring
+						people closer together. You can find us at work in Shimla Himachal
+						Pradesh, India. You can always swing by for a coffee.</p>
 					<a href="#services" class="down-btn page-scroll"> <span
 						class="fa fa-angle-down"></span>
 					</a>
@@ -211,10 +210,9 @@
 						<h2>Services</h2>
 						<hr>
 					</div>
-					<p>At vero eos et accusamus et iusto odio dignissimos ducimus
-						qui blanditiis praesentium voluptatum deleniti atque corrupti quos
-						dolores et quas molestias excepturi sint occaecati cupiditate non
-						provident.</p>
+					<p>Never change a winning formula. Over time we have assembled
+						a cutting edge set of tools, workflows and partners. Supported by
+						these three pillars we'll engage with you.</p>
 				</div>
 			</div>
 
@@ -225,10 +223,10 @@
 					<div class="service">
 						<span class="fa fa-book fa-3x"></span>
 						<h4>Branding</h4>
-						<p>Cras justo odio, dapibus ac facilisis in, egestas eget
-							quam. Donec id elit non mi porta gravida at eget metus. Nullam id
-							dolor id nibh ultricies vehicula ut id elit. At vero eos et
-							accusamus et iusto odio dignissimos ducimus qui blanditiis.</p>
+						<p>Now and again we have the unique opportunity to show some
+							love to our clients, or organizations closely associated with our
+							line of work.Now and again we have the unique opportunity to show
+							some love to our clients.</p>
 					</div>
 				</div>
 
@@ -236,11 +234,10 @@
 					<div class="service">
 						<span class="fa fa-bicycle fa-3x"></span>
 						<h4>Web Devepment</h4>
-						<p>Donec sed odio dui. Nullam quis risus eget urna mollis
-							ornare vel eu leo. Cum sociis natoque penatibus et magnis dis
-							parturient montes, nascetur ridiculus mus. Accusamus et. At vero
-							eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
-						</p>
+						<p>Now and again we have the unique opportunity to show some
+							love to our clients, or organizations closely associated with our
+							line of work.Now and again we have the unique opportunity to show
+							some love to our clients.</p>
 					</div>
 				</div>
 
@@ -248,10 +245,10 @@
 					<div class="service">
 						<span class="fa fa-plug fa-3x"></span>
 						<h4>App Design</h4>
-						<p>Nulla vitae elit libero, a pharetra augue. At vero eos et
-							accusamus et iusto odio dignissimos ducimus. Aenean lacinia
-							bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque
-							ornare sem lacinia quam venenatis vestibulum.</p>
+						<p>Now and again we have the unique opportunity to show some
+							love to our clients, or organizations closely associated with our
+							line of work.Now and again we have the unique opportunity to show
+							some love to our clients.</p>
 					</div>
 				</div>
 			</div>
@@ -462,10 +459,10 @@
 						<h2>Our Latest Projects</h2>
 						<hr>
 					</div>
-					<p>At vero eos et accusamus et iusto odio dignissimos ducimus
-						qui blanditiis praesentium voluptatum deleniti atque corrupti quos
-						dolores et quas molestias excepturi sint occaecati cupiditate non
-						provident.</p>
+					<p>Websites and web applications, Authoring tools such as
+						content management systems (CMS), blog software, Accessibility
+						standards and policies and Web technologies and technical
+						specifications, such as HTML.</p>
 				</div>
 			</div>
 			<div class="space"></div>
@@ -578,10 +575,10 @@
 						<h2>About Us</h2>
 						<hr>
 					</div>
-					<p>At vero eos et accusamus et iusto odio dignissimos ducimus
-						qui blanditiis praesentium voluptatum deleniti atque corrupti quos
-						dolores et quas molestias excepturi sint occaecati cupiditate non
-						provident.</p>
+					<p>We do everything with our core values of honesty, hard work,
+						and trust. Our goal is to have these characteristics influence
+						everything we do in business and in life. We sincerely enjoy the
+						work we do, and our clients garner the benefits.</p>
 				</div>
 			</div>
 			<div class="space"></div>
@@ -656,27 +653,30 @@
 				<div id="testimonial" class="owl-carousel owl-theme">
 					<div class="item">
 						<h3>
-							Et iusto odio dignissimos ducimus qui blanditiis <br>praesentium
-							voluptatum deleniti atque corrupti quos dolores et quas molestias
-							excepturi sint <br>occaecati cupiditate non provident.
+
+							HasBaba is on it. They understands and delivers <br>how the
+							right mindset, leadership and goal setting will deliver the
+							results that will take your life and what it is connected with to
+							the "Next Level". <br>I have seen it, and have done it
+							personally, for others, in business and in the corporate world. <br>The
+							results speak for themselves.
 						</h3>
 						<br>
 						<h6>LJ, Abc Company</h6>
 					</div>
 
 					<div class="item">
-						<h3>
-							Fusce dapibus, tellus ac cursus commodo, tortor<br> mauris
-							condimentum. Duis mollis, est non commodo luctus, nisi erat
-						</h3>
+						<h3>They made it so easy for me. It was perfect. I wouldn't
+							go anywhere else.</h3>
 						<br>
 						<h6>Kai, Web Geekster</h6>
 					</div>
 
 					<div class="item">
 						<h3>
-							Cras justo odio, dapibus ac facilisis in, egestas <br>eget
-							quam. Donec id elit non mi porta gravida at eget metus.
+							As some people dream about their Ideal days, HasBaba works on how
+							to realize them. <br>Importantly, he helps people realize
+							their high productivity potential in Your Best Just Got Better.
 						</h3>
 						<br>
 						<h6>Jenn, Coders' Playground</h6>
@@ -736,7 +736,7 @@
 		<div class="container">
 			<div class="pull-left">
 				<p>
-					2015 © InventoryManagement. All Rights Reserved. Coded & Designed
+					2015 Â© InventoryManagement. All Rights Reserved. Coded & Designed
 					by <a
 						href="https://stackoverflow.com/users/3932396/ankur-mahajan?tab=profile">Abhishek
 						Mahajan, Gaurav Kanwar and Pankaj Chauhan</a>
