@@ -736,7 +736,7 @@
 		<div class="container">
 			<div class="pull-left">
 				<p>
-					2015 © InventoryManagement. All Rights Reserved. Coded & Designed
+					2015 &copy; InventoryManagement. All Rights Reserved. Coded & Designed
 					by <a
 						href="https://stackoverflow.com/users/3932396/ankur-mahajan?tab=profile">Abhishek
 						Mahajan, Gaurav Kanwar and Pankaj Chauhan</a>

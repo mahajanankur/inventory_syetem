@@ -46,8 +46,8 @@
 	<!-- For OpenShift -->
 	<!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" 
 		destroy-method="close"> <property name="driverClassName" value="com.mysql.jdbc.Driver" 
-		/> <property name="url" value="jdbc:mysql://127.8.94.130:3306/hp" /> <property 
-		name="username" value="adminGRcacD4" /> <property name="password" value="5hbSg4MnX5l4" 
+		/> <property name="url" value="jdbc:mysql://127.8.94.2:3306/hasbaba" /> <property 
+		name="username" value="adminBMVK3LX" /> <property name="password" value="Hapl3KBXlKeF" 
 		/> <property name="maxActive" value="100" /> <property name="maxIdle" value="30" 
 		/> <property name="maxWait" value="16000" /> <property name="minIdle" value="0" 
 		/> </bean> -->
