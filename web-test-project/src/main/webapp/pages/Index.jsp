@@ -588,9 +588,9 @@
 						<div class="col-md-4 col-sm-4">
 							<div class="team">
 								<img
-									src="<%=request.getContextPath()%>/resources/images/forIndex/team/03.jpg"
+									src="<%=request.getContextPath()%>/resources/images/forIndex/team/My.png"
 									class="img-responsive img-circle" alt="..."> <br>
-								<h4>Abhishek Mahajan</h4>
+								<h4>Ankur Mahajan</h4>
 								<p class="small">CEO/Founder</p>
 								<hr>
 							</div>
@@ -599,9 +599,9 @@
 						<div class="col-md-4 col-sm-4">
 							<div class="team">
 								<img
-									src="<%=request.getContextPath()%>/resources/images/forIndex/team/01.jpg"
+									src="<%=request.getContextPath()%>/resources/images/forIndex/team/03.jpg"
 									class="img-responsive img-circle" alt="..."> <br>
-								<h4>Gaurav Kanwar</h4>
+								<h4>Abhishek Mahajan</h4>
 								<p class="small">Web Coder</p>
 								<hr>
 							</div>
@@ -610,9 +610,9 @@
 						<div class="col-md-4 col-sm-4">
 							<div class="team">
 								<img
-									src="<%=request.getContextPath()%>/resources/images/forIndex/team/03.jpg"
+									src="<%=request.getContextPath()%>/resources/images/forIndex/team/02.jpg"
 									class="img-responsive img-circle" alt="..."> <br>
-								<h4>Pankaj Chauhan</h4>
+								<h4>Akriti Mahajan</h4>
 								<p class="small">Web Designer</p>
 								<hr>
 							</div>
@@ -699,8 +699,8 @@
 				<div class="col-md-3">
 					<address>
 						<strong>Address</strong><br> <br>
-						InventoryManagement.com<br> 123, Bilaspur, Himachal Pradesh<br>
-						174001, India<br> Phone: (+91) 86288-47574
+						Hasbaba.com<br> V-19/29, DLF Phase 3, Gurgaon<br>
+						122002, India<br> Phone: (+91) 86288-47574
 						<ul class="social">
 							<li><a href="#"><span class="fa fa-facebook"></span></a></li>
 							<li><a href="#"><span class="fa fa-google-plus"></span></a></li>
@@ -736,10 +736,9 @@
 		<div class="container">
 			<div class="pull-left">
 				<p>
-					2015 &copy; InventoryManagement. All Rights Reserved. Coded & Designed
+					2015 &copy; Hasbaba.com. All Rights Reserved. Coded & Designed
 					by <a
-						href="https://stackoverflow.com/users/3932396/ankur-mahajan?tab=profile">Abhishek
-						Mahajan, Gaurav Kanwar and Pankaj Chauhan</a>
+						href="https://stackoverflow.com/users/3932396/ankur-mahajan?tab=profile">Ankur Mahajan</a>
 				</p>
 			</div>
 			<div class="pull-right">
