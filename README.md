@@ -1,2 +1,2 @@
 # inventory_syetem
-A generic inventory syetem on Spring Core and JSP.
+A generic inventory system on Spring Core and JSP.
